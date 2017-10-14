@@ -1,0 +1,24 @@
+# idea ignore
+.idea/
+*.ipr
+*.iml
+*.iws
+
+# eclipse ignore
+.settings/
+.project
+.classpath
+
+# gradle ignore
+.gradle
+/build/
+/out/
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Cache of project
+.gradletasknamecache
+
+# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
+gradle/wrapper/gradle-wrapper.properties
