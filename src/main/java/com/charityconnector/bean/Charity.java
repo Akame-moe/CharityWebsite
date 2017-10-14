@@ -1,7 +1,6 @@
 package com.charityconnector.bean;
 
 import javax.persistence.*;
-import javax.persistence.*;
 
 @Entity
 @Table(name = "charity")

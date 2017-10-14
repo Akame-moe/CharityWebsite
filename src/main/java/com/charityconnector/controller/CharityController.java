@@ -3,6 +3,7 @@ package com.charityconnector.controller;
 import com.charityconnector.bean.Charity;
 import com.charityconnector.service.CharityService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -47,9 +48,9 @@ public class CharityController {
      * @param charity
      * @return
      */
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(path = "/charity", method = RequestMethod.POST)
     @ResponseBody
-    public Charity add(@RequestBody Charity charity){
+    public Charity add(@RequestBody Charity charity) {
         Charity res = charityService.addCharity(charity);
         return res;
     }
@@ -72,10 +73,20 @@ public class CharityController {
      * @param charity
      * @return
      */
-    @RequestMapping(method = RequestMethod.PATCH)
+    @RequestMapping(path = "/charity", method = RequestMethod.PATCH)
     @ResponseBody
-    public void update(@RequestBody Charity charity){
+    public void update(@RequestBody Charity charity) {
         charityService.update(charity);
+    }
+
+    /**
+     * Provide a api to retrieve charity page.
+     *
+     * @return
+     */
+    @RequestMapping("/charityPage")
+    public String getCharityPage(Model model) {
+        return "charityPage";
     }
 
 
