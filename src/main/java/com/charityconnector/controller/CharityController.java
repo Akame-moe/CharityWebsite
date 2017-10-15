@@ -3,10 +3,10 @@ package com.charityconnector.controller;
 import com.charityconnector.bean.Charity;
 import com.charityconnector.service.CharityService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * because we combine two different types of apis, so here only use Controller annotation
@@ -84,9 +84,10 @@ public class CharityController {
      *
      * @return
      */
-    @RequestMapping("/charityPage")
-    public String getCharityPage(Model model) {
-        return "charityPage";
+    @RequestMapping("/charityPage/{id}")
+    public String charityPage(Map<String, Object> model, @PathVariable("id") Long id) {
+	    model.put("charity", charityService.findById(id));
+	    return "charityPage";
     }
 
 
