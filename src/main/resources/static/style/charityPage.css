@@ -1,0 +1,9 @@
+@media (min-width: 48em) {
+  .container {
+    /*max-width: 46rem;*/
+  }
+}
+
+#charity-container {
+    padding-top: 2rem;
+}
