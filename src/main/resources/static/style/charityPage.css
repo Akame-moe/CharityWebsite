@@ -15,4 +15,14 @@
     padding-right: 2rem !important;
     min-height: 20rem;
     background-color: #F2F2F2;
+    border-radius: 1rem;
+}
+
+#editPictureBadge {
+    position:relative;
+    bottom:30px;
+}
+
+.edit-badge {
+    display:none;
 }
