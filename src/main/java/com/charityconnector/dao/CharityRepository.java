@@ -9,7 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-public interface CharityDao  extends JpaRepository<Charity, Long> {
+public interface CharityRepository extends JpaRepository<Charity, Long> {
 
     // The table name should be exactly as the entity name in the bean package
     @Query("select c from Charity c where c.name = ?1")

@@ -1,7 +1,7 @@
 package com.charityconnector.serviceImpl;
 
 import com.charityconnector.bean.Charity;
-import com.charityconnector.dao.CharityDao;
+import com.charityconnector.dao.CharityRepository;
 import com.charityconnector.service.CharityService;
 import org.springframework.stereotype.Service;
 
@@ -11,37 +11,37 @@ import javax.annotation.Resource;
 public class CharityServiceImpl implements CharityService {
 
     @Resource
-    private CharityDao charityDao;
+    private CharityRepository charityRepository;
 
     @Override
     public Charity getCharity() {
-        return charityDao.findOne(1l);
+        return charityRepository.findOne(1l);
     }
 
     @Override
     public Charity addCharity(Charity charity) {
-        Charity c = charityDao.save(charity);
+        Charity c = charityRepository.save(charity);
         return c;
     }
 
     @Override
     public Charity[] findByName(String name) {
-        Charity[] charities = charityDao.findByName(name);
+        Charity[] charities = charityRepository.findByName(name);
         return charities;
     }
 
     @Override
     public void update(Charity charity) {
-        charityDao.updateByDescription(charity.getId(), charity.getName(), charity.getDescription());
+        charityRepository.updateByDescription(charity.getId(), charity.getName(), charity.getDescription());
     }
 
     @Override
     public void deleteById(Long id) {
-        charityDao.delete(id);
+        charityRepository.delete(id);
     }
 
     @Override
     public Charity findById(Long id) {
-        return charityDao.findOne(id);
+        return charityRepository.findOne(id);
     }
 }
