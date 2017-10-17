@@ -47,7 +47,7 @@ public class CharityController {
 
 
     @RequestMapping("/charityPage/{id}")
-    public String getcharityPage(Map<String, Object> model, @PathVariable("id") Long id) {
+    public String getCharityPage(Map<String, Object> model, @PathVariable("id") Long id) {
 	    model.put("charity", charityService.findById(id));
 	    return "charityPage";
     }

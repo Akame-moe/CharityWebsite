@@ -1,3 +1,8 @@
-.bg-primary {
+.bg-primary, .btn-primary, .badge-primary {
     background-color: #CC0700 !important;
+    border-color: #CC0700 !important;
+}
+
+body {
+    background-color: #FBFBFB;
 }
