@@ -12,11 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 public interface CharityRepository extends JpaRepository<Charity, Long> {
 
     // The table name should be exactly as the entity name in the bean package
-    @Query("select c from Charity c where c.name = ?1")
+    @Query("select c from Charity c where c.name = :name")
     Charity[] findByName(@Param("name") String name);
 
     @Modifying
     @Transactional
-    @Query("UPDATE Charity c SET c.name = ?2, c.description = ?3 WHERE c.id = ?1")
+    @Query("UPDATE Charity c SET c.name = :name, c.description = :description WHERE c.id = :id")
     void updateByDescription(@Param("id") Long id, @Param("name") String name, @Param("description") String description);
 }
