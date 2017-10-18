@@ -1,6 +1,7 @@
 package com.charityconnector.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -13,7 +14,9 @@ public class MyWebAppConfigurer extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // !!! The Resource Locations Path should start with "file:" !!!
-        registry.addResourceHandler("/logo-images/**").addResourceLocations("file:/Users/Even/Desktop/Imperial/SEGroup/CharityWebsite/src/main/logo-images/");
+        String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
+        String projectPath =path.replace("out/production/classes/","")+"src/main/logo-images/";
+        registry.addResourceHandler("/logo-images/**").addResourceLocations("file:"+projectPath);
         super.addResourceHandlers(registry);
     }
 }

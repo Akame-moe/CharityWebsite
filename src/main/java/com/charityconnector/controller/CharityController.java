@@ -2,13 +2,9 @@ package com.charityconnector.controller;
 
 import com.charityconnector.bean.Charity;
 import com.charityconnector.service.CharityService;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
-import javax.servlet.ServletContext;
 import java.util.Map;
 
 
@@ -19,7 +15,7 @@ public class CharityController {
 
     @Resource
     private CharityService charityService;
-    
+
     @RequestMapping(path = "/charities/{name}", method = RequestMethod.GET)
     @ResponseBody
     Charity[] getCharitiesByName(@PathVariable("name") String name) {
@@ -49,12 +45,11 @@ public class CharityController {
     public void updateCharity(@RequestBody Charity charity) {
         charityService.update(charity);
     }
-
-
+    
     @RequestMapping("/charityPage/{id}")
     public String getCharityPage(Map<String, Object> model, @PathVariable("id") Long id) {
 	    model.put("charity", charityService.findById(id));
-	     return "charityPage";
+        return "charityPage";
     }
 
 
