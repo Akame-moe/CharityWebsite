@@ -10,7 +10,7 @@ public class Charity {
     private Long id;
     private String name;
     private String description;
-
+    private String logoPath;
     /* Required by JPA specification */
     public Charity() {
         super();
@@ -50,6 +50,14 @@ public class Charity {
         this.description = description;
     }
 
+    @Column(name="logo_path")
+    public String getLogoPath() {
+        return logoPath;
+    }
+
+    public void setLogoPath(String logoPath) {
+        this.logoPath = logoPath;
+    }
 }
 
 
