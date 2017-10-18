@@ -32,7 +32,21 @@ public class CharityServiceImpl implements CharityService {
 
     @Override
     public void update(Charity charity) {
-        charityRepository.updateByDescription(charity.getId(), charity.getName(), charity.getDescription());
+        Charity readyToUpdate = new Charity();
+        if (charity.getId() == null) {
+            return;
+        } else {
+            Charity origin = charityRepository.findOne(charity.getId());
+            readyToUpdate.setId(charity.getId());
+
+            String des = charity.getDescription() == null ? origin.getDescription() : charity.getDescription();
+            readyToUpdate.setDescription(des);
+
+            String name = charity.getName() == null ? origin.getName() : charity.getName();
+            readyToUpdate.setName(name);
+        }
+        charityRepository.save(readyToUpdate);
+        //charityRepository.updateById(readyToUpdate.getId(), readyToUpdate.getName(), readyToUpdate.getDescription());
     }
 
     @Override

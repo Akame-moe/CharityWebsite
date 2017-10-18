@@ -18,5 +18,5 @@ public interface CharityRepository extends JpaRepository<Charity, Long> {
     @Modifying
     @Transactional
     @Query("UPDATE Charity c SET c.name = :name, c.description = :description WHERE c.id = :id")
-    void updateByDescription(@Param("id") Long id, @Param("name") String name, @Param("description") String description);
+    void updateById(@Param("id") Long id, @Param("name") String name, @Param("description") String description);
 }
