@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"/>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
@@ -34,6 +34,7 @@
         </ul>
     </div>
 </nav>
+<div id="charityIdDiv" style="visibility: hidden;">${charity.id}</div>
 
 <div id="main-container">
     <div id="charity-container" class="container">
@@ -46,10 +47,10 @@
         </button>
         <div class="row">
             <div class="col-">
-                <div><img alt="Charity logo" width="150px" height="100px" src="${charity.logoPath}"/></div>
+                <div><img alt="Charity logo" width="150px" height="100px" src=""/></div>
             </div>
             <div class="col-md">
-                <h2>${charity.name}
+                <h2><span id="charityName">${charity.name}</span>
                     <button class="btn edit-badge badge-primary" id="editNameBadge" data-toggle="modal"
                             data-target="#editNameModal">
                         <svg height="28" width="20" viewBox="0 0 14 14" version="1.1" aria-hidden="true">
@@ -58,48 +59,60 @@
                         </svg>
                     </button>
                 </h2>
-                <p>
-                    ${charity.description}
+                <div>
+                    <span id="charityDesc">${charity.description}</span>
                     <button class="btn edit-badge badge-primary" id="editDescriptionBadge" data-toggle="modal"
-                            data-target="#editDescriptionModal">
+                            data-target="#editDescriptionModal" onclick="loadDescriptionModal()">
                         <svg height="28" width="20" viewBox="0 0 14 14" version="1.1" aria-hidden="true">
                             <path style="fill:#FFFFFF" fill-rule="evenodd"
                                   d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"/>
                         </svg>
                     </button>
-                </p>
+                </div>
             </div>
         </div>
 
         <div class="vertical-spacer"></div>
 
         <div class="container">
-            <h2>Our activities
-                <button class="btn edit-badge badge-success" id="addArticleBadge" data-toggle="modal"
-                        data-target="#addArticleModal">
-                    <svg width="18" height="21" class="octicon octicon-plus" viewBox="-1 0 14 14" version="1.1"
+            <h2>Our recent activities
+                <button class="btn edit-badge badge-success" id="addArticleBadge" onclick="addArticle()">
+                    <svg width="18" height="21" viewBox="0 0 12 14" version="1.1"
                          aria-hidden="true">
                         <path style="fill:#FFFFFF" fill-rule="evenodd" d="M12 9H7v5H5V9H0V7h5V2h2v5h5z"></path>
                     </svg>
                 </button>
             </h2>
 
-            <div class="table-responsive">
-                <table class="table table-condensed" id="articleTable">
-                    <tbody>
-                    <#list articles as article>
-                        <tr>
-                            <td>${article.title}</td>
-                            <td>${article.body}</td>
-                            <td>
-                                <a href="#" class="edit-badge" id="editArticleBadge_${article.id}"><span
-                                        class="badge badge-warning">Edit</span></a>
-                                <a href="#" class="edit-badge" id="deleteArticleBadge_${article.id}"><span
-                                        class="badge badge-default">Delete</span></a>
-                            </td>
-                        </tr>
-                    </#list>
-                    </tbody>
+            <div class="container">
+                <#list articles as article>
+                    <div class="row">
+                        <div class="col-sm"><a href="#" id="showArticle_${article.id}"
+                                               onclick="showArticle(${article.id})">${article.title}</a>
+                        </div>
+                        <div class="col-sm">18/10/2017</div>
+                        <div class="col-sm-2">
+                            <button class="btn edit-badge badge-primary" id="editArticleBadge_${article.id}"
+                                    onclick="editArticle(${article.id})">
+                                <svg height="28" width="20" viewBox="0 0 14 14" version="1.1" aria-hidden="true">
+                                    <path style="fill:#FFFFFF" fill-rule="evenodd"
+                                          d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"/>
+                                </svg>
+                            </button>
+                            <button class="btn edit-badge badge-default" id="deleteArticleBadge_${article.id}"
+                                    onclick="deleteArticle(${article.id})">
+                                <svg height="28" width="20" viewBox="0 0 12 14"
+                                     version="1.1" aria-hidden="true">
+                                    <path fill-rule="evenodd"
+                                          d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <span id="articleDesc_${article.id}"
+                          style="position:fixed; visibility:hidden">${article.body}</span>
+                </#list>
+                </tbody>
                 </table>
             </div>
         </div>
@@ -113,12 +126,11 @@
 </footer>
 
 <div class="modal fade show" id="uploadImageModal" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalLabel">
-    aria-hidden="true">
+     aria-labelledby="ulpoadImageLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="uploadLogoLabel">Update a new logo</h5>
+                <h5 class="modal-title" id="uploadImageLabel">Update a new logo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -139,7 +151,6 @@
 
 <div class="modal fade show" id="editNameModal" tabindex="-1" role="dialog"
      aria-labelledby="editNameLabel">
-    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -158,7 +169,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" onclick="editCharityName()">Save changes</button>
             </div>
 
         </div>
@@ -166,8 +177,7 @@
 </div>
 
 <div class="modal fade show" id="editDescriptionModal" tabindex="-1" role="dialog"
-     aria-labelledby="editNameLabel">
-    aria-hidden="true">
+     aria-labelledby="editDescriptionLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -185,7 +195,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" onclick="editCharityDesc()">Save changes</button>
             </div>
 
         </div>
@@ -193,8 +203,7 @@
 </div>
 
 <div class="modal fade show" id="addArticleModal" tabindex="-1" role="dialog"
-     aria-labelledby="editNameLabel">
-    aria-hidden="true">
+     aria-labelledby="addArticleLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -206,17 +215,94 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="inputArticleTitle"
+                        <input type="text" class="form-control" id="inputNewArticleTitle"
                                placeholder="Your article title">
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" id="inputArticleBody" rows="3"></textarea>
+                        <textarea class="form-control" id="inputNewArticleBody" rows="3"></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" onclick="sendAddArticle()">Save changes</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade show" id="editArticleModal" tabindex="-1" role="dialog"
+     aria-labelledby="editArticleLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editArticleLable">Insert your article title and body text here</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="visibility:hidden" id="inputEditArticleId"></div>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="inputEditArticleTitle"
+                               placeholder="Your article title">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" id="inputEditArticleBody" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btnEditArticle" onclick="sendEditArticle()">Save
+                    changes
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade show" id="viewArticleModal" tabindex="-1" role="dialog"
+     aria-labelledby="viewArticleLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewArticleLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="viewArticleBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade show" id="deleteArticleModal" tabindex="-1" role="dialog"
+     aria-labelledby="deleteArticleLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteArticleLabel">Please confirm your choice</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="visibility:hidden" id="inputDeleteArticleId"></div>
+                <p id="deleteArticleBody">Are you sure? You are about to delete the article</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="sendDeleteArticle()">Delete</button>
             </div>
 
         </div>
@@ -225,14 +311,8 @@
 
 <script src="../script/charityPage.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
         integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
-        integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
         crossorigin="anonymous"></script>
 </body>
 </html>

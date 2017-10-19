@@ -2,6 +2,8 @@ package com.charityconnector.controller;
 
 import com.charityconnector.bean.Article;
 import com.charityconnector.service.ArticleService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,14 +35,15 @@ public class ArticleController {
 
     @RequestMapping(path = "/article", method = RequestMethod.POST)
     @ResponseBody
-    public Article addArticle(@RequestBody Article article) {
+    public ResponseEntity<Article> addArticle(@RequestBody Article article) {
         Article res = articleService.addArticle(article);
-        return res;
+        return new ResponseEntity<Article>(res, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/article", method = RequestMethod.PATCH)
     @ResponseBody
-    public void updateArticle(@RequestBody Article article) {
+    public ResponseEntity<String> updateArticle(@RequestBody Article article) {
         articleService.update(article);
+        return new ResponseEntity<String>(HttpStatus.OK);
     }
 }

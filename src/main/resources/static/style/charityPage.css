@@ -33,3 +33,7 @@
     background-color: #D6D6D6;
     color: #000000 !important;
 }
+
+.row {
+    min-height: 3rem;
+}
