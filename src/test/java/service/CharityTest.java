@@ -1,4 +1,4 @@
-package controller;
+package service;
 
 import com.charityconnector.WebsiteApplication;
 import com.charityconnector.bean.Charity;
