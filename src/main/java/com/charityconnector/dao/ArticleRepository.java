@@ -1,4 +1,10 @@
 package com.charityconnector.dao;
 
-public class ArticleRepository {
+import com.charityconnector.bean.Article;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ArticleRepository extends JpaRepository<Article, Long> {
+
+    Article[] findArticlesByCharityId(Long id);
+
 }

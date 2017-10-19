@@ -1,4 +1,16 @@
 package com.charityconnector.service;
 
-public class ArticleService {
+import com.charityconnector.bean.Article;
+
+public interface ArticleService {
+
+    Article findById(Long id);
+
+    Article[] findArticlesByCharityId(Long id);
+
+    void deleteById(Long id);
+
+    Article addArticle(Article article);
+
+    void update(Article article);
 }
