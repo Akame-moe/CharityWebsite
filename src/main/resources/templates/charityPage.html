@@ -37,7 +37,7 @@
     <div id="charity-container" class="container">
         <div class="row">
             <div class="col-">
-                <div>Charity logo <img src=${charity.logoPath}/></div>
+                <div>Charity logo <img width="150px" height="100px" src=${charity.logoPath}/></div>
                 <a href="#" class="edit-badge" id="editPictureBadge"><span class="badge badge-primary">Edit</span></a>
             </div>
             <div class="col-md">
@@ -54,6 +54,13 @@
         </div>
 
     <br/>
+
+         <!--Use for test Upload function, should be deleted later !!! -->
+        <form action="/uploadImage" method="POST" enctype="multipart/form-data" name="upload_form">
+            <label>Choose File</label>
+            <input name="file" type="file"/>
+            <input name="upload" type="submit" value="upload" />
+        </form>
 
 
         <div class="container theme-showcase" role="main">
