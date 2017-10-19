@@ -9,7 +9,7 @@ public class Article {
     private Long id;
     private String title;
     private String body;
-    private Long charity_id;
+    private Long charityId;
 
     /* Required by JPA specification */
     public Article() {
@@ -51,12 +51,12 @@ public class Article {
     }
 
     @Column(name="charity_id")
-    public long getCharity_id() {
-        return charity_id;
+    public long getCharityId() {
+        return charityId;
     }
 
-    public void setCharity_id(long charity_id) {
-        this.charity_id = charity_id;
+    public void setCharityId(long charityId) {
+        this.charityId = charityId;
     }
 
 }
