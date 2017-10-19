@@ -53,6 +53,4 @@ public class ArticleServiceImpl implements ArticleService {
         }
         articleRepository.save(readyToUpdate);
     }
-
-
 }

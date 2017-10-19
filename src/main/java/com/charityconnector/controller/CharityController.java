@@ -1,6 +1,7 @@
 package com.charityconnector.controller;
 
 import com.charityconnector.bean.Charity;
+import com.charityconnector.service.ArticleService;
 import com.charityconnector.service.CharityService;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ClassUtils;
@@ -9,11 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 
 
@@ -24,6 +21,9 @@ public class CharityController {
 
     @Resource
     private CharityService charityService;
+
+    @Resource
+    ArticleService articleService;
 
     @RequestMapping(path = "/charities/{name}", method = RequestMethod.GET)
     @ResponseBody
@@ -58,6 +58,7 @@ public class CharityController {
     @RequestMapping("/charityPage/{id}")
     public String getCharityPage(Map<String, Object> model, @PathVariable("id") Long id) {
 	    model.put("charity", charityService.findById(id));
+        model.put("articles", articleService.findArticlesByCharityId(id));
         return "charityPage";
     }
 

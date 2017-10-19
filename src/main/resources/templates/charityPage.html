@@ -11,7 +11,9 @@
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
 
 
     <link rel="stylesheet" href="../style/charityPage.css"/>
@@ -23,7 +25,7 @@
     <a class="navbar-brand" href="#">ConnectCharites</a>
     <div id="navBarButtons" class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
-            <li class="navbar-item active"><a class="nav-link" href="#">Home</a></li>
+            <li class="navbar-item active"><a class="nav-link" href="/">Home</a></li>
             <li class="navbar-item active"><a class="nav-link" href="#">Search</a></li>
             <li class="navbar-item active"><a class="nav-link" href="#">A Random Charity</a></li>
         </ul>
@@ -35,74 +37,73 @@
 
 <div id="main-container">
     <div id="charity-container" class="container">
+        <button type="button" class="btn btn-primary edit-badge" id="editImageButton" data-toggle="modal"
+                data-target="#uploadImageModal">
+            <svg height="28" width="20" viewBox="0 0 14 14" version="1.1" aria-hidden="true">
+                <path style="fill:#FFFFFF" fill-rule="evenodd"
+                      d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"/>
+            </svg>
+        </button>
         <div class="row">
             <div class="col-">
-                <div>Charity logo <img width="150px" height="100px" src=${charity.logoPath}/></div>
-                <a href="#" class="edit-badge" id="editPictureBadge"><span class="badge badge-primary">Edit</span></a>
+                <div><img alt="Charity logo" width="150px" height="100px" src="${charity.logoPath}"/></div>
             </div>
             <div class="col-md">
                 <h2>${charity.name}
-                    <a href="#" class="edit-badge" id="editNameBadge"><span class="badge badge-primary">Edit</span></a>
+                    <button class="btn edit-badge badge-primary" id="editNameBadge" data-toggle="modal"
+                            data-target="#editNameModal">
+                        <svg height="28" width="20" viewBox="0 0 14 14" version="1.1" aria-hidden="true">
+                            <path style="fill:#FFFFFF" fill-rule="evenodd"
+                                  d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"/>
+                        </svg>
+                    </button>
                 </h2>
-                <a href="#" class="edit-badge" id="editDescriptionBadge"><span class="badge badge-primary">Edit</span>
-                    <div></div>
-                </a>
                 <p>
                     ${charity.description}
+                    <button class="btn edit-badge badge-primary" id="editDescriptionBadge" data-toggle="modal"
+                            data-target="#editDescriptionModal">
+                        <svg height="28" width="20" viewBox="0 0 14 14" version="1.1" aria-hidden="true">
+                            <path style="fill:#FFFFFF" fill-rule="evenodd"
+                                  d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"/>
+                        </svg>
+                    </button>
                 </p>
             </div>
         </div>
 
-    <br/>
+        <div class="vertical-spacer"></div>
 
-         <!--Use for test Upload function, should be deleted later !!! -->
-        <form action="/uploadImage" method="POST" enctype="multipart/form-data" name="upload_form">
-            <label>Choose File</label>
-            <input name="file" type="file"/>
-            <input name="upload" type="submit" value="upload" />
-        </form>
-
-
-        <div class="container theme-showcase" role="main">
-
-            <div class="page-header">
-                <h2>Events</h2>
-            </div>
-
-            <br/>
-
-
-            <div id="articleButtons">
-                <p>
-                    <button type="button" class="btn btn-lg btn-success">Add</button>
-                    <button type="button" class="btn btn-lg btn-primary">Update</button>
-                    <button type="button" class="btn btn-lg btn-danger">Delete</button>
-                </p>
-            </div>
-
-
-            <br/>
+        <div class="container">
+            <h2>Our activities
+                <button class="btn edit-badge badge-success" id="addArticleBadge" data-toggle="modal"
+                        data-target="#addArticleModal">
+                    <svg width="18" height="21" class="octicon octicon-plus" viewBox="-1 0 14 14" version="1.1"
+                         aria-hidden="true">
+                        <path style="fill:#FFFFFF" fill-rule="evenodd" d="M12 9H7v5H5V9H0V7h5V2h2v5h5z"></path>
+                    </svg>
+                </button>
+            </h2>
 
             <div class="table-responsive">
                 <table class="table table-condensed" id="articleTable">
                     <tbody>
-                    <tr>
-                        <td>2017-10-17</td>
-                        <td>Hurricane Disaster</td>
-                    </tr>
-                    <tr>
-                        <td>2017-08-17</td>
-                        <td>Earthquake</td>
-                    </tr>
-                    <tr>
-                        <td>2017-06-17</td>
-                        <td>Routine old soliders visiting </td>
-                    </tr>
+                    <#list articles as article>
+                        <tr>
+                            <td>${article.title}</td>
+                            <td>${article.body}</td>
+                            <td>
+                                <a href="#" class="edit-badge" id="editArticleBadge_${article.id}"><span
+                                        class="badge badge-warning">Edit</span></a>
+                                <a href="#" class="edit-badge" id="deleteArticleBadge_${article.id}"><span
+                                        class="badge badge-default">Delete</span></a>
+                            </td>
+                        </tr>
+                    </#list>
                     </tbody>
                 </table>
             </div>
+        </div>
     </div>
-</div>
 </div>
 
 <footer class="footer p-5">
@@ -110,6 +111,117 @@
         <span class="text-muted">About us - Developers - Legal - Privacy - Cookies - Language</span>
     </div>
 </footer>
+
+<div class="modal fade show" id="uploadImageModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel">
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="uploadLogoLabel">Update a new logo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/uploadImage" method="POST" enctype="multipart/form-data" name="upload_form">
+                    <div class="form-group">
+                        <input name="file" type="file" class="form-control-file" id="inputCharityLogo"
+                               aria-describedby="fileHelp"/>
+                        <small id="fileHelp" class="form-text text-muted">Accepted formats: .jpg</small>
+                        <input name=upload" type="submit" value="Submit" class="btn btn-primary"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade show" id="editNameModal" tabindex="-1" role="dialog"
+     aria-labelledby="editNameLabel">
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editNameLabel">Edit your charity name</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="inputName"
+                               value="${charity.name}">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade show" id="editDescriptionModal" tabindex="-1" role="dialog"
+     aria-labelledby="editNameLabel">
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editDescriptionLabel">Edit your charity description</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <textarea class="form-control" id="inputDescription" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade show" id="addArticleModal" tabindex="-1" role="dialog"
+     aria-labelledby="editNameLabel">
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addArticleLabel">Insert your article title and body text here</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="inputArticleTitle"
+                               placeholder="Your article title">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" id="inputArticleBody" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <script src="../script/charityPage.js"></script>
 
