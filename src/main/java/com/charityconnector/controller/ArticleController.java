@@ -40,7 +40,7 @@ public class ArticleController {
 
     @RequestMapping(path = "/article", method = RequestMethod.PATCH)
     @ResponseBody
-    public void updateCharity(@RequestBody Article article) {
+    public void updateArticle(@RequestBody Article article) {
         articleService.update(article);
     }
 }
