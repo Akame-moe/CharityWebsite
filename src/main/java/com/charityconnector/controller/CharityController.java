@@ -63,14 +63,25 @@ public class CharityController {
     }
 
 
-    // This method is used for test the upload functionality, should be delete later!!!
-    @RequestMapping(path = "/uploadImage", method = RequestMethod.POST)
-    public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+    // This method is used for test the upload functionality, should be modify later!!!
+    @RequestMapping(path = "/updateLogoImage", method = RequestMethod.POST)
+    public String handleFileUpload(@RequestParam("file") MultipartFile file,  @RequestParam("charityId") Long charityId) {
+
+
+        String classPath = ClassUtils.getDefaultClassLoader().getResource("").getPath();
+        String logoPath =classPath.replace("out/production/classes/","")+"src/main/logo-images/";
+
+        Charity charity = charityService.findById(charityId);
+        String oldFileName = charity.getLogoPath().replace("../../logo-images/","");
+        String oldFilePath = logoPath+oldFileName;
+        File oldImageFile = new File(oldFilePath);
+        if (oldImageFile.exists() && oldImageFile.isFile()) {
+            oldImageFile.delete();
+        }
+
         if (!file.isEmpty()) {
             try {
-                String classPath = ClassUtils.getDefaultClassLoader().getResource("").getPath();
-                String logoPath =classPath.replace("out/production/classes/","")+"src/main/logo-images/";
-                BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(new File(logoPath+file.getOriginalFilename())));
+                BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(new File(logoPath+charityId+"_"+file.getOriginalFilename())));
                 out.write(file.getBytes());
                 out.flush();
                 out.close();
@@ -85,7 +96,9 @@ public class CharityController {
         } else {
             return "Update File, the File is empty.";
         }
-        return ("redirect:/charityPage/1");
+        charity.setLogoPath("../../logo-images/"+charityId+"_"+file.getOriginalFilename());
+        charityService.update(charity);
+        return ("redirect:/charityPage/"+charityId);
     }
 
 
