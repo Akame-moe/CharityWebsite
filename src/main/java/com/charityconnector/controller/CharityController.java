@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import java.io.*;
@@ -23,7 +22,7 @@ public class CharityController {
     private CharityService charityService;
 
     @Resource
-    ArticleService articleService;
+    private ArticleService articleService;
 
     @RequestMapping(path = "/charities/{name}", method = RequestMethod.GET)
     @ResponseBody
@@ -64,14 +63,14 @@ public class CharityController {
 
 
     // This method is used for test the upload functionality, should be modify later!!!
-    @RequestMapping(path = "/updateLogoImage", method = RequestMethod.POST)
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,  @RequestParam("charityId") Long charityId) {
+    @RequestMapping(path = "/charity/{id}/logo", method = RequestMethod.POST)
+    public String updateCharityLogo(@RequestParam("file") MultipartFile file, @PathVariable("id") Long id) {
 
 
         String classPath = ClassUtils.getDefaultClassLoader().getResource("").getPath();
         String logoPath =classPath.replace("out/production/classes/","")+"src/main/logo-images/";
 
-        Charity charity = charityService.findById(charityId);
+        Charity charity = charityService.findById(id);
         String oldFileName = charity.getLogoPath().replace("../../logo-images/","");
         String oldFilePath = logoPath+oldFileName;
         File oldImageFile = new File(oldFilePath);
@@ -81,7 +80,7 @@ public class CharityController {
 
         if (!file.isEmpty()) {
             try {
-                BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(new File(logoPath+charityId+"_"+file.getOriginalFilename())));
+                BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(new File(logoPath + id + "_" + file.getOriginalFilename())));
                 out.write(file.getBytes());
                 out.flush();
                 out.close();
@@ -96,9 +95,9 @@ public class CharityController {
         } else {
             return "Update File, the File is empty.";
         }
-        charity.setLogoPath("../../logo-images/"+charityId+"_"+file.getOriginalFilename());
+        charity.setLogoPath("../../logo-images/" + id + "_" + file.getOriginalFilename());
         charityService.update(charity);
-        return ("redirect:/charityPage/"+charityId);
+        return ("redirect:/charityPage/" + id);
     }
 
 

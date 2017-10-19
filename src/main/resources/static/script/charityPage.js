@@ -137,5 +137,4 @@ function sendUpdateCharity() {
             console.log("ERROR : ", e);
         }
     });
-    $('#editArticleModal').modal('toggle');
 }
