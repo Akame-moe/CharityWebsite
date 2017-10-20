@@ -51,7 +51,7 @@ public class CharityController {
     @RequestMapping(path = "/charity", method = RequestMethod.PATCH)
     @ResponseBody
     public void updateCharity(@RequestBody Charity charity) {
-        charityService.update(charity);
+        charityService.updateSelective(charity);
     }
     
     @RequestMapping("/charityPage/{id}")
@@ -96,7 +96,7 @@ public class CharityController {
             return "Update File, the File is empty.";
         }
         charity.setLogoPath("../../logo-images/" + id + "_" + file.getOriginalFilename());
-        charityService.update(charity);
+        charityService.updateSelective(charity);
         return ("redirect:/charityPage/" + id);
     }
 

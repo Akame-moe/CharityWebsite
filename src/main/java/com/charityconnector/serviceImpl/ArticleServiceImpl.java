@@ -34,7 +34,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void update(Article article) {
+    public void updateSelective(Article article) {
         Article readyToUpdate = new Article();
         if (article.getId() == null) {
             return;
@@ -52,5 +52,10 @@ public class ArticleServiceImpl implements ArticleService {
             readyToUpdate.setCharityId(cId);
         }
         articleRepository.save(readyToUpdate);
+    }
+
+    @Override
+    public void updateDirect(Article article) {
+        articleRepository.save(article);
     }
 }

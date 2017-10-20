@@ -31,7 +31,7 @@ public class CharityServiceImpl implements CharityService {
     }
 
     @Override
-    public void update(Charity charity) {
+    public void updateSelective(Charity charity) {
         Charity readyToUpdate = new Charity();
         if (charity.getId() == null) {
             return;
@@ -50,6 +50,11 @@ public class CharityServiceImpl implements CharityService {
         }
         charityRepository.save(readyToUpdate);
         //charityRepository.updateById(readyToUpdate.getId(), readyToUpdate.getName(), readyToUpdate.getDescription());
+    }
+
+    @Override
+    public void updateDirect(Charity charity) {
+        charityRepository.save(charity);
     }
 
     @Override

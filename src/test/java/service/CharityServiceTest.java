@@ -33,11 +33,11 @@ public class CharityServiceTest {
         if (res != null) {
             // assert equals after added one charity
             Assert.assertEquals(res.getDescription(), description);
-            // assert equals after update one charity
+            // assert equals after updateSelective one charity
             String newValue = "NewValue";
             c.setDescription(newValue);
             c.setId(res.getId());
-            charityService.update(c);
+            charityService.updateSelective(c);
             Assert.assertEquals(charityService.findById(res.getId()).getDescription(), newValue);
             // delete then assert null
             charityService.deleteById(res.getId());

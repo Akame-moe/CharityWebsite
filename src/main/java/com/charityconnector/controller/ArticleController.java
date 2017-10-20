@@ -43,7 +43,7 @@ public class ArticleController {
     @RequestMapping(path = "/article", method = RequestMethod.PATCH)
     @ResponseBody
     public ResponseEntity<String> updateArticle(@RequestBody Article article) {
-        articleService.update(article);
+        articleService.updateSelective(article);
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 }
