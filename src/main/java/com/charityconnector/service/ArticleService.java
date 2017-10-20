@@ -12,5 +12,7 @@ public interface ArticleService {
 
     Article addArticle(Article article);
 
-    void update(Article article);
+    void updateSelective(Article article);
+
+    void updateDirect(Article article);
 }

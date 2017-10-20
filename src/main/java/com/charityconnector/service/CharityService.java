@@ -10,7 +10,9 @@ public interface CharityService {
 
     Charity[] findByName(String name);
 
-    void update(Charity charity);
+    void updateSelective(Charity charity);
+
+    void updateDirect(Charity charity);
 
     void deleteById(Long id);
 

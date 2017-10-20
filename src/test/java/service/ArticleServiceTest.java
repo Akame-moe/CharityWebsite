@@ -30,9 +30,9 @@ public class ArticleServiceTest {
         Assert.assertEquals(got.getBody(), added.getBody());
         Assert.assertEquals(got.getCharityId(), added.getCharityId());
         Assert.assertEquals(got.getTitle(), added.getTitle());
-        // update
+        // updateSelective
         article.setBody("changed");
-        articleService.update(article);
+        articleService.updateSelective(article);
         Assert.assertEquals("changed", articleService.findById(added.getId()).getBody());
         // delete
         articleService.deleteById(added.getId());
