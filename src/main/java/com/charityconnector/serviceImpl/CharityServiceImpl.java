@@ -45,8 +45,8 @@ public class CharityServiceImpl implements CharityService {
             String name = charity.getName() == null ? origin.getName() : charity.getName();
             readyToUpdate.setName(name);
 
-            String logoPath = charity.getLogoPath() == null ? origin.getLogoPath() : charity.getLogoPath();
-            readyToUpdate.setLogoPath(logoPath);
+            String logoPath = charity.getLogoFile() == null ? origin.getLogoFile() : charity.getLogoFile();
+            readyToUpdate.setLogoFile(logoPath);
         }
         charityRepository.save(readyToUpdate);
         //charityRepository.updateById(readyToUpdate.getId(), readyToUpdate.getName(), readyToUpdate.getDescription());
