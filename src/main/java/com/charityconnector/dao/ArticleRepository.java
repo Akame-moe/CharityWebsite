@@ -1,6 +1,6 @@
 package com.charityconnector.dao;
 
-import com.charityconnector.bean.Article;
+import com.charityconnector.entity.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {

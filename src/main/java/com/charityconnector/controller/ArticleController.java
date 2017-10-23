@@ -1,6 +1,6 @@
 package com.charityconnector.controller;
 
-import com.charityconnector.bean.Article;
+import com.charityconnector.entity.Article;
 import com.charityconnector.service.ArticleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

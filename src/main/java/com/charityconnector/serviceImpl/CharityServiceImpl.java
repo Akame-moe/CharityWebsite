@@ -1,6 +1,6 @@
 package com.charityconnector.serviceImpl;
 
-import com.charityconnector.bean.Charity;
+import com.charityconnector.entity.Charity;
 import com.charityconnector.dao.CharityRepository;
 import com.charityconnector.service.CharityService;
 import org.springframework.stereotype.Service;

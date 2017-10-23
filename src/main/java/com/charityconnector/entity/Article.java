@@ -1,4 +1,4 @@
-package com.charityconnector.bean;
+package com.charityconnector.entity;
 
 import javax.persistence.*;
 

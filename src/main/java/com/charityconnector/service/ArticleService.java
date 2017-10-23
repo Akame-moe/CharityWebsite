@@ -1,6 +1,6 @@
 package com.charityconnector.service;
 
-import com.charityconnector.bean.Article;
+import com.charityconnector.entity.Article;
 
 public interface ArticleService {
 

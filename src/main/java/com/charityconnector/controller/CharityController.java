@@ -1,10 +1,9 @@
 package com.charityconnector.controller;
 
-import com.charityconnector.bean.Charity;
+import com.charityconnector.entity.Charity;
 import com.charityconnector.service.ArticleService;
 import com.charityconnector.service.CharityService;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import sun.misc.BASE64Encoder;
@@ -64,7 +63,8 @@ public class CharityController {
 
 
 
-    // This method is used for test the upload functionality, should be modify later!!!
+    // This method is used for upload the logo of the charity.
+    // The image is encoded with base64 and then store directly to the databse.
     @RequestMapping(path = "/charity/{id}/logo", method = RequestMethod.POST)
     public String updateCharityLogo(@RequestParam("file") MultipartFile file, @PathVariable("id") Long id) {
         Charity charity = charityService.findById(id);
@@ -81,46 +81,4 @@ public class CharityController {
             return "Update File, the File is empty.";
         }
     }
-
-
-//    // This method is used for test the upload functionality, should be modify later!!!
-//    @RequestMapping(path = "/charity/{id}/logo", method = RequestMethod.POST)
-//    public String updateCharityLogo(@RequestParam("file") MultipartFile file, @PathVariable("id") Long id) {
-//
-//
-//        String classPath = ClassUtils.getDefaultClassLoader().getResource("").getPath();
-//        String logoPath =classPath.replace("out/production/classes/","")+"src/main/logo-images/";
-//
-//        Charity charity = charityService.findById(id);
-//        String oldFileName = charity.getLogoPath().replace("../../logo-images/","");
-//        String oldFilePath = logoPath+oldFileName;
-//        File oldImageFile = new File(oldFilePath);
-//        if (oldImageFile.exists() && oldImageFile.isFile()) {
-//            oldImageFile.delete();
-//        }
-//
-//        if (!file.isEmpty()) {
-//            try {
-//                BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(new File(logoPath + id + "_" + file.getOriginalFilename())));
-//                out.write(file.getBytes());
-//                out.flush();
-//                out.close();
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//                return "fail," + e.getMessage();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                return "faile," + e.getMessage();
-//            }
-//
-//        } else {
-//            return "Update File, the File is empty.";
-//        }
-//        charity.setLogoPath("../../logo-images/" + id + "_" + file.getOriginalFilename());
-//        charityService.updateSelective(charity);
-//        return ("redirect:/charityPage/" + id);
-//    }
-
-
-
 }

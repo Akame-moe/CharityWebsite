@@ -1,7 +1,7 @@
 package service;
 
 import com.charityconnector.WebsiteApplication;
-import com.charityconnector.bean.Article;
+import com.charityconnector.entity.Article;
 import com.charityconnector.service.ArticleService;
 import org.junit.Assert;
 import org.junit.Test;
