@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import sun.misc.BASE64Encoder;
 
 import javax.annotation.Resource;
-import java.io.*;
+import java.io.IOException;
 import java.util.Map;
 
 
@@ -60,8 +60,6 @@ public class CharityController {
         model.put("articles", articleService.findArticlesByCharityId(id));
         return "charityPage";
     }
-
-
 
     // This method is used for upload the logo of the charity.
     // The image is encoded with base64 and then store directly to the databse.
