@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <title>${charity.name}</title>
@@ -15,6 +16,7 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 
     <link rel="stylesheet" href="../style/charityPage.css"/>
     <link rel="stylesheet" href="../style/override.css"/>
@@ -71,6 +73,26 @@
                 </div>
             </div>
         </div>
+
+        <div id="paypal-button"></div>
+
+        <script>
+            paypal.Button.render({
+
+                env: 'production', // Or 'sandbox',
+
+                commit: true, // Show a 'Pay Now' button
+
+                payment: function () {
+                    // Set up the payment here
+                },
+
+                onAuthorize: function (data, actions) {
+                    // Execute the payment here
+                }
+
+            }, '#paypal-button');
+        </script>
 
         <div class="vertical-spacer"></div>
 
