@@ -48,7 +48,7 @@
         </button>
         <div class="row">
             <div class="col-">
-                <div><img alt="Charity logo" width="150px" height="150px" src=${charity.logoFile} ></div>
+                <div><img alt="Charity logo" width="150px" height="150px" src=${charity.logoFile}></div>
             </div>
             <div class="col-md">
                 <h2><span id="charityName">${charity.name}</span>
@@ -73,25 +73,13 @@
             </div>
         </div>
 
-        <div id="paypal-button"></div>
+        <div class="vertical-spacer"></div>
 
-        <script>
-            paypal.Button.render({
-
-                env: 'sandbox', // Or 'sandbox',
-
-                commit: true, // Show a 'Pay Now' button
-
-                payment: function () {
-                    // Set up the payment here
-                },
-
-                onAuthorize: function (data, actions) {
-                    // Execute the payment here
-                }
-
-            }, '#paypal-button');
-        </script>
+        <div class="container text-center">
+            <div id="donate-button" class="btn btn-primary text-center" data-toggle="modal"
+                 data-target="#donateModal">Donate to this charity!
+            </div>
+        </div>
 
         <div class="vertical-spacer"></div>
 
@@ -330,6 +318,60 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade show" id="donateModal" tabindex="-1" role="dialog"
+     aria-labelledby="donateLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="donateLabel">Please confirm your donation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Thanks for being willing to donate to one of the charities we support, please enter the donation
+                    amount and proceed to the PayPal checkout</p>
+                <form>
+                    <div class="form-group">
+                        <input type="number" class="form-control" id="inputDonationAmount"
+                               placeholder="0.00">
+                    </div>
+                </form>
+                <div id="paypal-button"></div>
+
+                <script type="text/javascript" src="../script/payPal.js"></script>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade show" id="donateSuccessModal" tabindex="-1" role="dialog"
+     aria-labelledby="donateSuccessLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="donateSuccessLabel">Please confirm your donation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Your donation was succesful! Thank you for helping ${charity.name}!</p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
 <script src="../script/charityPage.js"></script>
 
