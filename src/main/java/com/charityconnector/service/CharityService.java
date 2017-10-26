@@ -1,6 +1,7 @@
 package com.charityconnector.service;
 
 import com.charityconnector.entity.Charity;
+import org.springframework.data.domain.Pageable;
 
 public interface CharityService {
 
@@ -19,4 +20,7 @@ public interface CharityService {
     void deleteById(Long id);
 
     Charity findById(Long id);
+
+
+    Charity[] getPaged(Pageable pageable);
 }

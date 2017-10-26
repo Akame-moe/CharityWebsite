@@ -1,8 +1,10 @@
 package com.charityconnector.serviceImpl;
 
-import com.charityconnector.entity.Charity;
 import com.charityconnector.dao.CharityRepository;
+import com.charityconnector.entity.Charity;
 import com.charityconnector.service.CharityService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -65,5 +67,11 @@ public class CharityServiceImpl implements CharityService {
     @Override
     public Charity findById(Long id) {
         return charityRepository.findOne(id);
+    }
+
+    @Override
+    public Charity[] getPaged(Pageable pageable) {
+        Page<Charity> page = charityRepository.findAll(pageable);
+        return page.getContent().toArray(new Charity[0]);
     }
 }

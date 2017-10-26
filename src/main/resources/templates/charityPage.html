@@ -35,7 +35,7 @@
         </ul>
     </div>
 </nav>
-<div id="charityIdDiv" style="visibility: hidden;">${charity.id}</div>
+<div id="charityIdDiv" style="display : none;">${charity.id}</div>
 
 <div id="main-container">
     <div id="charity-container" class="container">
@@ -48,7 +48,8 @@
         </button>
         <div class="row">
             <div class="col-">
-                <div><img alt="Charity logo" width="150px" height="150px" src=${charity.logoFile}></div>
+                <div><img alt="Charity logo" width="150px" height="150px"
+                          src=${charity.logoFile!"../img/no-charity-logo.png"}></div>
             </div>
             <div class="col-md">
                 <h2><span id="charityName">${charity.name}</span>
