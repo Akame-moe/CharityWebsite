@@ -3,6 +3,8 @@ package com.charityconnector.controller;
 import com.charityconnector.entity.Charity;
 import com.charityconnector.service.ArticleService;
 import com.charityconnector.service.CharityService;
+import com.charityconnector.util.CodeUtil;
+import com.charityconnector.util.MailUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -57,6 +59,12 @@ public class CharityController {
     public String getCharityPage(Map<String, Object> model, @PathVariable("id") Long id) {
 	    model.put("charity", charityService.findById(id));
         model.put("articles", articleService.findArticlesByCharityId(id));
+
+        // Test Email
+        String code= CodeUtil.generateUniqueCode();
+        String email = "dongming.sun@outlook.com";
+        new Thread(new MailUtil(email, code)).start();;
+
         return "charityPage";
     }
 
