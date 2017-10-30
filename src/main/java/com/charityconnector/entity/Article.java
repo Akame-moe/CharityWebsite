@@ -20,9 +20,16 @@ public class Article {
         super();
     }
 
-    public Article(String title, Long id){
-        this.title = title;
+    public Article(Long id, String title, String body, Long charityId, Date insertTime, Date updateTime) {
         this.id = id;
+        this.title = title;
+        this.body = body;
+        this.charityId = charityId;
+        this.insertTime = insertTime;
+        this.updateTime = updateTime;
+    }
+
+    public Article(long l) {
     }
 
     @Id
@@ -55,7 +62,7 @@ public class Article {
     }
 
     @Column(name="charity_id")
-    public long getCharityId() {
+    public Long getCharityId() {
         return charityId;
     }
 

@@ -1,8 +1,9 @@
 package com.charityconnector.serviceImpl;
 
-import com.charityconnector.entity.Article;
 import com.charityconnector.dao.ArticleRepository;
+import com.charityconnector.entity.Article;
 import com.charityconnector.service.ArticleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -13,6 +14,11 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Resource
     private ArticleRepository articleRepository;
+
+    @Autowired
+    public ArticleServiceImpl(ArticleRepository articleRepository) {
+        this.articleRepository = articleRepository;
+    }
 
     @Override
     public Article findById(Long id) {
@@ -44,6 +50,7 @@ public class ArticleServiceImpl implements ArticleService {
             return;
         } else {
             Article origin = articleRepository.findOne(article.getId());
+
             readyToUpdate.setId(article.getId());
 
             String title = article.getTitle() == null ? origin.getTitle() : article.getTitle();
@@ -52,7 +59,7 @@ public class ArticleServiceImpl implements ArticleService {
             String body = article.getBody() == null ? origin.getBody() : article.getBody();
             readyToUpdate.setBody(body);
 
-            Long cId = article.getCharityId() > 0 ? origin.getCharityId() : article.getCharityId();
+            Long cId = article.getCharityId() == null ? origin.getCharityId() : article.getCharityId();
             readyToUpdate.setCharityId(cId);
         }
         Date now = new Date();

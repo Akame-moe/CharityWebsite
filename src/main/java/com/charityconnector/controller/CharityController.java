@@ -98,8 +98,8 @@ public class CharityController {
 
     @RequestMapping(path = "/charities", method = RequestMethod.GET)
     @ResponseBody
-    Charity[] getCharitiesByCause(@RequestParam("cause") String cause) {
-        return charityService.findByCause(cause);
+    Charity[] getCharitiesByCauses(@RequestParam("cause") long causes) {
+        return charityService.findByCauses(causes);
     }
 
     @RequestMapping(path = "/charity/{id}/active", method = RequestMethod.POST)

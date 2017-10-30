@@ -29,5 +29,5 @@ public interface CharityService {
 
     Page<Charity> findByNameLike(String name, Pageable pageable);
 
-    Charity[] findByCause(String cause);
+    Charity[] findByCauses(long cause);
 }
