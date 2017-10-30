@@ -25,6 +25,7 @@ paypal.Button.render({
         return actions.payment.execute().then(function (payment) {
             $('#donateModal').modal('toggle');
             $('#donateSuccessModal').modal('toggle');
+            //TODO add call to backend with charity id and amount
         });
     }
 

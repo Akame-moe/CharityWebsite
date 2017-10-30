@@ -33,3 +33,7 @@
 .row {
     min-height: 3rem;
 }
+
+.row-article {
+    min-height: 4rem !important;
+}

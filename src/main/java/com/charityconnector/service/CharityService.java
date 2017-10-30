@@ -1,6 +1,7 @@
 package com.charityconnector.service;
 
 import com.charityconnector.entity.Charity;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface CharityService {
@@ -10,6 +11,8 @@ public interface CharityService {
     Charity addCharity(Charity charity);
 
     Charity[] findByName(String name);
+
+    Charity findRandom();
 
     // This method will only update the NOT NULL field of the charity object.
     void updateSelective(Charity charity);
@@ -22,7 +25,9 @@ public interface CharityService {
     Charity findById(Long id);
 
 
-    Charity[] getPaged(Pageable pageable);
+    Charity[] findPaged(Pageable pageable);
+
+    Page<Charity> findByNameLike(String name, Pageable pageable);
 
     Charity[] findByCause(String cause);
 }

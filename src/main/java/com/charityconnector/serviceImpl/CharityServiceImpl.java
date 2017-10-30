@@ -17,7 +17,7 @@ public class CharityServiceImpl implements CharityService {
 
     @Override
     public Charity getCharity() {
-        return charityRepository.findOne(1l);
+        return charityRepository.findOne(1L);
     }
 
     @Override
@@ -28,8 +28,13 @@ public class CharityServiceImpl implements CharityService {
 
     @Override
     public Charity[] findByName(String name) {
-        Charity[] charities = charityRepository.findByName(name);
+        Charity[] charities = charityRepository.findByNameLike(name);
         return charities;
+    }
+
+    @Override
+    public Charity findRandom() {
+        return charityRepository.findRandom();
     }
 
     @Override
@@ -70,9 +75,15 @@ public class CharityServiceImpl implements CharityService {
     }
 
     @Override
-    public Charity[] getPaged(Pageable pageable) {
+    public Charity[] findPaged(Pageable pageable) {
         Page<Charity> page = charityRepository.findAll(pageable);
         return page.getContent().toArray(new Charity[0]);
+    }
+
+    @Override
+    public Page<Charity> findByNameLike(String name, Pageable pageable) {
+        Page<Charity> page = charityRepository.findByNameLike(name, pageable);
+        return page;
     }
 
     @Override
