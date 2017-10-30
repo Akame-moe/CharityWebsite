@@ -86,4 +86,17 @@ public class CharityController {
             return "Update File, the File is empty.";
         }
     }
+
+    @RequestMapping(path = "/charities", method = RequestMethod.GET)
+    @ResponseBody
+    Charity[] getCharitiesByCause(@RequestParam("cause") String cause) {
+        return charityService.findByCause(cause);
+    }
+
+    @RequestMapping(path = "/charity/paypal/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    String getCharityPayPalById(@PathVariable("id") Long id) {
+        Charity charity = charityService.findById(id);
+        return charity.getPaypalAccount();
+    }
 }

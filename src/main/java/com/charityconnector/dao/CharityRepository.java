@@ -13,6 +13,10 @@ public interface CharityRepository extends JpaRepository<Charity, Long> {
     @Query("select c from Charity c where c.name = :name")
     Charity[] findByName(@Param("name") String name);
 
+    @Query("select c from Charity c where c.cause = :cause")
+    Charity[] findByCause(@Param("cause") String cause);
+
+
     @Modifying
     @Transactional
     @Query("UPDATE Charity c SET c.name = :name, c.description = :description WHERE c.id = :id")
