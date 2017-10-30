@@ -104,11 +104,14 @@ public class CharityController {
 
     @RequestMapping(path = "/charity/{id}/verify", method = RequestMethod.POST)
     public ResponseEntity<String> verifyCharity(@PathVariable("id") Long id) {
-        System.out.println("ID is :" + id);
-        // Test Email
+        Charity charity = charityService.findById(id);
+        String email = charity.getEmail();
+        //Generate the verify code and save it to the database;
         String code = CodeUtil.generateUniqueCode();
-        String email = "398712463@qq.com";
-        new Thread(new MailUtil(email, code)).start();
+        Long charityID = charity.getId();
+        charity.setVerifyCode(code);
+        charityService.updateDirect(charity);
+        new Thread(new MailUtil(email, code,charityID)).start();
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 }
