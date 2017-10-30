@@ -18,8 +18,8 @@ public interface CharityRepository extends JpaRepository<Charity, Long> {
 
     Page<Charity> findByNameLike(@Param("name") String name, Pageable pageable);
 
-    @Query("select c from Charity c where c.causes = :causes")
-    Charity[] findByCauses(@Param("causes") long causes);
+//    @Query("select c from Charity c where c.causes = :causes")
+//    Charity[] findByCauses(@Param("causes") long causes);
 
     @Modifying
     @Transactional

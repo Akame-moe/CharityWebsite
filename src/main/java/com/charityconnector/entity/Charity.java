@@ -14,8 +14,6 @@ public class Charity {
     private String email;
     private String paypalAccount;
     private String cause;
-    private long causes;
-    private long nations;
     private String verifyCode;
     private int verifyStatus;
 
@@ -83,24 +81,6 @@ public class Charity {
 
     public void setPaypalAccount(String paypalAccount) {
         this.paypalAccount = paypalAccount;
-    }
-
-    @Column(name = "causes")
-    public long getCauses() {
-        return causes;
-    }
-
-    public void setCauses(long causes) {
-        this.causes = causes;
-    }
-
-    @Column(name = "nations")
-    public long getNations() {
-        return nations;
-    }
-
-    public void setNations(long nations) {
-        this.nations = nations;
     }
 
 

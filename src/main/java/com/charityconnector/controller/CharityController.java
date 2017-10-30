@@ -96,11 +96,11 @@ public class CharityController {
         }
     }
 
-    @RequestMapping(path = "/charities", method = RequestMethod.GET)
-    @ResponseBody
-    Charity[] getCharitiesByCauses(@RequestParam("cause") long causes) {
-        return charityService.findByCauses(causes);
-    }
+//    @RequestMapping(path = "/charities", method = RequestMethod.GET)
+//    @ResponseBody
+//    Charity[] getCharitiesByCauses(@RequestParam("cause") long causes) {
+//        return charityService.findByCauses(causes);
+//    }
 
     @RequestMapping(path = "/charity/{id}/verify", method = RequestMethod.POST)
     public ResponseEntity<String> verifyCharity(@PathVariable("id") Long id) {

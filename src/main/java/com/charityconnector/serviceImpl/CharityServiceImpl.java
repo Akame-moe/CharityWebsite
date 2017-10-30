@@ -86,9 +86,9 @@ public class CharityServiceImpl implements CharityService {
         return page;
     }
 
-    @Override
-    public Charity[] findByCauses(long causes) {
-        Charity[] charities = charityRepository.findByCauses(causes);
-        return charities;
-    }
+//    @Override
+//    public Charity[] findByCauses(long causes) {
+//        Charity[] charities = charityRepository.findByCauses(causes);
+//        return charities;
+//    }
 }
