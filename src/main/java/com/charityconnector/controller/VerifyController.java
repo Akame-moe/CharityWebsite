@@ -22,7 +22,6 @@ public class VerifyController {
         Charity charity = charityService.findById(id);
         if(charity.getVerifyStatus()==CHARITY_VERIFIED)
             return "<h1>This charity has been verified before, you do not need to do it again!</h1>";
-
         if(charity.getVerifyCode().equals(code)){
             charity.setVerifyStatus(CHARITY_VERIFIED);
             charityService.updateDirect(charity);
@@ -30,6 +29,5 @@ public class VerifyController {
         }else{
             return "<h1>Error, the verify code does not match!</h1>";
         }
-
     }
 }
