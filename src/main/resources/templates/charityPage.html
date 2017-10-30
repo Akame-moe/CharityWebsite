@@ -27,8 +27,8 @@
     <div id="navBarButtons" class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
             <li class="navbar-item active"><a class="nav-link" href="/">Home</a></li>
-            <li class="navbar-item active"><a class="nav-link" href="#">Search</a></li>
-            <li class="navbar-item active"><a class="nav-link" href="#">A Random Charity</a></li>
+            <li class="navbar-item active"><a class="nav-link" href="/results">Search</a></li>
+            <li class="navbar-item active"><a class="nav-link" href="/charity/random">A Random Charity</a></li>
         </ul>
         <ul class="navbar-nav navbar-right">
             <li class="navbar-item active"><a class="nav-link" href="#" id="editLink">Edit this page</a></li>
@@ -99,12 +99,14 @@
 
             <div class="container">
                 <#list articles as article>
-                    <div class="row">
+                    <div class="row row-article">
                         <div class="col-sm"><a href="#" id="showArticle_${article.id}"
                                                onclick="showArticle(${article.id})">${article.title}</a>
                         </div>
-                        <div class="col-sm">19/10/2017</div>
-                        <div class="col-sm-2">
+                        <#if article.insertTime??>
+                            <div class="col-sm text-right">${article.insertTime?date}</div>
+                        </#if>
+                        <div class="col-sm-2 edit-badge">
                             <button class="btn edit-badge badge-primary" id="editArticleBadge_${article.id}"
                                     onclick="editArticle(${article.id})">
                                 <svg height="28" width="20" viewBox="0 0 14 14" version="1.1" aria-hidden="true">

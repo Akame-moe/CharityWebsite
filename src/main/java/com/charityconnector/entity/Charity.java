@@ -14,21 +14,24 @@ public class Charity {
     private String email;
     private String paypalAccount;
     private String cause;
+    private long causes;
+    private long nations;
     private String verifyCode;
     private int verifyStatus;
+
     /* Required by JPA specification */
     public Charity() {
         super();
     }
 
-    public Charity(String desciption,Long id){
+    public Charity(String desciption, Long id) {
         this.description = desciption;
         this.id = id;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id")
+    @Column(name = "id")
     public Long getId() {
         return id;
     }
@@ -37,7 +40,7 @@ public class Charity {
         this.id = id;
     }
 
-    @Column(name="name")
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -46,7 +49,7 @@ public class Charity {
         this.name = name;
     }
 
-    @Column(name="description")
+    @Column(name = "description")
     public String getDescription() {
         return description;
     }
@@ -55,7 +58,7 @@ public class Charity {
         this.description = description;
     }
 
-    @Column(name="logo_file")
+    @Column(name = "logo_file")
     public String getLogoFile() {
         return logoFile;
     }
@@ -73,7 +76,7 @@ public class Charity {
         this.email = email;
     }
 
-    @Column(name="paypal_account")
+    @Column(name = "paypal_account")
     public String getPaypalAccount() {
         return paypalAccount;
     }
@@ -82,14 +85,24 @@ public class Charity {
         this.paypalAccount = paypalAccount;
     }
 
-    @Column(name="cause")
-    public String getCause() {
-        return cause;
+    @Column(name = "causes")
+    public long getCauses() {
+        return causes;
     }
 
-    public void setCause(String cause) {
-        this.cause = cause;
+    public void setCauses(long causes) {
+        this.causes = causes;
     }
+
+    @Column(name = "nations")
+    public long getNations() {
+        return nations;
+    }
+
+    public void setNations(long nations) {
+        this.nations = nations;
+    }
+
 
     @Column(name="verify_code")
     public String getVerifyCode() {
@@ -107,6 +120,15 @@ public class Charity {
 
     public void setVerifyStatus(int verifyStatus) {
         this.verifyStatus = verifyStatus;
+    }
+
+    @Column(name="cause")
+    public String getCause() {
+        return cause;
+    }
+
+    public void setCause(String cause) {
+        this.cause = cause;
     }
 
 }

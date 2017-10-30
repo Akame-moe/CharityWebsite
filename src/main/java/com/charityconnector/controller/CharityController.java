@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import sun.misc.BASE64Encoder;
 
 import javax.annotation.Resource;
@@ -45,6 +46,16 @@ public class CharityController {
         Charity res = charityService.addCharity(charity);
         return res;
     }
+
+    @RequestMapping(path = "/charity/random", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView getRandomCharity() {
+        Charity res = null;
+        while (res == null)
+            res = charityService.findRandom();
+        return new ModelAndView("redirect:/charityPage/" + res.getId());
+    }
+
 
     @RequestMapping(path = "/charity/{id}", method = RequestMethod.DELETE)
     @ResponseBody
@@ -87,15 +98,8 @@ public class CharityController {
 
     @RequestMapping(path = "/charities", method = RequestMethod.GET)
     @ResponseBody
-    Charity[] getCharitiesByCause(@RequestParam("cause") String cause) {
-        return charityService.findByCause(cause);
-    }
-
-    @RequestMapping(path = "/charity/paypal/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    String getCharityPayPalById(@PathVariable("id") Long id) {
-        Charity charity = charityService.findById(id);
-        return charity.getPaypalAccount();
+    Charity[] getCharitiesByCauses(@RequestParam("cause") long causes) {
+        return charityService.findByCauses(causes);
     }
 
     @RequestMapping(path = "/charity/{id}/verify", method = RequestMethod.POST)

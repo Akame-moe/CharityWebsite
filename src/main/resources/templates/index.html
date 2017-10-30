@@ -21,9 +21,9 @@
     <span class="navbar-brand">ConnectCharites</span>
     <div id="navBarButtons" class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
-            <li class="navbar-item active"><a class="nav-link" href="#">Home</a></li>
-            <li class="navbar-item active"><a class="nav-link" href="#">Search</a></li>
-            <li class="navbar-item active"><a class="nav-link" href="#">A Random Charity</a></li>
+            <li class="navbar-item active"><a class="nav-link" href="/">Home</a></li>
+            <li class="navbar-item active"><a class="nav-link" href="/results">Search</a></li>
+            <li class="navbar-item active"><a class="nav-link" href="/charity/random">A Random Charity</a></li>
         </ul>
         <ul class="navbar-nav navbar-right">
 
@@ -69,10 +69,11 @@
 
 <div class="verticalSpacer"></div>
 
-<form>
+<form id="searchForm" action="results">
     <div class="form-group container">
-        <input type="text" class="form-control" id="searchBox" aria-describedby="searchHelp"
-               placeholder="Serach charities">
+        <input type="text" class="form-control" name="name" aria-describedby="searchHelp"
+               placeholder="Serach charities" onkeydown="searchBarKeyDown()">
+        <input type="submit" id="searchFormSubmit" style="visibility: hidden;"/>
     </div>
 </form>
 
@@ -124,14 +125,13 @@
     </div>
 </footer>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
         integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
         crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
         integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
         crossorigin="anonymous"></script>
+
+<script src="../script/resultsPage.js"></script>
 </body>
 </html>
