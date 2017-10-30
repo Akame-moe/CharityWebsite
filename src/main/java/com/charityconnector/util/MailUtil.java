@@ -64,7 +64,7 @@ public class MailUtil implements Runnable {
             message.setFrom(new InternetAddress(from));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
             message.setSubject("Account Verification");
-            String content = "<html><head></head><body><h1>This is a email to verify your account, please click the following link to verify it</h1><h3>" +
+            String content = "<html><head></head><body><h2>Please click the following link to verify your charity account:</h2></br></br><h3>" +
                              "<a href='http://"+localIP+":8080/verifyCharity/"+charityID+"/"+code +
                              "'>http://"+localIP+":8080/verifyCharity/"+charityID+"/"+code+"</href></h3></body></html>";
             message.setContent(content, "text/html;charset=UTF-8");
