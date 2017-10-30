@@ -91,13 +91,6 @@ public class CharityController {
         return charityService.findByCause(cause);
     }
 
-    @RequestMapping(path = "/charity/paypal/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    String getCharityPayPalById(@PathVariable("id") Long id) {
-        Charity charity = charityService.findById(id);
-        return charity.getPaypalAccount();
-    }
-
     @RequestMapping(path = "/charity/{id}/active", method = RequestMethod.POST)
     public ResponseEntity<String> activeCharity(@PathVariable("id") Long id) {
         System.out.println("ID is :" + id);
