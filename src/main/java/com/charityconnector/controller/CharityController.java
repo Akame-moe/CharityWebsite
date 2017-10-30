@@ -5,6 +5,8 @@ import com.charityconnector.service.ArticleService;
 import com.charityconnector.service.CharityService;
 import com.charityconnector.util.CodeUtil;
 import com.charityconnector.util.MailUtil;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -60,11 +62,6 @@ public class CharityController {
 	    model.put("charity", charityService.findById(id));
         model.put("articles", articleService.findArticlesByCharityId(id));
 
-        // Test Email
-        String code= CodeUtil.generateUniqueCode();
-        String email = "dongming.sun@outlook.com";
-        new Thread(new MailUtil(email, code)).start();;
-
         return "charityPage";
     }
 
@@ -85,5 +82,15 @@ public class CharityController {
         } else {
             return "Update File, the File is empty.";
         }
+    }
+
+    @RequestMapping(path = "/charity/{id}/active", method = RequestMethod.POST)
+    public ResponseEntity<String> activeCharity(@PathVariable("id") Long id) {
+        System.out.println("ID is :"+id);
+        // Test Email
+        String code= CodeUtil.generateUniqueCode();
+        String email = "398712463@qq.com";
+        new Thread(new MailUtil(email, code)).start();;
+        return new ResponseEntity<String>(HttpStatus.OK);
     }
 }

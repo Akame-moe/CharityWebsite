@@ -2,6 +2,22 @@ var areYouSureText = "Are you sure? You are about to delete the article";
 
 $(document).ready(function(){
     $("#editLink").click(editModeToggle);
+
+    $("#active-button").click(function(){
+        var id = $("#active-button").attr("data-value");
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "/charity/"+id+"/active",
+            success: function () {
+                alert("Active Success");
+            },
+            error: function (e) {
+                alert("There was an error communicating with the server");
+                console.log("ERROR : ", e);
+            }
+        });
+    });
 });
 
 function editModeToggle() {
