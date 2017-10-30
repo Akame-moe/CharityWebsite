@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import sun.misc.BASE64Encoder;
 
 import javax.annotation.Resource;
@@ -45,6 +46,16 @@ public class CharityController {
         Charity res = charityService.addCharity(charity);
         return res;
     }
+
+    @RequestMapping(path = "/charity/random", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView getRandomCharity() {
+        Charity res = null;
+        while (res == null)
+            res = charityService.findRandom();
+        return new ModelAndView("redirect:/charityPage/" + res.getId());
+    }
+
 
     @RequestMapping(path = "/charity/{id}", method = RequestMethod.DELETE)
     @ResponseBody
@@ -98,7 +109,6 @@ public class CharityController {
         String code = CodeUtil.generateUniqueCode();
         String email = "398712463@qq.com";
         new Thread(new MailUtil(email, code)).start();
-        ;
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 }

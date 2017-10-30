@@ -4,6 +4,7 @@ import com.charityconnector.WebsiteApplication;
 import com.charityconnector.entity.Article;
 import com.charityconnector.service.ArticleService;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = WebsiteApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ArticleServiceTest {
 
+    //this should go
     @Autowired
     ArticleService articleService;
+
+    @Before
+    public void makeDB() {
+        //make fake in memory db
+        //load it with data
+        //connect article service with this db
+    }
 
     @Test
     public void crudArticle() {

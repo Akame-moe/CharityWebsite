@@ -9,3 +9,8 @@ $(document).ready(function () {
         }
     });
 });
+
+function searchBarKeyDown(key) {
+    if (key.keyCode === 13)
+        $('#searchFormSubmit').click();
+}

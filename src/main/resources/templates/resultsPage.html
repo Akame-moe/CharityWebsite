@@ -21,9 +21,9 @@
     <span class="navbar-brand">ConnectCharites</span>
     <div id="navBarButtons" class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
-            <li class="navbar-item active"><a class="nav-link" href="#">Home</a></li>
-            <li class="navbar-item active"><a class="nav-link" href="#">Search</a></li>
-            <li class="navbar-item active"><a class="nav-link" href="#">A Random Charity</a></li>
+            <li class="navbar-item active"><a class="nav-link" href="/">Home</a></li>
+            <li class="navbar-item active"><a class="nav-link" href="/results">Search</a></li>
+            <li class="navbar-item active"><a class="nav-link" href="/charity/random">A Random Charity</a></li>
         </ul>
         <ul class="navbar-nav navbar-right">
 
@@ -31,28 +31,50 @@
     </div>
 </nav>
 <div id="main-container">
-    <form id="searchBar">
+    <form id="searchForm" action="results">
         <div class="form-group container">
-            <input type="text" class="form-control" id="searchBox" aria-describedby="searchHelp"
-                   placeholder="Serach charities">
+            <input type="text" class="form-control" name="name" aria-describedby="searchHelp"
+                   placeholder="Serach charities" value="${searchedName!}" onkeydown="searchBarKeyDown()">
+            <input type="submit" id="searchFormSubmit" style="visibility: hidden;"/>
         </div>
     </form>
 
-    <div id="searchResultsContainer" class="container">
-        <#list charities as charity>
-            <div class="row my-2" id="charity-row-${charity.id}">
-                <div class="col-md-3" id="charity-img-${charity.id}"><img alt="Charity logo" width="150px"
-                                                                          height="150px"
-                                                                          src=${charity.logoFile!"../img/no-charity-logo.png"}>
+    <#if charities??>
+        <div id="searchResultsContainer" class="container">
+
+            <#list charities as charity>
+                <div class="row my-5" id="charity-row-${charity.id}">
+                    <div class="col-md-3" id="charity-img-${charity.id}"><img alt="Charity logo" width="150px"
+                                                                              height="150px"
+                                                                              src=${charity.logoFile!"../img/no-charity-logo.png"}>
+                    </div>
+                    <div class="col-md-9" id="charity-body-${charity.id}">
+                        <p>${charity.id} ${charity.name}</p>
+                        <p class="charity-desc-p">${charity.description}</p>
+                    </div>
                 </div>
-                <div class="col-md-9" id="charity-body-${charity.id}">
-                    <p>${charity.id} ${charity.name}</p>
-                    <p class="charity-desc-p">${charity.description}</p>
+            </#list>
+        </div>
+        <#else>
+            <#if searchedName??>
+                <div id="sorryNoCharties" class="container">
+                    No charities matched your search, please try again
                 </div>
-            </div>
-        </#list>
-    </div>
+            </#if>
+    </#if>
 </div>
+
+<#if charities??>
+    <div id="pageChanger" class="container text-center">
+        <#if pageNumber!= 0>
+            <a href="results?name=${searchedName}&pageSize=${pageSize}&pageNumber=${pageNumber - 1}"><</a>
+        </#if>
+        <span id="pageCounter">Page ${pageNumber + 1} of ${numberOfPages}</span>
+        <#if pageNumber!= (numberOfPages - 1)>
+            <a href="results?name=${searchedName}&pageSize=${pageSize}&pageNumber=${pageNumber + 1}">></a>
+        </#if>
+    </div>
+</#if>
 
 <footer class="footer p-5">
     <div class="container">
