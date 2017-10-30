@@ -23,4 +23,6 @@ public interface CharityService {
 
 
     Charity[] getPaged(Pageable pageable);
+
+    Charity[] findByCause(String cause);
 }

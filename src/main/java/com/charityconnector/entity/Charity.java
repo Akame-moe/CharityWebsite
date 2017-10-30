@@ -11,6 +11,9 @@ public class Charity {
     private String name;
     private String description;
     private String logoFile;
+    private String emailAddress;
+    private String paypalAccount;
+    private String cause;
 
     /* Required by JPA specification */
     public Charity() {
@@ -58,6 +61,33 @@ public class Charity {
 
     public void setLogoFile(String logoFile) {
         this.logoFile = logoFile;
+    }
+
+    @Column(name="email_address")
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    @Column(name="paypal_account")
+    public String getPaypalAccount() {
+        return paypalAccount;
+    }
+
+    public void setPaypalAccount(String paypalAccount) {
+        this.paypalAccount = paypalAccount;
+    }
+
+    @Column(name="cause")
+    public String getCause() {
+        return cause;
+    }
+
+    public void setCause(String cause) {
+        this.cause = cause;
     }
 
 }

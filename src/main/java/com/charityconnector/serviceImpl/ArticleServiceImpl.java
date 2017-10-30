@@ -6,6 +6,7 @@ import com.charityconnector.service.ArticleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -30,6 +31,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Article addArticle(Article article) {
+        Date now = new Date();
+        article.setInsertTime(now);
+        article.setUpdateTime(now);
         return articleRepository.save(article);
     }
 
@@ -51,11 +55,15 @@ public class ArticleServiceImpl implements ArticleService {
             Long cId = article.getCharityId() > 0 ? origin.getCharityId() : article.getCharityId();
             readyToUpdate.setCharityId(cId);
         }
+        Date now = new Date();
+        readyToUpdate.setUpdateTime(now);
         articleRepository.save(readyToUpdate);
     }
 
     @Override
     public void updateDirect(Article article) {
+        Date now = new Date();
+        article.setUpdateTime(now);
         articleRepository.save(article);
     }
 }

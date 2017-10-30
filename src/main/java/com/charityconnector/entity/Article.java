@@ -1,6 +1,7 @@
 package com.charityconnector.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 
 @Entity
@@ -10,6 +11,9 @@ public class Article {
     private String title;
     private String body;
     private Long charityId;
+    private Date insertTime;
+    private Date updateTime;
+
 
     /* Required by JPA specification */
     public Article() {
@@ -58,6 +62,27 @@ public class Article {
     public void setCharityId(long charityId) {
         this.charityId = charityId;
     }
+
+
+
+    @Column(name="insert_time")
+    public Date getInsertTime() {
+        return insertTime;
+    }
+
+    public void setInsertTime(Date insertTime) {
+        this.insertTime = insertTime;
+    }
+
+    @Column(name="update_time")
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
 
 }
 

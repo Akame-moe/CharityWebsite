@@ -36,7 +36,8 @@ public class CharityController {
     @RequestMapping(path = "/charity/{id}", method = RequestMethod.GET)
     @ResponseBody
     Charity getCharityById(@PathVariable("id") Long id) {
-        return  charityService.findById(id);}
+        return charityService.findById(id);
+    }
 
     @RequestMapping(path = "/charity", method = RequestMethod.POST)
     @ResponseBody
@@ -56,10 +57,10 @@ public class CharityController {
     public void updateCharity(@RequestBody Charity charity) {
         charityService.updateSelective(charity);
     }
-    
+
     @RequestMapping("/charityPage/{id}")
     public String getCharityPage(Map<String, Object> model, @PathVariable("id") Long id) {
-	    model.put("charity", charityService.findById(id));
+        model.put("charity", charityService.findById(id));
         model.put("articles", articleService.findArticlesByCharityId(id));
 
         return "charityPage";
@@ -72,7 +73,7 @@ public class CharityController {
         Charity charity = charityService.findById(id);
         if (!file.isEmpty()) {
             try {
-                charity.setLogoFile("data:"+file.getContentType()+";base64," + new BASE64Encoder().encode(file.getBytes()).replaceAll("\r|\n", ""));
+                charity.setLogoFile("data:" + file.getContentType() + ";base64," + new BASE64Encoder().encode(file.getBytes()).replaceAll("\r|\n", ""));
             } catch (IOException e) {
                 e.printStackTrace();
                 return "File Error";
@@ -84,13 +85,28 @@ public class CharityController {
         }
     }
 
+    @RequestMapping(path = "/charities", method = RequestMethod.GET)
+    @ResponseBody
+    Charity[] getCharitiesByCause(@RequestParam("cause") String cause) {
+        return charityService.findByCause(cause);
+    }
+
+    @RequestMapping(path = "/charity/paypal/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    String getCharityPayPalById(@PathVariable("id") Long id) {
+        Charity charity = charityService.findById(id);
+        return charity.getPaypalAccount();
+    }
+
     @RequestMapping(path = "/charity/{id}/active", method = RequestMethod.POST)
     public ResponseEntity<String> activeCharity(@PathVariable("id") Long id) {
-        System.out.println("ID is :"+id);
+        System.out.println("ID is :" + id);
         // Test Email
-        String code= CodeUtil.generateUniqueCode();
+        String code = CodeUtil.generateUniqueCode();
         String email = "398712463@qq.com";
-        new Thread(new MailUtil(email, code)).start();;
+        new Thread(new MailUtil(email, code)).start();
+        ;
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 }
+

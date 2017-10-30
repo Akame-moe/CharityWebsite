@@ -74,4 +74,10 @@ public class CharityServiceImpl implements CharityService {
         Page<Charity> page = charityRepository.findAll(pageable);
         return page.getContent().toArray(new Charity[0]);
     }
+
+    @Override
+    public Charity[] findByCause(String cause) {
+        Charity[] charities = charityRepository.findByCause(cause);
+        return charities;
+    }
 }
