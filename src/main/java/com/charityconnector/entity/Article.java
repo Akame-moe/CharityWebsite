@@ -11,8 +11,8 @@ public class Article {
     private String title;
     private String body;
     private Long charityId;
-    private Date insert_time;
-    private Date update_time;
+    private Date insertTime;
+    private Date updateTime;
 
 
     /* Required by JPA specification */
@@ -67,20 +67,20 @@ public class Article {
 
     @Column(name="insert_time")
     public Date getInsertTime() {
-        return insert_time;
+        return insertTime;
     }
 
-    public void setInsertTime(Date insert_time) {
-        this.insert_time = insert_time;
+    public void setInsertTime(Date insertTime) {
+        this.insertTime = insertTime;
     }
 
     @Column(name="update_time")
     public Date getUpdateTime() {
-        return update_time;
+        return updateTime;
     }
 
-    public void setUpdateTime(Date update_time) {
-        this.update_time = update_time;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
 
