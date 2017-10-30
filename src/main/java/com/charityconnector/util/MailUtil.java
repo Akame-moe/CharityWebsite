@@ -1,6 +1,7 @@
 package com.charityconnector.util;
 
 
+import java.net.InetAddress;
 import java.util.Properties;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -13,7 +14,7 @@ import com.sun.mail.util.MailSSLSocketFactory;
 
 public class MailUtil implements Runnable {
     private String email;// The email address of receiver
-    private String code;// active code
+    private String code;// verify code
 
     public MailUtil(String email, String code) {
         this.email = email;
@@ -25,8 +26,8 @@ public class MailUtil implements Runnable {
         // 1. create connection object javax.mail.Session
         // 2. create mail object javax.mail.Message
         // 3. send a active email
-        String from = "398712463@qq.com";// The email address of sender.
-        String host = "smtp.qq.com"; // The host of sending email smtp.qq.com(QQ)
+        String from = "398712463@qq.com";
+        String host = "smtp.qq.com";
 
         Properties properties = System.getProperties();// Get system property
         properties.put("mail.smtp.ssl.enable", "true");
@@ -53,20 +54,18 @@ public class MailUtil implements Runnable {
                 }
             });
 
-            // Create Email Object
+            String localIP  = InetAddress.getLocalHost().getHostAddress();
+            // Get the IP address of the local machine
+            System.out.println("The localIP is :"+localIP);
+            // Create Email Object and set the email contents
             Message message = new MimeMessage(session);
-            //  Set the sender.
             message.setFrom(new InternetAddress(from));
-            //  Set the receiver
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
-            //  Set Email title
-            message.setSubject("Account Activation");
-            //  Set email content
-            String content = "<html><head></head><body><h1>This is a email to active your account, please click the following link to active it</h1><h3><a href='http://localhost:8080/RegisterDemo/ActiveServlet?code="
-                    + code + "'>http://localhost:8080/RegisterDemo/ActiveServlet?code=" + code
+            message.setSubject("Account erification");
+            String content = "<html><head></head><body><h1>This is a email to verify your account, please click the following link to verify it</h1><h3><a href='http://"+localIP+":8080/RegisterDemo/ActiveServlet?code="
+                    + code + "'>http://"+localIP+":8080/RegisterDemo/ActiveServlet?code=" + code
                     + "</href></h3></body></html>";
             message.setContent(content, "text/html;charset=UTF-8");
-            // 3.Send the email
             Transport.send(message);
             System.out.println("The email is sent successfully!");
         } catch (Exception e) {

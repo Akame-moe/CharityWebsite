@@ -8,7 +8,7 @@ $(document).ready(function(){
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: "/charity/"+id+"/active",
+            url: "/charity/"+id+"/verify",
             success: function () {
                 alert("Active Success");
             },

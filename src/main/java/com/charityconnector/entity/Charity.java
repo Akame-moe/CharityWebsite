@@ -11,10 +11,11 @@ public class Charity {
     private String name;
     private String description;
     private String logoFile;
-    private String emailAddress;
+    private String email;
     private String paypalAccount;
     private String cause;
-
+    private String verifyCode;
+    private int verifyStatus;
     /* Required by JPA specification */
     public Charity() {
         super();
@@ -63,13 +64,13 @@ public class Charity {
         this.logoFile = logoFile;
     }
 
-    @Column(name="email_address")
-    public String getEmailAddress() {
-        return emailAddress;
+    @Column(name="email")
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Column(name="paypal_account")
@@ -88,6 +89,24 @@ public class Charity {
 
     public void setCause(String cause) {
         this.cause = cause;
+    }
+
+    @Column(name="verify_code")
+    public String getVerifyCode() {
+        return verifyCode;
+    }
+
+    public void setVerifyCode(String verifyCode) {
+        this.verifyCode = verifyCode;
+    }
+
+    @Column(name="verify_status")
+    public int getVerifyStatus() {
+        return verifyStatus;
+    }
+
+    public void setVerifyStatus(int verifyStatus) {
+        this.verifyStatus = verifyStatus;
     }
 
 }

@@ -98,14 +98,13 @@ public class CharityController {
         return charity.getPaypalAccount();
     }
 
-    @RequestMapping(path = "/charity/{id}/active", method = RequestMethod.POST)
-    public ResponseEntity<String> activeCharity(@PathVariable("id") Long id) {
+    @RequestMapping(path = "/charity/{id}/verify", method = RequestMethod.POST)
+    public ResponseEntity<String> verifyCharity(@PathVariable("id") Long id) {
         System.out.println("ID is :" + id);
         // Test Email
         String code = CodeUtil.generateUniqueCode();
         String email = "398712463@qq.com";
         new Thread(new MailUtil(email, code)).start();
-        ;
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 }
