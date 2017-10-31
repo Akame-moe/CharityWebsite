@@ -1,4 +1,4 @@
-package service;
+package integration.service;
 
 import com.charityconnector.WebsiteApplication;
 import com.charityconnector.entity.Charity;

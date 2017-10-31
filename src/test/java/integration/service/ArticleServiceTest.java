@@ -1,4 +1,4 @@
-package service;
+package integration.service;
 
 import com.charityconnector.WebsiteApplication;
 import com.charityconnector.entity.Article;
@@ -12,10 +12,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = WebsiteApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -84,7 +80,7 @@ public class ArticleServiceTest {
             Article[] articles = articleService.findArticlesByCharityId(charityId);
             Assert.assertTrue(articles.length == 2);
             for (Article a : articles) {
-                if (a.getId() == article1.getId()) {
+                if (a.getId().equals(article1.getId())) {
                     Assert.assertEquals(article1.getTitle(), a.getTitle());
                 } else {
                     Assert.assertEquals(article2.getTitle(), a.getTitle());

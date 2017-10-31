@@ -1,4 +1,4 @@
-package service;
+package unit.service;
 
 import com.charityconnector.dao.CharityRepository;
 import com.charityconnector.entity.Charity;

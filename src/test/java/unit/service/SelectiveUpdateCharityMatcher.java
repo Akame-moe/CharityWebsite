@@ -1,4 +1,4 @@
-package service;
+package unit.service;
 
 import com.charityconnector.entity.Charity;
 import org.mockito.ArgumentMatcher;
