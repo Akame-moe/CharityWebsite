@@ -10,7 +10,7 @@ $(document).ready(function(){
             contentType: "application/json",
             url: "/charity/"+id+"/verify",
             success: function () {
-                alert("A verify message has been send to your email, please check it!");
+                alert("Active Success");
             },
             error: function (e) {
                 alert("There was an error communicating with the server");

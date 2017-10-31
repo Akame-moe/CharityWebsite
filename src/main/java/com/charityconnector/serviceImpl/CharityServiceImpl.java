@@ -54,9 +54,6 @@ public class CharityServiceImpl implements CharityService {
 
             String logoPath = charity.getLogoFile() == null ? origin.getLogoFile() : charity.getLogoFile();
             readyToUpdate.setLogoFile(logoPath);
-
-
-
         }
         charityRepository.save(readyToUpdate);
         //charityRepository.updateById(readyToUpdate.getId(), readyToUpdate.getName(), readyToUpdate.getDescription());

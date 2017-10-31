@@ -77,16 +77,16 @@ public class ArticleServiceTest {
             article2.setCharityId(charityId);
             article2.setTitle("article2");
 
-            Article article1Added = articleService.addArticle(article1);
-            Article article2Added = articleService.addArticle(article2);
+            articleService.addArticle(article1);
+            articleService.addArticle(article2);
 
             // compare the result findArticlesByCharityId and the article objects we created
             Article[] articles = articleService.findArticlesByCharityId(charityId);
             Assert.assertTrue(articles.length == 2);
             for (Article a : articles) {
-                if (a.getId() == article1Added.getId()) {
+                if (a.getId() == article1.getId()) {
                     Assert.assertEquals(article1.getTitle(), a.getTitle());
-                } else if (a.getId() == article2Added.getId()) {
+                } else {
                     Assert.assertEquals(article2.getTitle(), a.getTitle());
                 }
             }
