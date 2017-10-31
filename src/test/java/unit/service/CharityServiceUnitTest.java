@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 
@@ -30,10 +31,6 @@ public class CharityServiceUnitTest {
 
     @Mock
     CharityRepository mockRepo;
-
-    //can use to capture changes in an object
-    //@Captor
-    //private ArgumentCaptor<Article> articleCaptor;
 
     @Before
     public void initService() {
@@ -49,7 +46,7 @@ public class CharityServiceUnitTest {
         Charity returnedCharity = charityService.getCharity();
 
         verify(mockRepo, times(1)).findOne(1L);
-        assert (returnedCharity == charity);
+        assertThat(returnedCharity, equalTo(charity));
     }
 
     @Test
@@ -60,7 +57,7 @@ public class CharityServiceUnitTest {
 
         Charity returnedCharity = charityService.addCharity(charity);
 
-        assert (returnedCharity == charity);
+        assertThat(returnedCharity, equalTo(charity));
 
         verify(mockRepo, times(1)).save(charity);
         verifyNoMoreInteractions(mockRepo);
@@ -77,7 +74,7 @@ public class CharityServiceUnitTest {
 
         verify(mockRepo, times(1)).findByNameLike("name");
         verifyNoMoreInteractions(mockRepo);
-        assert (returnedCharities == charities);
+        assertThat(returnedCharities, equalTo(charities));
     }
 
     @Test
@@ -89,7 +86,7 @@ public class CharityServiceUnitTest {
         Charity returnedCharity = charityService.findRandom();
 
         verify(mockRepo, times(1)).findRandom();
-        assert (returnedCharity == charity);
+        assertThat(returnedCharity, equalTo(charity));
     }
 
     @Test
@@ -153,7 +150,7 @@ public class CharityServiceUnitTest {
         verify(mockRepo, times(1)).findAll(pageable);
         verifyNoMoreInteractions(mockRepo);
 
-        assert (returnedCharities[0] == charity);
+        assertThat(returnedCharities[0], equalTo(charity));
     }
 
     @Test
@@ -177,6 +174,6 @@ public class CharityServiceUnitTest {
         verify(mockRepo, times(1)).findByNameLike(name, pageable);
         verifyNoMoreInteractions(mockRepo);
 
-        assert (returnedCharities.getContent().get(0) == charity);
+        assertThat(returnedCharities.getContent().get(0), equalTo(charity));
     }
 }

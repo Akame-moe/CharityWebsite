@@ -1,8 +1,8 @@
 package com.charityconnector.controller;
 
 import com.charityconnector.entity.Charity;
-import com.charityconnector.service.ArticleService;
 import com.charityconnector.service.CharityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -17,16 +17,17 @@ import java.util.Map;
 
 @Controller
 public class SearchController {
-
     @Resource
     private CharityService charityService;
 
-    @Resource
-    private ArticleService articleService;
+    @Autowired
+    public SearchController(CharityService charityService) {
+        this.charityService = charityService;
+    }
 
     @RequestMapping("/results")
     public String getResultsPage(Map<String, Object> model, @RequestParam(defaultValue = "") String name, @RequestParam(defaultValue = "0") int pageNumber, @RequestParam(defaultValue = "10") int pageSize) {
-        if (name.trim().equals(""))
+        if (name == null || name.trim().equals(""))
             return "resultsPage";
         if (pageSize != 10 && pageSize != 25 && pageSize != 50)
             pageSize = 10;
