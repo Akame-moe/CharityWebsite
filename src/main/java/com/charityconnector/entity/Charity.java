@@ -8,6 +8,19 @@ public class Charity {
 
 
     private Long id;
+
+    public Charity(Long id, String name, String description, String logoFile, String email, String paypalAccount, String cause, String verifyCode, int verifyStatus) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.logoFile = logoFile;
+        this.email = email;
+        this.paypalAccount = paypalAccount;
+        this.cause = cause;
+        this.verifyCode = verifyCode;
+        this.verifyStatus = verifyStatus;
+    }
+
     private String name;
     private String description;
     private String logoFile;
@@ -65,7 +78,7 @@ public class Charity {
         this.logoFile = logoFile;
     }
 
-    @Column(name="email")
+    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -84,7 +97,7 @@ public class Charity {
     }
 
 
-    @Column(name="verify_code")
+    @Column(name = "verify_code")
     public String getVerifyCode() {
         return verifyCode;
     }
@@ -93,7 +106,7 @@ public class Charity {
         this.verifyCode = verifyCode;
     }
 
-    @Column(name="verify_status")
+    @Column(name = "verify_status")
     public int getVerifyStatus() {
         return verifyStatus;
     }
@@ -102,7 +115,7 @@ public class Charity {
         this.verifyStatus = verifyStatus;
     }
 
-    @Column(name="cause")
+    @Column(name = "cause")
     public String getCause() {
         return cause;
     }

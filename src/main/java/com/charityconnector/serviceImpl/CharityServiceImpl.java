@@ -3,6 +3,7 @@ package com.charityconnector.serviceImpl;
 import com.charityconnector.dao.CharityRepository;
 import com.charityconnector.entity.Charity;
 import com.charityconnector.service.CharityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,11 @@ public class CharityServiceImpl implements CharityService {
 
     @Resource
     private CharityRepository charityRepository;
+
+    @Autowired
+    public CharityServiceImpl(CharityRepository charityRepository) {
+        this.charityRepository = charityRepository;
+    }
 
     @Override
     public Charity getCharity() {

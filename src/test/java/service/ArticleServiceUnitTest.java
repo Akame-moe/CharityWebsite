@@ -79,10 +79,22 @@ public class ArticleServiceUnitTest {
     }
 
     @Test
-    public void selectiveUpdatingArticle() {
-        Article newArticle = new Article(1L, "myarticle", "abody", 1L, new Date(), new Date());
+    public void addingArticle() {
+        Article article = new Article();
+        article.setCharityId(1L);
 
-        Article oldArticle = new Article(1L, null, "adifferentbody", null, new Date(), null);
+        articleService.addArticle(article);
+
+        //checking that mock repository's method delete has been called exactly one time with parameter 1L
+        verify(mockRepo, times(1)).save(article);
+        verifyNoMoreInteractions(mockRepo);
+    }
+
+    @Test
+    public void selectiveUpdatingArticle() {
+        Article oldArticle = new Article(1L, "myarticle", "abody", 1L, new Date(), new Date());
+
+        Article newArticle = new Article(1L, null, "adifferentbody", null, new Date(), null);
 
         when(mockRepo.findOne(1L)).thenReturn(oldArticle);
 
@@ -93,6 +105,13 @@ public class ArticleServiceUnitTest {
 
     @Test
     public void directlyUpdatingArticle() {
+        Article article = new Article();
+        article.setCharityId(1L);
 
+        articleService.updateDirect(article);
+
+        //checking that mock repository's method delete has been called exactly one time with parameter 1L
+        verify(mockRepo, times(1)).save(article);
+        verifyNoMoreInteractions(mockRepo);
     }
 }

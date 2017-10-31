@@ -19,7 +19,6 @@ public class SelectiveUpdateArticleMatcher extends ArgumentMatcher<Article> {
             return true;
         if (argument.equals(thisObject))
             return true;
-        Article otherObject = (Article) argument;
         if (thisObject.getId() != null && !thisObject.getId().equals(((Article) argument).getId()))
             return false;
         if (thisObject.getBody() != null && !thisObject.getBody().equals(((Article) argument).getBody()))
