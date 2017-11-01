@@ -1,6 +1,7 @@
 package com.charityconnector.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "charity")
@@ -9,24 +10,25 @@ public class Charity {
 
     private Long id;
 
-    public Charity(Long id, String name, String description, String logoFile, String email, String paypalAccount, String cause, String verifyCode, int verifyStatus) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.logoFile = logoFile;
-        this.email = email;
-        this.paypalAccount = paypalAccount;
-        this.cause = cause;
-        this.verifyCode = verifyCode;
-        this.verifyStatus = verifyStatus;
-    }
+    private Set<Cause> causes;
 
     private String name;
     private String description;
     private String logoFile;
     private String email;
     private String paypalAccount;
-    private String cause;
+
+    public Charity(Long id, String name, String description, String logoFile, String email, String paypalAccount, Set<Cause> causes, String verifyCode, int verifyStatus) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.logoFile = logoFile;
+        this.email = email;
+        this.paypalAccount = paypalAccount;
+        this.causes = causes;
+        this.verifyCode = verifyCode;
+        this.verifyStatus = verifyStatus;
+    }
     private String verifyCode;
     private int verifyStatus;
 
@@ -116,12 +118,14 @@ public class Charity {
     }
 
     @Column(name = "cause")
-    public String getCause() {
-        return cause;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "causes", joinColumns = @JoinColumn(name = "charity_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "cause_id", referencedColumnName = "id"))
+    public Set<Cause> getCauses() {
+        return causes;
     }
 
-    public void setCause(String cause) {
-        this.cause = cause;
+    public void setCauses(Set<Cause> causes) {
+        this.causes = causes;
     }
 
 }
