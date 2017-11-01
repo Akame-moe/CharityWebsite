@@ -11,14 +11,17 @@ public class Charity {
     private Long id;
 
     private Set<Cause> causes;
+    private Set<Country> countries;
 
     private String name;
     private String description;
     private String logoFile;
     private String email;
     private String paypalAccount;
+    private String verifyCode;
+    private int verifyStatus;
 
-    public Charity(Long id, String name, String description, String logoFile, String email, String paypalAccount, Set<Cause> causes, String verifyCode, int verifyStatus) {
+    public Charity(Long id, String name, String description, String logoFile, String email, String paypalAccount, Set<Cause> causes, Set<Country> countries, String verifyCode, int verifyStatus) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -26,11 +29,10 @@ public class Charity {
         this.email = email;
         this.paypalAccount = paypalAccount;
         this.causes = causes;
+        this.countries = countries;
         this.verifyCode = verifyCode;
         this.verifyStatus = verifyStatus;
     }
-    private String verifyCode;
-    private int verifyStatus;
 
     /* Required by JPA specification */
     public Charity() {
@@ -117,7 +119,6 @@ public class Charity {
         this.verifyStatus = verifyStatus;
     }
 
-    @Column(name = "cause")
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "causes", joinColumns = @JoinColumn(name = "charity_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "cause_id", referencedColumnName = "id"))
     public Set<Cause> getCauses() {
@@ -126,6 +127,16 @@ public class Charity {
 
     public void setCauses(Set<Cause> causes) {
         this.causes = causes;
+    }
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "countries", joinColumns = @JoinColumn(name = "charity_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "country_id", referencedColumnName = "id"))
+    public Set<Country> getCountries() {
+        return countries;
+    }
+
+    public void setCountries(Set<Country> countries) {
+        this.countries = countries;
     }
 
 }

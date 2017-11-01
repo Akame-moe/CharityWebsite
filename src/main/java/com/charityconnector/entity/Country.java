@@ -1,7 +1,7 @@
 package com.charityconnector.entity;
 
 import javax.persistence.*;
-
+import java.util.Set;
 
 
 @Entity
@@ -9,15 +9,17 @@ import javax.persistence.*;
 public class Country {
     private Long id;
     private String countryValue;
+    private Set<Charity> charities;
 
     /* Required by JPA specification */
     public Country() {
         super();
     }
 
-    public Country(Long id, String countryValue) {
+    public Country(Long id, String countryValue, Set<Charity> charities) {
         this.id = id;
         this.countryValue = countryValue;
+        this.charities = charities;
     }
 
     @Id
@@ -36,6 +38,15 @@ public class Country {
     }
     public void setCountryValue(String countryValue) {
         this.countryValue = countryValue;
+    }
+
+    @ManyToMany(mappedBy = "causes")
+    public Set<Charity> getCharities() {
+        return charities;
+    }
+
+    public void setCharities(Set<Charity> charities) {
+        this.charities = charities;
     }
 
 }
