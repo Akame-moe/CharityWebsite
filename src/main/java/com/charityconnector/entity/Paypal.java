@@ -11,6 +11,7 @@ public class Paypal {
     private Long charityId;
     private int amount;
     private Date date;
+    private String transactionId;
 
 
     /* Required by JPA specification */
@@ -18,11 +19,12 @@ public class Paypal {
         super();
     }
 
-    public Paypal(Long id, Long charityId, int amount, Date date) {
+    public Paypal(Long id, Long charityId, int amount, Date date, String transactionId) {
         this.id = id;
         this.charityId = charityId;
         this.amount = amount;
         this.date = new Date();
+        this.transactionId = transactionId;
     }
 
     public Paypal(long l) {
@@ -65,6 +67,18 @@ public class Paypal {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+
+
+
+    @Column(name="transaction_id")
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
     }
 
 
