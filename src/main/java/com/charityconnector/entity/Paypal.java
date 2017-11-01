@@ -5,29 +5,27 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "transaction")
-public class Transaction {
+@Table(name = "paypal")
+public class Paypal {
     private Long id;
     private Long charityId;
     private int amount;
     private Date date;
-    private String transactionId;
 
 
     /* Required by JPA specification */
-    public Transaction() {
+    public Paypal() {
         super();
     }
 
-    public Transaction(Long id, Long charityId, int amount, Date date, String transactionId) {
+    public Paypal(Long id, Long charityId, int amount, Date date) {
         this.id = id;
         this.charityId = charityId;
         this.amount = amount;
         this.date = new Date();
-        this.transactionId = transactionId;
     }
 
-    public Transaction(long l) {
+    public Paypal(long l) {
     }
 
     @Id
@@ -67,15 +65,6 @@ public class Transaction {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    @Column(name="transaction_id")
-    public String getTransaction_id() {
-        return transactionId;
-    }
-
-    public void setTransaction_id(String transactionId) {
-        this.transactionId = transactionId;
     }
 
 

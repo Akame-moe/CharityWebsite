@@ -1,14 +1,14 @@
 package com.charityconnector.service;
 
-import com.charityconnector.entity.Transaction;
+import com.charityconnector.entity.Paypal;
 
 public interface PaypalService {
 
-    Transaction addPaypal(Transaction transaction);
+    Paypal addPaypal(Paypal paypal);
 
     void deleteById(Long id);
 
-    Transaction findById(Long id);
+    Paypal findById(Long id);
 
-    void updateSelective(Transaction transaction);
+    void updateSelective(Paypal paypal);
 }

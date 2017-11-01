@@ -1,7 +1,7 @@
 package com.charityconnector.serviceImpl;
 
 import com.charityconnector.dao.PaypalRepository;
-import com.charityconnector.entity.Transaction;
+import com.charityconnector.entity.Paypal;
 import com.charityconnector.service.PaypalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +19,10 @@ public class PaypalServiceImpl implements PaypalService {
     }
 
     @Override
-    public Transaction addPaypal(Transaction transaction) {
+    public Paypal addPaypal(Paypal paypal) {
         Date now = new Date();
-        transaction.setDate(now);
-        return paypalRepository.save(transaction);
+        paypal.setDate(now);
+        return paypalRepository.save(paypal);
     }
 
     @Override
@@ -31,27 +31,27 @@ public class PaypalServiceImpl implements PaypalService {
     }
 
     @Override
-    public Transaction findById(Long id) {
+    public Paypal findById(Long id) {
         return paypalRepository.findOne(id);
     }
 
     @Override
-    public void updateSelective(Transaction transaction) {
-        Transaction readyToUpdate = new Transaction();
-        Transaction origin = paypalRepository.findOne(transaction.getId());
+    public void updateSelective(Paypal paypal) {
+        Paypal readyToUpdate = new Paypal();
+        Paypal origin = paypalRepository.findOne(paypal.getId());
 
-        if (transaction.getId() == null) {
+        if (paypal.getId() == null) {
             return;
         } else {
-            readyToUpdate.setId(transaction.getId());
+            readyToUpdate.setId(paypal.getId());
 
-            Date date = transaction.getDate() == null ? origin.getDate() : transaction.getDate();
+            Date date = paypal.getDate() == null ? origin.getDate() : paypal.getDate();
             readyToUpdate.setDate(date);
 
-            int amount = transaction.getAmount() <= 0 ? origin.getAmount() : transaction.getAmount();
+            int amount = paypal.getAmount() <= 0 ? origin.getAmount() : paypal.getAmount();
             readyToUpdate.setAmount(amount);
 
-            long id = transaction.getCharityId() <= 0 ? origin.getCharityId() : transaction.getCharityId();
+            long id = paypal.getCharityId() <= 0 ? origin.getCharityId() : paypal.getCharityId();
             readyToUpdate.setCharityId(id);
         }
         paypalRepository.save(readyToUpdate);
