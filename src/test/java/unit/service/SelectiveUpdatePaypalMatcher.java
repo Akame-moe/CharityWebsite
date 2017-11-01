@@ -1,28 +1,28 @@
 package unit.service;
 
-import com.charityconnector.entity.Paypal;
+import com.charityconnector.entity.Transaction;
 import org.mockito.ArgumentMatcher;
 
-public class SelectiveUpdatePaypalMatcher extends ArgumentMatcher<Paypal>  {
+public class SelectiveUpdatePaypalMatcher extends ArgumentMatcher<Transaction>  {
 
-    Paypal thisObject;
+    Transaction thisObject;
 
-    SelectiveUpdatePaypalMatcher(Paypal thisObject) {
+    SelectiveUpdatePaypalMatcher(Transaction thisObject) {
         this.thisObject = thisObject;
     }
 
     @Override
     public boolean matches(Object argument) {
-        if (!(argument instanceof Paypal))
+        if (!(argument instanceof Transaction))
             return false;
         if (argument == thisObject)
             return true;
         if (argument.equals(thisObject))
             return true;
-        if (thisObject.getId() != null && !thisObject.getId().equals(((Paypal) argument).getId()))
+        if (thisObject.getId() != null && !thisObject.getId().equals(((Transaction) argument).getId()))
             return false;
-        if (thisObject.getCharityId() != (((Paypal) argument).getCharityId()))
+        if (thisObject.getCharityId() != (((Transaction) argument).getCharityId()))
             return false;
-        return thisObject.getAmount() == (((Paypal) argument).getAmount());
+        return thisObject.getAmount() == (((Transaction) argument).getAmount());
     }
 }

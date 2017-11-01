@@ -1,7 +1,7 @@
 package unit.service;
 
 import com.charityconnector.dao.PaypalRepository;
-import com.charityconnector.entity.Paypal;
+import com.charityconnector.entity.Transaction;
 import com.charityconnector.service.PaypalService;
 import com.charityconnector.serviceImpl.PaypalServiceImpl;
 import org.junit.Before;
@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
-public class PaypalServiceUnitTest {
+public class TransactionServiceUnitTest {
 
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
@@ -32,23 +32,23 @@ public class PaypalServiceUnitTest {
 
     @Test
     public void testGetPaypal() {
-        Paypal paypal = new Paypal();
-        paypal.setId(1L);
+        Transaction transaction = new Transaction();
+        transaction.setId(1L);
 
-        when(paypalRepository.findOne(1L)).thenReturn(paypal);
-        Paypal returned = paypalService.findById(1L);
+        when(paypalRepository.findOne(1L)).thenReturn(transaction);
+        Transaction returned = paypalService.findById(1L);
 
         assertThat(returned.getId(), is(1L));
     }
 
     @Test
     public void testAddPaypal() {
-        Paypal paypal = new Paypal();
-        paypal.setId(1L);
+        Transaction transaction = new Transaction();
+        transaction.setId(1L);
 
-        paypalService.addPaypal(paypal);
+        paypalService.addPaypal(transaction);
 
-        verify(paypalRepository, times(1)).save(paypal);
+        verify(paypalRepository, times(1)).save(transaction);
         verifyNoMoreInteractions(paypalRepository);
     }
 
@@ -64,22 +64,22 @@ public class PaypalServiceUnitTest {
     @Test
     public void testUpdatePaypal() {
 
-        Paypal oldPaypal = new Paypal();
-        Paypal newPaypal = new Paypal();
+        Transaction oldTransaction = new Transaction();
+        Transaction newTransaction = new Transaction();
 
-        oldPaypal.setId(1L);
-        oldPaypal.setCharityId(2L);
-        oldPaypal.setAmount(1000);
-        oldPaypal.setDate(new Date());
+        oldTransaction.setId(1L);
+        oldTransaction.setCharityId(2L);
+        oldTransaction.setAmount(1000);
+        oldTransaction.setDate(new Date());
 
-        newPaypal.setId(1L);
-        newPaypal.setCharityId(3L);
-        newPaypal.setAmount(10);
-        newPaypal.setDate(new Date());
+        newTransaction.setId(1L);
+        newTransaction.setCharityId(3L);
+        newTransaction.setAmount(10);
+        newTransaction.setDate(new Date());
 
-        when(paypalRepository.findOne(1L)).thenReturn(oldPaypal);
+        when(paypalRepository.findOne(1L)).thenReturn(oldTransaction);
 
-        paypalService.updateSelective(newPaypal);
-        verify(paypalRepository).save(argThat(new SelectiveUpdatePaypalMatcher(newPaypal)));
+        paypalService.updateSelective(newTransaction);
+        verify(paypalRepository).save(argThat(new SelectiveUpdatePaypalMatcher(newTransaction)));
     }
 }

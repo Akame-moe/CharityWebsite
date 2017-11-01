@@ -1,6 +1,6 @@
 package com.charityconnector.controller;
 
-import com.charityconnector.entity.Paypal;
+import com.charityconnector.entity.Transaction;
 import com.charityconnector.service.PaypalService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,15 +16,15 @@ public class PaypalController {
 
     @RequestMapping(path = "/paypal", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Paypal> addPaypal(@RequestBody Paypal paypal) {
-        Paypal res = paypalService.addPaypal(paypal);
+    public ResponseEntity<Transaction> addPaypal(@RequestBody Transaction transaction) {
+        Transaction res = paypalService.addPaypal(transaction);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/paypal", method = RequestMethod.PATCH)
     @ResponseBody
-    public void updatePaypal(@RequestBody Paypal paypal) {
-        paypalService.updateSelective(paypal);
+    public void updatePaypal(@RequestBody Transaction transaction) {
+        paypalService.updateSelective(transaction);
     }
 
     @RequestMapping(path = "/paypal/{id}", method = RequestMethod.DELETE)
@@ -35,7 +35,7 @@ public class PaypalController {
 
     @RequestMapping(path = "/paypal/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Paypal> getPaypalById(@PathVariable("id") Long id) {
+    public ResponseEntity<Transaction> getPaypalById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(paypalService.findById(id), HttpStatus.OK);
     }
 
