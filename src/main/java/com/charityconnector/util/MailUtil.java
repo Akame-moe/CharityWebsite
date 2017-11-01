@@ -1,6 +1,5 @@
 package com.charityconnector.util;
 
-
 import java.net.InetAddress;
 import java.util.Properties;
 import javax.mail.Authenticator;
@@ -15,10 +14,12 @@ import com.sun.mail.util.MailSSLSocketFactory;
 public class MailUtil implements Runnable {
     private String email;// The email address of receiver
     private String code;// verify code
+    private Long charityID;
 
-    public MailUtil(String email, String code) {
+    public MailUtil(String email, String code,Long charityID) {
         this.email = email;
         this.code = code;
+        this.charityID = charityID;
     }
 
     public void run() {
@@ -61,10 +62,10 @@ public class MailUtil implements Runnable {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
-            message.setSubject("Account erification");
-            String content = "<html><head></head><body><h1>This is a email to verify your account, please click the following link to verify it</h1><h3><a href='http://"+localIP+":8080/RegisterDemo/ActiveServlet?code="
-                    + code + "'>http://"+localIP+":8080/RegisterDemo/ActiveServlet?code=" + code
-                    + "</href></h3></body></html>";
+            message.setSubject("Account Verification");
+            String content = "<html><head></head><body><h2>Please click the following link to verify your charity account:</h2></br></br><h3>" +
+                    "<a href='http://"+localIP+":8080/verifyCharity/"+charityID+"/"+code +
+                    "'>http://"+localIP+":8080/verifyCharity/"+charityID+"/"+code+"</href></h3></body></html>";
             message.setContent(content, "text/html;charset=UTF-8");
             Transport.send(message);
             System.out.println("The email is sent successfully!");
