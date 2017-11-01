@@ -24,8 +24,27 @@ paypal.Button.render({
     onAuthorize: function (data, actions) {
         return actions.payment.execute().then(function (payment) {
             $('#donateModal').modal('toggle');
-            $('#donateSuccessModal').modal('toggle');
-            //TODO add call to backend with charity id and amount
+            var paypalPayment = {
+                "id": payment.id,
+                "charityId": $('#charityIdDiv').html(),
+                "amount": payment.transactions[0].amount.total
+            };
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/article",
+                data: JSON.stringify(paypalPayment),
+                success: function () {
+                    console.log("Payment logged.");
+                },
+                error: function (e) {
+                    console.log("Payment not logged.");
+                    console.log("ERROR : ", e);
+                }
+            });
+            $('#donateSuccessModal').on('hidden.bs.modal', function (e) {
+                location.reload();
+            }).modal('toggle');
         });
     }
 

@@ -38,7 +38,7 @@
     </ol>
     <div class="carousel-inner" role="listbox">
         <div class="carousel-item">
-            <img src="../img/square.jpg" alt="First slide">
+            <img src="../img/slideshow1.jpg" alt="First slide">
             <div class="container">
                 <div class="carousel-caption d-none d-md-block text-left">
                     <h1>Connect charities</h1>
@@ -47,7 +47,7 @@
             </div>
         </div>
         <div class="carousel-item active">
-            <img src="../img/square.jpg" alt="Second slide">
+            <img src="../img/slideshow2.jpg" alt="Second slide">
             <div class="container">
                 <div class="carousel-caption d-none d-md-block text-left">
                     <h1>In need of help</h1>
@@ -83,38 +83,17 @@
 
 <div class="container" id="charitiesShowcase">
     <div class="row">
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-body">
-                    <a href="charityPage/1"><h4 class="card-title">Charity name</h4></a>
-                    <p class="card-text">And a short description of its activities.</p>
+        <#list featuredCharities as charity>
+            <div class="col-sm-4">
+                <div class="card featured-charity-card">
+                    <div class="card-body">
+                        <a href="charityPage/${charity.id}"><h4 class="card-title charity-name-h">${charity.name}</h4>
+                        </a>
+                        <p class="card-text charity-desc-p">${charity.description}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-body">
-                    <a href="charityPage/1"><h4 class="card-title">Charity name</h4></a>
-                    <p class="card-text">And a short description of its activities.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-body">
-                    <a href="charityPage/1"><h4 class="card-title">Charity name</h4></a>
-                    <p class="card-text">And a short description of its activities.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-body">
-                    <a href="charityPage/1"><h4 class="card-title">Charity name</h4></a>
-                    <p class="card-text">And a short description of its activities.</p>
-                </div>
-            </div>
-        </div>
+        </#list>
     </div>
 </div>
 
@@ -132,6 +111,6 @@
         integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
         crossorigin="anonymous"></script>
 
-<script src="../script/resultsPage.js"></script>
+<script src="../script/index.js"></script>
 </body>
 </html>

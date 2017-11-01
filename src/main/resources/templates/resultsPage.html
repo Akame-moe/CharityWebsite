@@ -44,12 +44,16 @@
 
             <#list charities as charity>
                 <div class="row my-5" id="charity-row-${charity.id}">
-                    <div class="col-md-3" id="charity-img-${charity.id}"><img alt="Charity logo" width="150px"
-                                                                              height="150px"
-                                                                              src=${charity.logoFile!"../img/no-charity-logo.png"}>
-                    </div>
+                    <a href="/charityPage/${charity.id}">
+                        <div class="col-md-3" id="charity-img-${charity.id}"><img alt="Charity logo" width="150px"
+                                                                                  height="150px"
+                                                                                  src=${charity.logoFile!"../img/no-charity-logo.png"}>
+                        </div>
+                    </a>
                     <div class="col-md-9" id="charity-body-${charity.id}">
-                        <p>${charity.id} ${charity.name}</p>
+                        <a href="/charityPage/${charity.id}">
+                            <strong>${charity.name}</strong>
+                        </a>
                         <p class="charity-desc-p">${charity.description}</p>
                     </div>
                 </div>

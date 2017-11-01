@@ -10,3 +10,14 @@
 .card{
     margin-top: 2em;
 }
+
+.featured-charity-card {
+    min-height: 13rem !important;
+}
+
+.carousel-caption {
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+}

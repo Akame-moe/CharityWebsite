@@ -22,7 +22,7 @@ public class Paypal {
         this.id = id;
         this.charityId = charityId;
         this.amount = amount;
-        this.date = date;
+        this.date = new Date();
     }
 
     public Paypal(long l) {
