@@ -9,12 +9,15 @@ $(document).ready(function(){
             type: "POST",
             contentType: "application/json",
             url: "/charity/"+id+"/verify",
-            success: function () {
+            success: function (data, textStatus, xhr) {
                 alert("A verify message has been send to your email, please check it!");
             },
-            error: function (e) {
-                alert("There was an error communicating with the server");
-                console.log("ERROR : ", e);
+            error: function (xhr, textStatus) {
+                if (xhr.status == 405)
+                    alert("first add an email address for your charity please");
+                else
+                    alert("There was an error communicating with the server");
+                console.log("ERROR : ", xhr.status);
             }
         });
     });

@@ -106,13 +106,17 @@ public class CharityController {
     public ResponseEntity<String> verifyCharity(@PathVariable("id") Long id) {
         Charity charity = charityService.findById(id);
         String email = charity.getEmail();
-        //Generate the verify code and save it to the database;
-        String code = CodeUtil.generateUniqueCode();
-        Long charityID = charity.getId();
-        charity.setVerifyCode(code);
-        charityService.updateDirect(charity);
-        new Thread(new MailUtil(email, code,charityID)).start();
-        return new ResponseEntity<String>(HttpStatus.OK);
+        if (email == null) {
+            return new ResponseEntity<String>(HttpStatus.METHOD_NOT_ALLOWED);
+        } else {
+            //Generate the verify code and save it to the database;
+            String code = CodeUtil.generateUniqueCode();
+            Long charityID = charity.getId();
+            charity.setVerifyCode(code);
+            charityService.updateDirect(charity);
+            new Thread(new MailUtil(email, code, charityID)).start();
+            return new ResponseEntity<String>(HttpStatus.OK);
+        }
     }
 
     @RequestMapping(path = "/charities/cause/{cause}", method = RequestMethod.GET)
