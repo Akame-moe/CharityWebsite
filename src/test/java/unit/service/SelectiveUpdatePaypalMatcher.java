@@ -23,6 +23,8 @@ public class SelectiveUpdatePaypalMatcher extends ArgumentMatcher<Paypal>  {
             return false;
         if (thisObject.getCharityId() != (((Paypal) argument).getCharityId()))
             return false;
+        if (thisObject.getTransactionId() != null && !thisObject.getTransactionId().equals(((Paypal) argument).getTransactionId()))
+            return false;
         return thisObject.getAmount() == (((Paypal) argument).getAmount());
     }
 }

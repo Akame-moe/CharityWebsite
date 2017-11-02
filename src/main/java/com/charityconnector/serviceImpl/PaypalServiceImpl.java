@@ -53,6 +53,9 @@ public class PaypalServiceImpl implements PaypalService {
 
             long id = paypal.getCharityId() <= 0 ? origin.getCharityId() : paypal.getCharityId();
             readyToUpdate.setCharityId(id);
+
+            String transactionId = paypal.getTransactionId() == null ? origin.getTransactionId() : paypal.getTransactionId();
+            readyToUpdate.setTransactionId(transactionId);
         }
         paypalRepository.save(readyToUpdate);
     }

@@ -71,12 +71,13 @@ public class PaypalServiceUnitTest {
         oldPaypal.setCharityId(2L);
         oldPaypal.setAmount(1000);
         oldPaypal.setDate(new Date());
+        oldPaypal.setTransactionId("xixi");
 
         newPaypal.setId(1L);
         newPaypal.setCharityId(3L);
         newPaypal.setAmount(10);
         newPaypal.setDate(new Date());
-
+        newPaypal.setTransactionId("hehe");
         when(paypalRepository.findOne(1L)).thenReturn(oldPaypal);
 
         paypalService.updateSelective(newPaypal);
