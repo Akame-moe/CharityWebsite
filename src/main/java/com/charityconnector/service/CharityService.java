@@ -4,6 +4,8 @@ import com.charityconnector.entity.Charity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Set;
+
 public interface CharityService {
 
     Charity getCharity();
@@ -29,5 +31,7 @@ public interface CharityService {
 
     Page<Charity> findByNameLike(String name, Pageable pageable);
 
-//    Charity[] findByCauses(long cause);
+    Set<Charity> getCharitiesByCause(String cause);
+
+    Set<Charity> getCharitiesByCountry(String country);
 }

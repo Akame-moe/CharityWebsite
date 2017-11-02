@@ -16,7 +16,7 @@ import sun.misc.BASE64Encoder;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.Map;
-
+import java.util.Set;
 
 
 @Controller
@@ -113,6 +113,18 @@ public class CharityController {
         charityService.updateDirect(charity);
         new Thread(new MailUtil(email, code,charityID)).start();
         return new ResponseEntity<String>(HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/charities/cause/{cause}", method = RequestMethod.GET)
+    @ResponseBody
+    public Set<Charity> getCharityByCause(@PathVariable("cause") String cause) {
+        return charityService.getCharitiesByCause(cause);
+    }
+
+    @RequestMapping(path = "/charities/country/{country}", method = RequestMethod.GET)
+    @ResponseBody
+    public Set<Charity> getCharityByCountry(@PathVariable("country") String country) {
+        return charityService.getCharitiesByCountry(country);
     }
 
 }

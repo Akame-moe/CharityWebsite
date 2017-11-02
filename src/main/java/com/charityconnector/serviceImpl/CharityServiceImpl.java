@@ -1,7 +1,11 @@
 package com.charityconnector.serviceImpl;
 
+import com.charityconnector.dao.CauseRepository;
 import com.charityconnector.dao.CharityRepository;
+import com.charityconnector.dao.CountryRepository;
+import com.charityconnector.entity.Cause;
 import com.charityconnector.entity.Charity;
+import com.charityconnector.entity.Country;
 import com.charityconnector.service.CharityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,12 +13,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Set;
 
 @Service
 public class CharityServiceImpl implements CharityService {
 
     @Resource
     private CharityRepository charityRepository;
+
+    @Resource
+    private CauseRepository causeRepository;
+
+    @Resource
+    private CountryRepository countryRepository;
 
     @Autowired
     public CharityServiceImpl(CharityRepository charityRepository) {
@@ -92,9 +103,15 @@ public class CharityServiceImpl implements CharityService {
         return page;
     }
 
-//    @Override
-//    public Charity[] findByCauses(long causes) {
-//        Charity[] charities = charityRepository.findByCauses(causes);
-//        return charities;
-//    }
+    @Override
+    public Set<Charity> getCharitiesByCause(String cause) {
+        Cause res = causeRepository.findCauseByCauseValue(cause);
+        return res.getCharities();
+    }
+
+    @Override
+    public Set<Charity> getCharitiesByCountry(String country) {
+        Country res = countryRepository.findCountryByCountryValue(country);
+        return res.getCharities();
+    }
 }
