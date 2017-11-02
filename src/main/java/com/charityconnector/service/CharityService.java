@@ -31,7 +31,7 @@ public interface CharityService {
 
     Page<Charity> findByNameLike(String name, Pageable pageable);
 
-    Set<Charity> getCharitiesByCause(String cause);
+    Object[] getCharitiesByCause(String cause);
 
-    Set<Charity> getCharitiesByCountry(String country);
+    Object[] getCharitiesByCountry(String country);
 }
