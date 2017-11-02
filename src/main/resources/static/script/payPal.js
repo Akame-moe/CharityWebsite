@@ -32,7 +32,7 @@ paypal.Button.render({
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                url: "/article",
+                url: "/paypal",
                 data: JSON.stringify(paypalPayment),
                 success: function () {
                     console.log("Payment logged.");
