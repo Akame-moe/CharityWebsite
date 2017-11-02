@@ -16,6 +16,8 @@ public class MailUtil implements Runnable {
     private String code;// verify code
     private Long charityID;
 
+    private int status = 0;
+
     public MailUtil(String email, String code,Long charityID) {
         this.email = email;
         this.code = code;
@@ -47,7 +49,6 @@ public class MailUtil implements Runnable {
             MailSSLSocketFactory sf = new MailSSLSocketFactory();
             sf.setTrustAllHosts(true);
 
-
             // 1 Get a default session object
             Session session = Session.getDefaultInstance(properties, new Authenticator() {
                 public PasswordAuthentication getPasswordAuthentication() {
@@ -57,7 +58,6 @@ public class MailUtil implements Runnable {
 
             String localIP  = InetAddress.getLocalHost().getHostAddress();
             // Get the IP address of the local machine
-            System.out.println("The localIP is :"+localIP);
             // Create Email Object and set the email contents
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
@@ -69,9 +69,19 @@ public class MailUtil implements Runnable {
             message.setContent(content, "text/html;charset=UTF-8");
             Transport.send(message);
             System.out.println("The email is sent successfully!");
+            status = 1;
         } catch (Exception e) {
             System.out.println("Error sending the email!");
+            status=-1;
             e.printStackTrace();
         }
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }
