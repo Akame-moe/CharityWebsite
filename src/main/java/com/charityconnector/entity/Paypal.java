@@ -9,7 +9,7 @@ import java.util.Date;
 public class Paypal {
     private Long id;
     private Long charityId;
-    private int amount;
+    private Double amount;
     private Date date;
     private String transactionId;
 
@@ -19,7 +19,7 @@ public class Paypal {
         super();
     }
 
-    public Paypal(Long id, Long charityId, int amount, Date date, String transactionId) {
+    public Paypal(Long id, Long charityId, Double amount, Date date, String transactionId) {
         this.id = id;
         this.charityId = charityId;
         this.amount = amount;
@@ -32,7 +32,7 @@ public class Paypal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id")
+    @Column(name = "id")
     public Long getId() {
         return id;
     }
@@ -41,7 +41,7 @@ public class Paypal {
         this.id = id;
     }
 
-    @Column(name="charity_id")
+    @Column(name = "charity_id")
     public long getCharityId() {
         return charityId;
     }
@@ -50,17 +50,16 @@ public class Paypal {
         this.charityId = charityId;
     }
 
-    @Column(name="amount")
-    public int getAmount() {
+    @Column(name = "amount")
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
-
-    @Column(name="date")
+    @Column(name = "date")
     public Date getDate() {
         return date;
     }
@@ -69,10 +68,7 @@ public class Paypal {
         this.date = date;
     }
 
-
-
-
-    @Column(name="transaction_id")
+    @Column(name = "transaction_id")
     public String getTransactionId() {
         return transactionId;
     }

@@ -10,7 +10,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
+
 import java.util.Date;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
@@ -69,13 +71,13 @@ public class PaypalServiceUnitTest {
 
         oldPaypal.setId(1L);
         oldPaypal.setCharityId(2L);
-        oldPaypal.setAmount(1000);
+        oldPaypal.setAmount(1000D);
         oldPaypal.setDate(new Date());
         oldPaypal.setTransactionId("xixi");
 
         newPaypal.setId(1L);
         newPaypal.setCharityId(3L);
-        newPaypal.setAmount(10);
+        newPaypal.setAmount(10D);
         newPaypal.setDate(new Date());
         newPaypal.setTransactionId("hehe");
         when(paypalRepository.findOne(1L)).thenReturn(oldPaypal);

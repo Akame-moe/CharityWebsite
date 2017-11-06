@@ -5,6 +5,7 @@ import com.charityconnector.entity.Paypal;
 import com.charityconnector.service.PaypalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.Date;
 
 @Service
@@ -48,7 +49,7 @@ public class PaypalServiceImpl implements PaypalService {
             Date date = paypal.getDate() == null ? origin.getDate() : paypal.getDate();
             readyToUpdate.setDate(date);
 
-            int amount = paypal.getAmount() <= 0 ? origin.getAmount() : paypal.getAmount();
+            Double amount = paypal.getAmount() <= 0 ? origin.getAmount() : paypal.getAmount();
             readyToUpdate.setAmount(amount);
 
             long id = paypal.getCharityId() <= 0 ? origin.getCharityId() : paypal.getCharityId();
