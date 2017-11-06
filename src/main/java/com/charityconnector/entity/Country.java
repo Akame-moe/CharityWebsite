@@ -1,5 +1,7 @@
 package com.charityconnector.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -41,6 +43,7 @@ public class Country {
     }
 
     @ManyToMany(mappedBy = "causes")
+    @JsonIgnore
     public Set<Charity> getCharities() {
         return charities;
     }

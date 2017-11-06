@@ -121,13 +121,13 @@ public class CharityController {
 
     @RequestMapping(path = "/charities/cause/{cause}", method = RequestMethod.GET)
     @ResponseBody
-    public Set<Charity> getCharityByCause(@PathVariable("cause") String cause) {
+    public Object[] getCharityByCause(@PathVariable("cause") String cause) {
         return charityService.getCharitiesByCause(cause);
     }
 
     @RequestMapping(path = "/charities/country/{country}", method = RequestMethod.GET)
     @ResponseBody
-    public Set<Charity> getCharityByCountry(@PathVariable("country") String country) {
+    public Object[] getCharityByCountry(@PathVariable("country") String country) {
         return charityService.getCharitiesByCountry(country);
     }
 

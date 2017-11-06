@@ -1,5 +1,7 @@
 package com.charityconnector.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -121,6 +123,7 @@ public class Charity {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "causes", joinColumns = @JoinColumn(name = "charity_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "cause_id", referencedColumnName = "id"))
+    @JsonIgnore
     public Set<Cause> getCauses() {
         return causes;
     }
@@ -131,6 +134,7 @@ public class Charity {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "countries", joinColumns = @JoinColumn(name = "charity_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "country_id", referencedColumnName = "id"))
+    @JsonIgnore
     public Set<Country> getCountries() {
         return countries;
     }
