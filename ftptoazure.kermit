@@ -1,0 +1,5 @@
+#!/usr/local/bin/kermit +
+ftp open waws-prod-sn1-143.ftp.azurewebsites.windows.net /user:charity-connector-2\charityconnector /password:connectchar123
+ftp cd site/wwwroot
+ftp put \%1
+ftp put \%2
