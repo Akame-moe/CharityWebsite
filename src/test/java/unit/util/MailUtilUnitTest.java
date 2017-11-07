@@ -11,7 +11,7 @@ public class MailUtilUnitTest {
 
     @Test
     public void sendingEmailSucess() {
-        String email = "398712463@qq.com";
+        String email = "wjb4249@gmail.com";
         String code = "123";
         Long charityID = 1L;
         int expectStatus = 1;
