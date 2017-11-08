@@ -8,15 +8,14 @@
 
     <title>${charity.name}</title>
 
+    <!--bootstrap css-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"/>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
 
+    <!--paypal api-->
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 
+    <!--css-->
     <link rel="stylesheet" href="../style/charityPage.css"/>
     <link rel="stylesheet" href="../style/override.css"/>
 </head>
@@ -60,6 +59,20 @@
                                   d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"/>
                         </svg>
                     </button>
+
+                    <span id="verifiedTick">
+                        <#if charity.verifyStatus == 1>
+                            <a data-toggle="tooltip" title="This is a verified charity"
+                               data-placement="right" href="#">
+                                <img height="25rem" src="../img/verifiedTick.png"/>
+                            </a>
+                            <#else>
+                            <a data-toggle="tooltip" title="The identity of this charity could not be verified"
+                               data-placement="right" href="#">
+                                <img height="25rem" src="../img/unverifiedTick.png"/>
+                            </a>
+                        </#if>
+                </span>
                 </h2>
                 <div>
                     <span id="charityDesc">${charity.description}</span>
@@ -80,7 +93,7 @@
             <div id="donate-button" class="btn btn-primary text-center" data-toggle="modal"
                  data-target="#donateModal">Donate to this charity!
             </div>
-            <div id="active-button"  data-value=${charity.id} class="btn btn-primary text-center">
+            <div id="active-button" data-value=${charity.id} class="btn btn-primary text-center">
                 Active your Account!
             </div>
         </div>
@@ -378,11 +391,19 @@
     </div>
 </div>
 
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
 
+<!-- popper -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+        crossorigin="anonymous"></script>
+
+<!-- boostrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+        crossorigin="anonymous"></script>
+
+<!--js-->
 <script src="../script/charityPage.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-        crossorigin="anonymous"></script>
 </body>
 </html>
