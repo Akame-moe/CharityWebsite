@@ -49,7 +49,7 @@
             statusChangeCallback(response);
         });
     }
-    
+
     // Logout The Current User with their FB Account
     function logOutUser(){
         FB.logout(function(response) {
@@ -479,10 +479,13 @@
                      <span aria-hidden="true">&times;</span>
                  </button>
              </div>
-             <div class="modal-body">
-                 <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+             <div class="modal-body" style="display:inline">
+                 <div  style="float:left">
+                     <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+                 </div>
+                 <div  style="float:right"  class="g-signin2" data-onsuccess="onSignIn"></div>
              </div>
-             <div class="modal-footer">
+             <div class="modal-footer>
                  <button type="button" id="loginModelCloseButton" class="btn btn-secondary" data-dismiss="modal">Close</button>
              </div>
 
@@ -505,6 +508,12 @@
 
 <!--js-->
 <script src="../script/charityPage.js"></script>
+
+
+ <!--Google Login JS-->
+ <script src="https://apis.google.com/js/platform.js" async defer></script>
+ <meta name="google-signin-client_id" content="373171369886-06m5b9hn58697q1nq60f8j0rbpfjv843.apps.googleusercontent.com">
+
 
 </body>
 </html>
