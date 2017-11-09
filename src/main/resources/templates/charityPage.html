@@ -108,9 +108,14 @@
 
         <div class="vertical-spacer"></div>
 
-        <div class="container text-center">
-            We operate in:
-        </div>
+        <#list charity.causes>
+            <div class="container text-center">
+                We operate in:
+                <#items as cause>
+                    <span>${cause.name}</span>
+                </#items>
+            </div>
+        </#list>
 
         <div class="container text-center">
             In these nations over the world:
@@ -451,7 +456,8 @@
 
  <!--Google Login JS-->
  <script src="https://apis.google.com/js/platform.js" async defer></script>
- <meta name="google-signin-client_id" content="373171369886-06m5b9hn58697q1nq60f8j0rbpfjv843.apps.googleusercontent.com">
+ <meta name="google-signin-client_id"
+       content="373171369886-06m5b9hn58697q1nq60f8j0rbpfjv843.apps.googleusercontent.com">
 
 
 </body>

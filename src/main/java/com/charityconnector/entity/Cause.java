@@ -10,7 +10,7 @@ import java.util.Set;
 @Table(name = "cause")
 public class Cause{
     private Long id;
-    private String causeValue;
+    private String name;
     private Set<Charity> charities;
 
     /* Required by JPA specification */
@@ -18,9 +18,9 @@ public class Cause{
         super();
     }
 
-    public Cause(Long id, String causeValue, Set<Charity> charities) {
+    public Cause(Long id, String name, Set<Charity> charities) {
         this.id = id;
-        this.causeValue = causeValue;
+        this.name = name;
         this.charities = charities;
     }
 
@@ -36,12 +36,12 @@ public class Cause{
     }
 
     @Column(name = "cause_value")
-    public String getCauseValue() {
-        return causeValue;
+    public String getName() {
+        return name;
     }
 
-    public void setCauseValue(String title) {
-        this.causeValue = causeValue;
+    public void setName(String title) {
+        this.name = name;
     }
 
     @ManyToMany(mappedBy = "causes")
