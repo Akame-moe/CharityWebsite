@@ -30,6 +30,7 @@ public class Country {
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -38,6 +39,8 @@ public class Country {
     public String getCountryValue() {
         return countryValue;
     }
+
+
     public void setCountryValue(String countryValue) {
         this.countryValue = countryValue;
     }

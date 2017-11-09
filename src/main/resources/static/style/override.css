@@ -6,3 +6,11 @@
 body {
     background-color: #FBFBFB;
 }
+
+.vertical-spacer {
+    min-height: 2em;
+}
+
+.vertical-spacer-small {
+    min-height: 1em;
+}

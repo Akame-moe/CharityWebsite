@@ -123,7 +123,7 @@ public class Charity {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "causes", joinColumns = @JoinColumn(name = "charity_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "cause_id", referencedColumnName = "id"))
-    @JsonIgnore
+    //@JsonIgnore
     public Set<Cause> getCauses() {
         return causes;
     }

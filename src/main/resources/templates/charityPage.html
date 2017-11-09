@@ -92,6 +92,26 @@
                         </svg>
                     </button>
                 </div>
+
+                <#list charity.causes>
+                    <div class="vertical-spacer-small"></div>
+                    <div>
+                        What we operate on:
+                        <#items as cause>
+                            <span class="badge badge-success">${cause.name}</span>
+                        </#items>
+                    </div>
+                </#list>
+
+                <#list charity.countries>
+                    <div class="vertical-spacer-small"></div>
+                    <div>
+                        In these nations around the world:
+                        <#items as country>
+                            <span class="badge badge-success">${country.countryValue}</span>
+                        </#items>
+                    </div>
+                </#list>
             </div>
         </div>
 
@@ -104,21 +124,6 @@
             <div id="active-button" data-value=${charity.id} class="btn btn-primary text-center">
                 Activate your Account!
             </div>
-        </div>
-
-        <div class="vertical-spacer"></div>
-
-        <#list charity.causes>
-            <div class="container text-center">
-                We operate in:
-                <#items as cause>
-                    <span>${cause.name}</span>
-                </#items>
-            </div>
-        </#list>
-
-        <div class="container text-center">
-            In these nations over the world:
         </div>
 
         <div class="vertical-spacer"></div>
