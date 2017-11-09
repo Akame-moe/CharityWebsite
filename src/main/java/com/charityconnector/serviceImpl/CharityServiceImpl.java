@@ -105,7 +105,7 @@ public class CharityServiceImpl implements CharityService {
 
     @Override
     public Object[] getCharitiesByCause(String cause) {
-        Cause res = causeRepository.findCauseByCauseValue(cause);
+        Cause res = causeRepository.findCauseByName(cause);
         return res.getCharities().toArray();
     }
 

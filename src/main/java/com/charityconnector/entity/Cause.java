@@ -35,7 +35,7 @@ public class Cause{
         this.id = id;
     }
 
-    @Column(name = "cause_value")
+    @Column(name = "name")
     public String getName() {
         return name;
     }
