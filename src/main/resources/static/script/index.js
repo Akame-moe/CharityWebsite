@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+
     $(".charity-desc-p").each(function () {
         if ($(this).html().length > 80) {
             var words = $(this).html().substring(0, 80).split(" ");
