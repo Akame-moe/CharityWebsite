@@ -22,8 +22,9 @@ public class Charity {
     private String paypalAccount;
     private String verifyCode;
     private int verifyStatus;
+    private int thumbUp;
 
-    public Charity(Long id, String name, String description, String logoFile, String email, String paypalAccount, Set<Cause> causes, Set<Country> countries, String verifyCode, int verifyStatus) {
+    public Charity(Long id, String name, String description, String logoFile, String email, String paypalAccount, Set<Cause> causes, Set<Country> countries, String verifyCode, int verifyStatus, int thumbUp) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -34,6 +35,7 @@ public class Charity {
         this.countries = countries;
         this.verifyCode = verifyCode;
         this.verifyStatus = verifyStatus;
+        this.thumbUp = thumbUp;
     }
 
     /* Required by JPA specification */
@@ -141,6 +143,15 @@ public class Charity {
 
     public void setCountries(Set<Country> countries) {
         this.countries = countries;
+    }
+
+    @Column(name = "thumb_up")
+    public int getThumbUp() {
+        return thumbUp;
+    }
+
+    public void setThumbUp(int thumbUp) {
+        this.thumbUp = thumbUp;
     }
 
 }
