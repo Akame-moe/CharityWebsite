@@ -10,9 +10,11 @@ import com.charityconnector.service.CharityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -119,5 +121,10 @@ public class CharityServiceImpl implements CharityService {
     @Override
     public Page<Charity> findAll(Pageable pageable) {
         return charityRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Charity> findAll(Sort sort) {
+        return charityRepository.findAll(sort);
     }
 }

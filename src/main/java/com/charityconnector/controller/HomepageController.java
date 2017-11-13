@@ -2,11 +2,13 @@ package com.charityconnector.controller;
 
 import com.charityconnector.entity.Charity;
 import com.charityconnector.service.CharityService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -18,12 +20,16 @@ public class HomepageController {
 
     @RequestMapping("/")
     public String getHomePage(Map<String, Object> model) {
-        Map<Long, Charity> featuredCharities = new HashMap<>();
+        List<Charity> featuredCharities = new ArrayList<>();
+        Sort sort = new Sort(Sort.Direction.DESC, "thumbUp");
+        List<Charity> res = charityService.findAll(sort);
         while (featuredCharities.size() < FEATURED_PAGE_SIZE) {
-            Charity c = charityService.findRandom();
-            featuredCharities.put(c.getId(), c);
+            if(res.size() >= featuredCharities.size()){
+                Charity c = res.get(featuredCharities.size());
+                featuredCharities.add(c);
+            }
         }
-        model.put("featuredCharities", featuredCharities.values());
+        model.put("featuredCharities", featuredCharities);
         return "index";
     }
 }

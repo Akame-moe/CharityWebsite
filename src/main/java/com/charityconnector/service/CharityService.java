@@ -3,6 +3,9 @@ package com.charityconnector.service;
 import com.charityconnector.entity.Charity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
+import java.util.List;
 
 public interface CharityService {
 
@@ -35,4 +38,5 @@ public interface CharityService {
 
     Page<Charity> findAll(Pageable pageable);
 
+    List<Charity> findAll(Sort sort);
 }
