@@ -14,7 +14,8 @@ paypal.Button.render({
             payment: {
                 transactions: [
                     {
-                        amount: {total: $('#inputDonationAmount').val(), currency: 'GBP'}
+                        amount: {total: $('#inputDonationAmount').val(), currency: 'GBP'},
+                        description: "Donate to the cause " + $('#causeName').html()
                     }
                 ]
             }
@@ -23,16 +24,17 @@ paypal.Button.render({
 
     onAuthorize: function (data, actions) {
         return actions.payment.execute().then(function (payment) {
+            var causeId = $('#causeIdDiv').html();
             $('#donateModal').modal('toggle');
             var paypalPayment = {
                 "transactionId": payment.id,
-                "charityId": $('#charityIdDiv').html(),
+                "causeId": causeId,
                 "amount": payment.transactions[0].amount.total
             };
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                url: "/paypal",
+                url: "/paypal/causePayment/" + causeId,
                 data: JSON.stringify(paypalPayment),
                 success: function () {
                     console.log("Payment logged.");

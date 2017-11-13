@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:fb="https://www.facebook.com/2008/fbml" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title>${cause.name}</title>
+
+    <!--bootstrap css-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"/>
+
+    <!--paypal api-->
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+    <!--css-->
+    <link rel="stylesheet" href="../style/charityPage.css"/>
+    <link rel="stylesheet" href="../style/override.css"/>
+</head>
+<body>
+
+<!--FB Login Handle Code-->
+<script type="text/javascript" src="../script/facebookLogin.js"></script>
+<!--End of FB Handle Code-->
+
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">ConnectCharites</a>
+    <div id="navBarButtons" class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="navbar-item active"><a class="nav-link" href="/">Home</a></li>
+            <li class="navbar-item active"><a class="nav-link" href="/results">Search</a></li>
+            <li class="navbar-item active"><a class="nav-link" href="/charity/random">A Random Charity</a></li>
+        </ul>
+        <ul class="navbar-nav navbar-right">
+            <li class="navbar-item active"><a class="nav-link" id="welcomeLabel"></a></li>
+            <li class="navbar-item active"><a class="nav-link" href="#" hidden="true" onclick="logOutUser();"
+                                              id="logOut">LogOut</a></li>
+            <li class="navbar-item active"><a class="nav-link" href="#" hidden="true" data-toggle="modal"
+                                              data-target="#loginModal" id="login">Login</a></li>
+            <li class="navbar-item active"><a class="nav-link" href="#" id="editLink">Edit this page</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="vertical-spacer"></div>
+
+<div id="causeIdDiv" style="display : none;">${cause.id}</div>
+
+<div id="main-container">
+    <div id="cause-container" class="container">
+        <div class="row">
+            <div class="col-md">
+                <h2><span id="causeName">${cause.name}</span>
+                </h2>
+            </div>
+        </div>
+
+        <div class="vertical-spacer"></div>
+
+        <div class="container text-center">
+            <div id="donate-button" class="btn btn-primary text-center" data-toggle="modal"
+                 data-target="#donateModal">Donate to this cause!
+            </div>
+        </div>
+
+        <div class="vertical-spacer"></div>
+
+
+    </div>
+</div>
+
+<footer class="footer p-5">
+    <div class="container">
+        <span class="text-muted">About us - Developers - Legal - Privacy - Cookies - Language</span>
+    </div>
+</footer>
+
+<div class="modal fade show" id="donateModal" tabindex="-1" role="dialog"
+     aria-labelledby="donateLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="donateLabel">Please confirm your donation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Thanks for being willing to donate to all the charities working on ${cause.name}, please enter the
+                    donation
+                    amount and proceed to the PayPal checkout</p>
+                <form>
+                    <div class="form-group">
+                        <input type="number" class="form-control" id="inputDonationAmount"
+                               placeholder="0.00">
+                    </div>
+                </form>
+                <div id="paypal-button"></div>
+
+                <script type="text/javascript" src="../script/causePayment.js"></script>
+
+                <p>Note that this payment will be processed internally by us, so the receiver of the payment will be
+                    Connect Charities itself</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade show" id="donateSuccessModal" tabindex="-1" role="dialog"
+     aria-labelledby="donateSuccessLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="donateSuccessLabel">Please confirm your donation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Your donation was succesful! Thank you for helping the charities working on ${cause.name}!</p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade show" id="loginModal" tabindex="-1" role="dialog"
+     aria-labelledby="loginLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginLabel">Login with Following Accounts:</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="display:inline">
+                <div style="float:left">
+                    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+                </div>
+                <div style="float:right" class="g-signin2" data-onsuccess="onSignIn"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="loginModelCloseButton" class="btn btn-secondary" data-dismiss="modal">Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+
+<!-- popper -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+        crossorigin="anonymous"></script>
+
+<!-- boostrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+        crossorigin="anonymous"></script>
+
+<!--js-->
+
+<!--Google Login JS-->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name="google-signin-client_id"
+      content="373171369886-06m5b9hn58697q1nq60f8j0rbpfjv843.apps.googleusercontent.com">
+
+
+</body>
+</html>
