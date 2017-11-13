@@ -5,6 +5,10 @@ import com.charityconnector.service.ArticleService;
 import com.charityconnector.service.CharityService;
 import com.charityconnector.util.CodeUtil;
 import com.charityconnector.util.MailUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,7 +20,6 @@ import sun.misc.BASE64Encoder;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.Map;
-import java.util.Set;
 
 
 @Controller
@@ -131,5 +134,22 @@ public class CharityController {
         return charityService.getCharitiesByCountry(country);
     }
 
+    /**
+     * Spring will automatically resemble the pageable parameter based on the request parameter value.
+     * Those parameters are as follows:
+     * page: represent the current page index from 0
+     * size: the size of one page
+     * sort: the info of how to sort. For example: if I write request param like: sort=thumbUp,desc , then
+     *       we get charities sorted by thumbUp in DESC order.
+     *       The attribute value for sort is the name of attribute in Charity Entity not the name in database table.
+     *
+     * @param pageable default value is sort by charity id in DESC order and the default page size is 5.
+     * @return
+     */
+    @RequestMapping(path = "/charities/rank", method=RequestMethod.GET)
+    @ResponseBody
+    public Page<Charity> getEntryByPageable(@PageableDefault(value=5, sort = { "id" }, direction=Sort.Direction.DESC) Pageable pageable) {
+        return charityService.findAll(pageable);
+    }
 }
 

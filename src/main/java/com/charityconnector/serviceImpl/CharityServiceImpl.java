@@ -115,4 +115,9 @@ public class CharityServiceImpl implements CharityService {
         Set<Charity> charities = res.getCharities();
         return charities.toArray();
     }
+
+    @Override
+    public Page<Charity> findAll(Pageable pageable) {
+        return charityRepository.findAll(pageable);
+    }
 }
