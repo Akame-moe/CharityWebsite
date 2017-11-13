@@ -22,9 +22,9 @@ public class Charity {
     private String paypalAccount;
     private String verifyCode;
     private int verifyStatus;
-    private int thumbUp;
+    private Long thumbUp;
 
-    public Charity(Long id, String name, String description, String logoFile, String email, String paypalAccount, Set<Cause> causes, Set<Country> countries, String verifyCode, int verifyStatus, int thumbUp) {
+    public Charity(Long id, String name, String description, String logoFile, String email, String paypalAccount, Set<Cause> causes, Set<Country> countries, String verifyCode, int verifyStatus, Long thumbUp) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -146,11 +146,11 @@ public class Charity {
     }
 
     @Column(name = "thumb_up")
-    public int getThumbUp() {
+    public Long getThumbUp() {
         return thumbUp;
     }
 
-    public void setThumbUp(int thumbUp) {
+    public void setThumbUp(Long thumbUp) {
         this.thumbUp = thumbUp;
     }
 
