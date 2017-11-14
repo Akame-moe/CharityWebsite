@@ -25,6 +25,10 @@
  <script type="text/javascript" src="../script/facebookLogin.js"></script>
 <!--End of FB Handle Code-->
 
+ <!--Google Login Handle Code-->
+ <script type="text/javascript" src="../script/googleLogin.js"></script>
+ <!--End of Google Handle Code-->
+
 
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
     <a class="navbar-brand" href="#">ConnectCharites</a>
@@ -36,7 +40,7 @@
         </ul>
         <ul class="navbar-nav navbar-right">
             <li class="navbar-item active"><a class="nav-link" id="welcomeLabel"></a></li>
-            <li class="navbar-item active"><a class="nav-link" href="#" hidden="true"  onclick="logOutUser();" id="logOut">LogOut</a></li>
+            <li class="navbar-item active"><a class="nav-link" href="#" hidden="true"  data-value="test" onclick="logOutUser();" id="logOut">LogOut</a></li>
             <li class="navbar-item active"><a class="nav-link" href="#" hidden="true"  data-toggle="modal" data-target="#loginModal" id="login">Login</a></li>
             <li class="navbar-item active"><a class="nav-link" href="#" id="editLink">Edit this page</a></li>
         </ul>
@@ -460,8 +464,8 @@
  <!--Google Login JS-->
  <script src="https://apis.google.com/js/platform.js" async defer></script>
  <meta name="google-signin-client_id"
-       content="373171369886-06m5b9hn58697q1nq60f8j0rbpfjv843.apps.googleusercontent.com">
-
+       content="373171369886-2a8lv6uajc12cv54e1pdi4eog2kpqd32.apps.googleusercontent.com">
+ <!-- End of Google Login JS-->
 
 </body>
 </html>

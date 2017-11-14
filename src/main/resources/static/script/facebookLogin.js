@@ -1,7 +1,6 @@
 
 // This is called with the results from from FB.getLoginStatus().
 function statusChangeCallback(response) {
-    console.log(response.status);
     document.getElementById("loginModelCloseButton").click();
     if (response.status === 'connected') {
         // Logged into your app and Facebook.
@@ -9,6 +8,7 @@ function statusChangeCallback(response) {
             document.getElementById("welcomeLabel").innerHTML="Welcome,"+userInfo.name;
             document.getElementById("login").setAttribute("hidden",true);
             document.getElementById("logOut").removeAttribute("hidden");
+            $("#logOut").attr("data-value","fb");
         });
     } else{
         document.getElementById("welcomeLabel").innerHTML="";
@@ -27,7 +27,7 @@ function checkLoginState() {
 }
 
 // Logout The Current User with their FB Account
-function logOutUser(){
+function logOutFaceBookUser(){
     FB.logout(function(response) {
         statusChangeCallback(response);
     });

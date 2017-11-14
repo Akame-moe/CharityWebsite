@@ -159,3 +159,13 @@ function sendUpdateCharity() {
         }
     });
 }
+
+
+function logOutUser(){
+   var loginType = $("#logOut").attr("data-value");
+   if(loginType=="fb")
+       logOutFaceBookUser();
+   else{
+       logOutGoogleUser();
+   }
+}
