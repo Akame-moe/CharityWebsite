@@ -25,6 +25,7 @@ $(document).ready(function(){
 });
 
 function editModeToggle() {
+
     $(".edit-badge").toggle();
 }
 
