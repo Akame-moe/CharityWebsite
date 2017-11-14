@@ -99,12 +99,6 @@ public class CharityController {
         }
     }
 
-//    @RequestMapping(path = "/charities", method = RequestMethod.GET)
-//    @ResponseBody
-//    Charity[] getCharitiesByCauses(@RequestParam("cause") long causes) {
-//        return charityService.findByCauses(causes);
-//    }
-
     @RequestMapping(path = "/charity/{id}/verify", method = RequestMethod.POST)
     public ResponseEntity<String> verifyCharity(@PathVariable("id") Long id) {
         Charity charity = charityService.findById(id);
@@ -125,13 +119,13 @@ public class CharityController {
     @RequestMapping(path = "/charities/cause/{cause}", method = RequestMethod.GET)
     @ResponseBody
     public Object[] getCharityByCause(@PathVariable("cause") String cause) {
-        return charityService.getCharitiesByCause(cause);
+        return charityService.getCharitiesByCause(cause).toArray();
     }
 
     @RequestMapping(path = "/charities/country/{country}", method = RequestMethod.GET)
     @ResponseBody
     public Object[] getCharityByCountry(@PathVariable("country") String country) {
-        return charityService.getCharitiesByCountry(country);
+        return charityService.getCharitiesByCountry(country).toArray();
     }
 
     /**

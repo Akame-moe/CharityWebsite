@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
+import java.util.Set;
 
 public interface CharityService {
 
@@ -32,9 +33,9 @@ public interface CharityService {
 
     Page<Charity> findByNameLike(String name, Pageable pageable);
 
-    Object[] getCharitiesByCause(String cause);
+    Set<Charity> getCharitiesByCause(String cause);
 
-    Object[] getCharitiesByCountry(String country);
+    Set<Charity> getCharitiesByCountry(String country);
 
     Page<Charity> findAll(Pageable pageable);
 
