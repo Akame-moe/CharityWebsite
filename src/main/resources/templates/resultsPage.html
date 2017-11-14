@@ -14,6 +14,8 @@
 
     <link rel="stylesheet" href="../style/resultsPage.css"/>
     <link rel="stylesheet" href="../style/override.css"/>
+
+
 </head>
 <body>
 
@@ -32,40 +34,56 @@
 </nav>
 <div id="main-container">
     <form id="searchForm" action="results">
-        <div class="form-group container">
-            <input type="text" class="form-control" name="name" aria-describedby="searchHelp"
-                   placeholder="Serach charities" value="${searchedName!}" onkeydown="searchBarKeyDown()">
+        <div style="text-align:center">
+            <div class="form-group container" style="width:800px;display:inline-block">
+                <input type="text" class="form-control" name="name" aria-describedby="searchHelp"
+                       placeholder="Serach charities" onkeydown="searchBarKeyDown()">
+
+            </div>
+
+            <div class="form-group" style="width:120px;display:inline-block">
+                <select class="form-control" name="category">
+                    <option>Name</option>
+                    <option>Country</option>
+                    <option>Cause</option>
+                </select>
+            </div>
             <input type="submit" id="searchFormSubmit" style="visibility: hidden;"/>
         </div>
     </form>
 
-    <#if charities??>
-        <div id="searchResultsContainer" class="container">
+</div>
 
-            <#list charities as charity>
-                <div class="row my-5" id="charity-row-${charity.id}">
-                    <a href="/charityPage/${charity.id}">
-                        <div class="col-md-3" id="charity-img-${charity.id}"><img alt="Charity logo" width="150px"
-                                                                                  height="150px"
-                                                                                  src=${charity.logoFile!"../img/no-charity-logo.png"}>
-                        </div>
-                    </a>
-                    <div class="col-md-9" id="charity-body-${charity.id}">
-                        <a href="/charityPage/${charity.id}">
-                            <strong>${charity.name}</strong>
-                        </a>
-                        <p class="charity-desc-p">${charity.description}</p>
+
+</form>
+
+<#if charities??>
+    <div id="searchResultsContainer" class="container">
+
+        <#list charities as charity>
+            <div class="row my-5" id="charity-row-${charity.id}">
+                <a href="/charityPage/${charity.id}">
+                    <div class="col-md-3" id="charity-img-${charity.id}"><img alt="Charity logo" width="150px"
+                                                                              height="150px"
+                                                                              src=${charity.logoFile!"../img/no-charity-logo.png"}>
                     </div>
+                </a>
+                <div class="col-md-9" id="charity-body-${charity.id}">
+                    <a href="/charityPage/${charity.id}">
+                        <strong>${charity.name}</strong>
+                    </a>
+                    <p class="charity-desc-p">${charity.description}</p>
                 </div>
-            </#list>
-        </div>
-        <#else>
-            <#if searchedName??>
-                <div id="sorryNoCharties" class="container">
-                    No charities matched your search, please try again
-                </div>
-            </#if>
-    </#if>
+            </div>
+        </#list>
+    </div>
+    <#else>
+        <#if searchedName??>
+            <div id="sorryNoCharties" class="container">
+                No charities matched your search, please try again
+            </div>
+        </#if>
+</#if>
 </div>
 
 <#if charities??>
