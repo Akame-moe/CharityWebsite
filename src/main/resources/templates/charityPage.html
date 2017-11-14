@@ -79,8 +79,9 @@
                                data-placement="right" href="#">
                                 <img height="25rem" src="../img/unverifiedTick.png"/>
                             </a>
+                            <div id="active-button" data-value=${charity.id} class="btn btn-success btn-sm"> Activate Now! </div>
                         </#if>
-                </span>
+                    </span>
                 </h2>
                 <div>
                     <span id="charityDesc">${charity.description}</span>
@@ -120,9 +121,6 @@
         <div class="container text-center">
             <div id="donate-button" class="btn btn-primary text-center" data-toggle="modal"
                  data-target="#donateModal">Donate to this charity!
-            </div>
-            <div id="active-button" data-value=${charity.id} class="btn btn-primary text-center">
-                Activate your Account!
             </div>
         </div>
 
