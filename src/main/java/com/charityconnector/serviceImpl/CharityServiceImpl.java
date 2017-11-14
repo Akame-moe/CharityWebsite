@@ -106,16 +106,15 @@ public class CharityServiceImpl implements CharityService {
     }
 
     @Override
-    public Object[] getCharitiesByCause(String cause) {
+    public Set<Charity> getCharitiesByCause(String cause) {
         Cause res = causeRepository.findCauseByName(cause);
-        return res.getCharities().toArray();
+        return res.getCharities();
     }
 
     @Override
-    public Object[] getCharitiesByCountry(String country) {
+    public Set<Charity> getCharitiesByCountry(String country) {
         Country res = countryRepository.findCountryByCountryValue(country);
-        Set<Charity> charities = res.getCharities();
-        return charities.toArray();
+        return res.getCharities();
     }
 
     @Override
