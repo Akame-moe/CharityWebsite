@@ -50,7 +50,7 @@ public class SearchControllerTest {
     public void gettingResultsPageNullName() {
         Map<String, Object> model = new HashMap<>();
 
-        searchController.getResultsPage(model, null, 0, 0);
+        searchController.getResultsPage(model,  null,null, 0, 0);
 
         assertTrue(model.isEmpty());
     }
@@ -59,7 +59,7 @@ public class SearchControllerTest {
     public void gettingResultsPageEmptyName() {
         Map<String, Object> model = new HashMap<>();
 
-        searchController.getResultsPage(model, "", 0, 0);
+        searchController.getResultsPage(model, null,"", 0, 0);
 
         assertTrue(model.isEmpty());
     }
@@ -74,7 +74,7 @@ public class SearchControllerTest {
 
         when(mockCharityService.findByNameLike(any(String.class), any(Pageable.class))).thenReturn(page);
 
-        searchController.getResultsPage(model, "", 0, 10);
+        searchController.getResultsPage(model, "","", 0, 10);
 
         assertTrue(model.isEmpty());
     }
@@ -87,6 +87,7 @@ public class SearchControllerTest {
         charities.add(new Charity());
 
         String name = "name";
+        String searchValue = "name";
         int pageNumber = 5;
         int pageSize = 10;
 
@@ -94,7 +95,7 @@ public class SearchControllerTest {
 
         when(mockCharityService.findByNameLike(any(String.class), any(Pageable.class))).thenReturn(page);
 
-        searchController.getResultsPage(model, name, pageNumber, pageSize);
+        searchController.getResultsPage(model, name, searchValue, pageNumber, pageSize);
 
         verify(mockCharityService).findByNameLike(nameCaptor.capture(), pageReqCaptor.capture());
 
@@ -116,6 +117,7 @@ public class SearchControllerTest {
         long total = 50L;
         int thisPageSize = 3;
         String name = "name";
+        String searchKey="name";
 
         ArrayList<Charity> charities = new ArrayList<>();
         for (int i = 0; i < thisPageSize; i++)
@@ -125,7 +127,7 @@ public class SearchControllerTest {
 
         when(mockCharityService.findByNameLike(any(String.class), any(Pageable.class))).thenReturn(page);
 
-        searchController.getResultsPage(model, name, pageNumber, pageSize);
+        searchController.getResultsPage(model, name, searchKey, pageNumber, pageSize);
 
         assertThat(model.get("charities"), equalTo(charities));
         assertThat(model.get("numberOfResults"), equalTo(total));
