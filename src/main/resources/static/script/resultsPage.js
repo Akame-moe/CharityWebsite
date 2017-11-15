@@ -8,6 +8,23 @@ $(document).ready(function () {
             $(this).html(words.join(" ") + " ...");
         }
     });
+
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/searchKeys",
+        success: function (resultArray) {
+            for (var i=0;i<resultArray.length;i++){
+                console.log(resultArray[i]);
+            }
+        },
+        error: function (e) {
+            console.log("There was an error communicating with the server");
+            console.log("ERROR : ", e);
+        }
+    });
+
 });
 
 function searchBarKeyDown(key) {
