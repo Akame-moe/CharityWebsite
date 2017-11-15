@@ -40,4 +40,6 @@ public interface CharityService {
     Page<Charity> findAll(Pageable pageable);
 
     List<Charity> findAll(Sort sort);
+
+    Charity thumbUp(Long id);
 }

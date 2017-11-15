@@ -73,6 +73,9 @@ public class CharityServiceImpl implements CharityService {
 
             String logoPath = charity.getLogoFile() == null ? origin.getLogoFile() : charity.getLogoFile();
             readyToUpdate.setLogoFile(logoPath);
+
+            Long thumb = charity.getThumbUp() == null ? origin.getThumbUp() : charity.getThumbUp();
+            readyToUpdate.setThumbUp(thumb);
         }
         charityRepository.save(readyToUpdate);
         //charityRepository.updateById(readyToUpdate.getId(), readyToUpdate.getName(), readyToUpdate.getDescription());
@@ -125,5 +128,13 @@ public class CharityServiceImpl implements CharityService {
     @Override
     public List<Charity> findAll(Sort sort) {
         return charityRepository.findAll(sort);
+    }
+
+    @Override
+    public Charity thumbUp(Long id) {
+        Charity charity = findById(id);
+        charity.setThumbUp(charity.getThumbUp()+1);
+        updateDirect(charity);
+        return findById(id);
     }
 }

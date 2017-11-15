@@ -138,6 +138,24 @@ function editCharityDesc() {
     sendUpdateCharity();
     $("#editDescriptionModal").modal('toggle');
 }
+function sendUpdateCharityThumbUp() {
+    var charity = {
+        "id": $("#charityIdDiv").html()
+    };
+    $.ajax({
+        type: "PATCH",
+        contentType: "application/json",
+        url: "/charity/thumbUp",
+        data: JSON.stringify(charity),
+        success: function (result) {
+            $("#charityThumbUp").html("Thumbs : " +result);
+        },
+        error: function (e) {
+            alert("There was an error communicating with the server");
+            console.log("ERROR : ", e);
+        }
+    });
+}
 
 function sendUpdateCharity() {
     var charity = {

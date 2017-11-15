@@ -50,6 +50,12 @@ public class CharityController {
         return res;
     }
 
+    @RequestMapping(path = "/charity/thumbUp", method = RequestMethod.PATCH)
+    @ResponseBody
+    public Long thumbUp(@RequestBody Charity charity) {
+        return charityService.thumbUp(charity.getId()).getThumbUp();
+    }
+
     @RequestMapping(path = "/charity/random", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView getRandomCharity() {
