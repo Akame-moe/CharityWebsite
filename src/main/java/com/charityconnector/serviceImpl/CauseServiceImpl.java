@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CauseServiceImpl implements CauseService {
@@ -22,5 +24,15 @@ public class CauseServiceImpl implements CauseService {
     @Override
     public Cause findById(Long id) {
         return causeRepository.findOne(id);
+    }
+
+    @Override
+    public List<String> getAllCauses() {
+        List<String> res = new ArrayList<>();
+        List<Cause> causes = causeRepository.findAll();
+        for (Cause cause : causes) {
+            res.add(cause.getName());
+        }
+        return res;
     }
 }
