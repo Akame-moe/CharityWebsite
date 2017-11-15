@@ -1,14 +1,29 @@
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
+    console.log(googleUser);
     document.getElementById("welcomeLabel").innerHTML="Welcome,"+profile.getName();
     document.getElementById("login").setAttribute("hidden",true);
     document.getElementById("logOut").removeAttribute("hidden");
     $("#logOut").attr("data-value","google");
     document.getElementById("loginModelCloseButton").click();
-    // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    // console.log('Name: ' + profile.getName());
-    // console.log('Image URL: ' + profile.getImageUrl());
-    // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+    // Send the id_token to back_end
+    var xhr = new XMLHttpRequest();
+    var id_token = googleUser.getAuthResponse().id_token;
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/oauth/google/tokenString",
+        data: JSON.stringify(id_token),
+        success: function () {
+            console.log("Send the id_token to the backend successfully!");
+        },
+        error: function (e) {
+            console.log("There was an error communicating with the server");
+            console.log("ERROR : ", e);
+        }
+    });
+
 }
 
 function logOutGoogleUser() {
