@@ -25,7 +25,7 @@ public class OauthGoogleController {
 
     private static final JacksonFactory jacksonFactory = new JacksonFactory();
 
-    private static final String CLIENT_ID = "";
+    private static final String CLIENT_ID = "373171369886-2a8lv6uajc12cv54e1pdi4eog2kpqd32.apps.googleusercontent.com";
 
     @Autowired
     GoogleUser user;
