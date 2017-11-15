@@ -17,7 +17,7 @@ public class SearchController {
 
     final static String NAME = "name";
     final static String CAUSE = "cause";
-    final static String LOCATION = "location";
+    final static String COUNTRY = "country";
 
     @Resource
     private CharityService charityService;
@@ -44,7 +44,7 @@ public class SearchController {
             Set<Charity> res = charityService.getCharitiesByCause(searchValue);
             ArrayList<Charity> arrayList = new ArrayList<>(res);
             page = new PageImpl<>(arrayList, pageRequest, arrayList.size());
-        } else if (searchKey.equals(LOCATION)) {
+        } else if (searchKey.equals(COUNTRY)) {
             Set<Charity> res = charityService.getCharitiesByCountry(searchValue);
             ArrayList<Charity> arrayList = new ArrayList<>(res);
             page = new PageImpl<>(arrayList, pageRequest, arrayList.size());
