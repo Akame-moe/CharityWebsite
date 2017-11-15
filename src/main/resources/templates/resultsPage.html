@@ -33,66 +33,69 @@
     </div>
 </nav>
 <div id="main-container">
-    <div style="text-align:center;display:inline-block">
+    <div style="text-align:center">
+        <div class="Row" style="text-align:center">
 
-<br/>
-        <div style="float:left;display:inline-block">
-            <form id="conditionSearchForm" action="results">
-                <div class="form-group" style="width:120px;display:inline-block">
-                    <select id="conditionKey" class="form-control container" name="searchKey"
-                            onchange="javascript:fillConditionValue();">
-                    </select>
-                </div>
-                <div class="form-group" style="width:150px;display:inline-block">
-                    <select id="conditionValue" class="form-control" name="searchValue">
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-default">Conditional Search</button>
-            </form>
-        </div>
-
-        <div style="float:left;display:inline-block">
-            <form id="searchForm" action="results">
-                <div class="form-group container" style="width:500px;display:inline-block">
-                    <input type="text" class="form-control" name="searchValue" aria-describedby="searchHelp"
-                           placeholder="Serach charities" onkeydown="searchBarKeyDown()">
-                </div>
-                <input type="hidden" name="searchKey" value="name">
-                <input type="submit" id="searchFormSubmit" style="visibility: hidden;"/>
-            </form>
-        </div>
-
-    </div>
-
-</div>
-
-<#if charities??>
-    <div id="searchResultsContainer" class="container">
-
-        <#list charities as charity>
-            <div class="row my-5" id="charity-row-${charity.id}">
-                <a href="/charityPage/${charity.id}">
-                    <div class="col-md-3" id="charity-img-${charity.id}"><img alt="Charity logo" width="150px"
-                                                                              height="150px"
-                                                                              src=${charity.logoFile!"../img/no-charity-logo.png"}>
+            <div class="Column" style="display:inline-block">
+                <form id="conditionSearchForm" action="results">
+                    <div class="form-group" style="width:120px;display:inline-block">
+                        <select id="conditionKey" class="form-control container" name="searchKey"
+                                onchange="javascript:fillConditionValue();">
+                        </select>
                     </div>
-                </a>
-                <div class="col-md-9" id="charity-body-${charity.id}">
-                    <a href="/charityPage/${charity.id}">
-                        <strong>${charity.name}</strong>
-                    </a>
-                    <p class="charity-desc-p">${charity.description}</p>
-                </div>
+                    <div class="form-group" style="width:150px;display:inline-block">
+                        <select id="conditionValue" class="form-control" name="searchValue">
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-default">Conditional Search</button>
+
+                </form>
             </div>
-        </#list>
+
+            <div class="Column" style="display:inline-block">
+
+
+                <form id="searchForm" action="results">
+                    <div class="form-group container" style="width:500px;display:inline-block">
+                        <input type="text" class="form-control" name="searchValue" aria-describedby="searchHelp"
+                               placeholder="Serach charities" onkeydown="searchBarKeyDown()">
+                    </div>
+                    <input type="hidden" name="searchKey" value="name">
+                    <input type="submit" id="searchFormSubmit" style="visibility: hidden;"/>
+                </form>
+            </div>
+
+        </div>
+
     </div>
-    <#else>
-        <#if searchedName??>
-            <div id="sorryNoCharties" class="container">
-                No charities matched your search, please try again
-            </div>
-        </#if>
-</#if>
+</div>
+    <#if charities??>
+        <div id="searchResultsContainer" class="container">
+
+            <#list charities as charity>
+                <div class="row my-5" id="charity-row-${charity.id}">
+                    <a href="/charityPage/${charity.id}">
+                        <div class="col-md-3" id="charity-img-${charity.id}"><img alt="Charity logo" width="150px"
+                                                                                  height="150px"
+                                                                                  src=${charity.logoFile!"../img/no-charity-logo.png"}>
+                        </div>
+                    </a>
+                    <div class="col-md-9" id="charity-body-${charity.id}">
+                        <a href="/charityPage/${charity.id}">
+                            <strong>${charity.name}</strong>
+                        </a>
+                        <p class="charity-desc-p">${charity.description}</p>
+                    </div>
+                </div>
+            </#list>
+        </div>
+        <#else>
+            <#if searchedName??>
+                <div id="sorryNoCharties" class="container">
+                    No charities matched your search, please try again
+                </div>
+            </#if>
+    </#if>
 </div>
 
 <#if charities??>

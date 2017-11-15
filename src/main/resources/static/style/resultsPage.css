@@ -7,3 +7,18 @@
     margin-left: 1rem;
     margin-right: 1rem;
 }
+#conditionSearchForm {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+}
+.Row{
+    display: table;
+    width: 100%; /*Optional*/
+    table-layout: fixed; /*Optional*/
+    border-spacing: 10px; /*Optional*/
+}
+
+.Column{
+    display: table-cell;
+    /*background-color: red; /*Optional*/
+}
