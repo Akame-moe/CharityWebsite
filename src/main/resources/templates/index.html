@@ -43,7 +43,8 @@
             <div class="container">
                 <div class="carousel-caption d-none d-md-block text-left">
                     <h1>Connect charities</h1>
-                    <p>At connect charities, we strive to assist charities around the world in their fundraising campaign</p>
+                    <p>At connect charities, we strive to assist charities around the world in their fundraising
+                        campaign</p>
                 </div>
             </div>
         </div>
@@ -72,8 +73,9 @@
 
 <form id="searchForm" action="results">
     <div class="form-group container">
-        <input type="text" class="form-control" name="name" aria-describedby="searchHelp"
+        <input type="text" class="form-control" name="searchValue" aria-describedby="searchHelp"
                placeholder="Serach charities" onkeydown="searchBarKeyDown()">
+        <input type="hidden" name="searchKey" value="name">
         <input type="submit" id="searchFormSubmit" style="visibility: hidden;"/>
     </div>
 </form>
