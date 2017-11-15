@@ -7,6 +7,7 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -17,7 +18,7 @@ public class SearchController {
 
     final static String NAME = "name";
     final static String CAUSE = "cause";
-    final static String LOCATION = "location";
+    final static String COUNTRY = "country";
 
     @Resource
     private CharityService charityService;
@@ -44,7 +45,7 @@ public class SearchController {
             Set<Charity> res = charityService.getCharitiesByCause(searchValue);
             ArrayList<Charity> arrayList = new ArrayList<>(res);
             page = new PageImpl<>(arrayList, pageRequest, arrayList.size());
-        } else if (searchKey.equals(LOCATION)) {
+        } else if (searchKey.equals(COUNTRY)) {
             Set<Charity> res = charityService.getCharitiesByCountry(searchValue);
             ArrayList<Charity> arrayList = new ArrayList<>(res);
             page = new PageImpl<>(arrayList, pageRequest, arrayList.size());
@@ -66,5 +67,11 @@ public class SearchController {
             model.put("thisPageSize", charities.size());
         }
         return "resultsPage";
+    }
+
+    @RequestMapping("/searchKeys")
+    @ResponseBody
+    public List<String> getAllSearchKeys() {
+        return Arrays.asList(NAME, CAUSE, COUNTRY);
     }
 }
