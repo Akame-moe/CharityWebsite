@@ -42,4 +42,6 @@ dependencies {
 	compile group: 'javax.mail', name: 'mail', version: '1.4.1'
     compile group: 'com.sun.mail', name: 'javax.mail', version: '1.4.4'
 
+	compile 'com.google.apis:google-api-services-oauth2:v2-rev87-1.19.1'
+	compile ('com.google.http-client:google-http-client-extensions:1.6.0-beta')
 }
