@@ -433,9 +433,11 @@
              </div>
              <div class="modal-body" style="display:inline">
                  <div  style="float:left">
-                     <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+                     <div class="fb-login-button" data-width="50px" data-max-rows="1" data-size="medium" data-button-type="login_with"
+                          onlogin="checkLoginState();" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false">
+                     </div>
                  </div>
-                 <div  style="float:right"  class="g-signin2" data-onsuccess="onSignIn"></div>
+                 <div  style="float:left; padding-left:20px" data-width="164px;" data-height="26px;" data-longtitle="true" class="g-signin2" data-onsuccess="onSignIn"></div>
              </div>
              <div class="modal-footer">
                  <button type="button" id="loginModelCloseButton" class="btn btn-secondary" data-dismiss="modal">Close</button>

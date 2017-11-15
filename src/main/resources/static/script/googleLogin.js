@@ -15,9 +15,9 @@ function logOutGoogleUser() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
         console.log('User signed out.');
+        document.getElementById("welcomeLabel").innerHTML="";
+        document.getElementById("logOut").setAttribute("hidden",true);
+        document.getElementById("login").removeAttribute("hidden");
+        document.getElementById("loginModelCloseButton").click();
     });
-    document.getElementById("welcomeLabel").innerHTML="";
-    document.getElementById("logOut").setAttribute("hidden",true);
-    document.getElementById("login").removeAttribute("hidden");
-    document.getElementById("loginModelCloseButton").click();
 }
