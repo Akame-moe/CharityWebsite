@@ -122,12 +122,16 @@
 
         <div class="vertical-spacer"></div>
 
-        <div class="container text-center">
-            <div id="charityThumbUp" >Thumbs : ${charity.thumbUp} </div>
-            <button type="button" class="btn btn-primary text-center" onclick="sendUpdateCharityThumbUp()">Thumb up!</button>
+        <div class="container text-center form-inline">
+            <div id="charityThumbUp" class ="form-inline" >Thumbs : ${charity.thumbUp} </div>
+            <div class ="form-inline" >
+                <img src="../img/thumbsUp.png" height="20" width="20" alt="xxx." class="img-responsive" onclick="sendUpdateCharityThumbUp()">
+            </div>
         </div>
 
-        <div class="container text-center">
+        <div class="vertical-spacer"></div>
+
+        <div class="container text-center form-inline">
             <div id="donate-button" class="btn btn-primary text-center" data-toggle="modal"
                  data-target="#donateModal">Donate to this charity!
             </div>
