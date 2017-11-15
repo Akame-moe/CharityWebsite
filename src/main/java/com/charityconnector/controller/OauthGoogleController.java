@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -30,7 +31,7 @@ public class OauthGoogleController {
     @Autowired
     GoogleUser user;
 
-    @RequestMapping("/tokenString")
+    @RequestMapping(path = "/tokenString", method = RequestMethod.POST)
     public ResponseEntity<GoogleIdToken> getGoogleToken(@RequestBody String idTokenString) {
         GoogleIdToken token = verifyGoogleIdToken(idTokenString);
         if (token != null) {
