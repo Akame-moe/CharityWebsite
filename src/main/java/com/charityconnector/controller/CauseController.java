@@ -20,7 +20,6 @@ public class CauseController {
     @RequestMapping("/causePage/{id}")
     public String getCharityPage(Map<String, Object> model, @PathVariable("id") Long id) {
         model.put("cause", causeService.findById(id));
-
         return "causePage";
     }
 

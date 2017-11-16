@@ -103,7 +103,7 @@
                     <div>
                         What we operate on:
                         <#items as cause>
-                            <span class="badge badge-success">${cause.name}</span>
+                            <a href="/causePage/${cause.id}"  data-value=${cause.id} class="badge badge-success">${cause.name}</a>
                         </#items>
                     </div>
                 </#list>
@@ -124,8 +124,8 @@
 
         <div class="container text-center form-inline">
             <div id="charityThumbUp" class ="form-inline" >Thumbs : ${charity.thumbUp} </div>
-            <div class ="form-inline" >
-                <img src="../img/thumbsUp.png" height="20" width="20" alt="xxx." class="img-responsive" onclick="sendUpdateCharityThumbUp()">
+            <div style="margin-left:10px;" class ="form-inline" >
+                <img src="../img/thumbs_up.jpg" height="40" width="40" alt="xxx." class="img-responsive" onclick="sendUpdateCharityThumbUp()">
             </div>
         </div>
 
