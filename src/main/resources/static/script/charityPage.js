@@ -12,9 +12,10 @@ $(document).ready(function () {
             }
         },
         success: function (data, textStatus, xhr) {
-            if (xhr.status == 200 && data.hasOwnProperty("name")) {
+            console.log(data);
+            if (xhr.status == 200 && data.hasOwnProperty("userAuthentication")) {
                 console.log(xhr);
-                $("#welcomeLabel").html(data.name);
+                $("#welcomeLabel").html(data.userAuthentication.details.name);
                 $(".unauthenticated").hide();
                 $(".authenticated").show();
             } else {

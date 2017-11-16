@@ -34,9 +34,7 @@ import org.springframework.web.filter.CompositeFilter;
 import javax.servlet.Filter;
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @SpringBootApplication
 @RestController
@@ -52,10 +50,8 @@ public class WebsiteApplication extends WebSecurityConfigurerAdapter {
     //returns the user name
     @RequestMapping({"/user", "/me"})
     @ResponseBody
-    public Map<String, String> user(Principal principal) {
-        Map<String, String> map = new LinkedHashMap<>();
-        map.put("name", principal.getName());
-        return map;
+    public Principal user(Principal principal) {
+        return principal;
     }
 
     @Override
