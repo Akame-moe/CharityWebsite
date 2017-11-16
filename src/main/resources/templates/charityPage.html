@@ -21,13 +21,13 @@
 </head>
 <body>
 
- <!--FB Login Handle Code-->
- <script type="text/javascript" src="../script/facebookLogin.js"></script>
+<!--FB Login Handle Code-->
+<script type="text/javascript" src="../script/facebookLogin.js"></script>
 <!--End of FB Handle Code-->
 
- <!--Google Login Handle Code-->
- <script type="text/javascript" src="../script/googleLogin.js"></script>
- <!--End of Google Handle Code-->
+<!--Google Login Handle Code-->
+<script type="text/javascript" src="../script/googleLogin.js"></script>
+<!--End of Google Handle Code-->
 
 
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
@@ -39,9 +39,12 @@
             <li class="navbar-item active"><a class="nav-link" href="/charity/random">A Random Charity</a></li>
         </ul>
         <ul class="navbar-nav navbar-right">
-            <li class="navbar-item active"><a class="nav-link" id="welcomeLabel"></a></li>
-            <li class="navbar-item active"><a class="nav-link" href="#" hidden="true"  data-value="test" onclick="logOutUser();" id="logOut">LogOut</a></li>
-            <li class="navbar-item active"><a class="nav-link" href="#" hidden="true"  data-toggle="modal" data-target="#loginModal" id="login">Login</a></li>
+            <li class="navbar-item active"><a class="nav-link authenticated">Welcome, <span
+                    id="welcomeLabel"></span></a></li>
+            <li class="navbar-item active authenticated"><a class="nav-link" href="#" data-value="test"
+                                                            onclick="logOutUser();" id="logOut">LogOut</a></li>
+            <li class="navbar-item active unauthenticated"><a class="nav-link" href="#" data-toggle="modal"
+                                                              data-target="#loginModal" id="login">Login</a></li>
             <li class="navbar-item active"><a class="nav-link" href="#" id="editLink">Edit this page</a></li>
         </ul>
     </div>
@@ -123,9 +126,16 @@
         <div class="vertical-spacer"></div>
 
         <div class="container text-center form-inline">
+<<<<<<< HEAD
             <div id="charityThumbUp" class ="form-inline" >Thumbs : ${charity.thumbUp} </div>
             <div style="margin-left:10px;" class ="form-inline" >
                 <img src="../img/thumbs_up.jpg" height="40" width="40" alt="xxx." class="img-responsive" onclick="sendUpdateCharityThumbUp()">
+=======
+            <div id="charityThumbUp" class="form-inline">Thumbs : ${charity.thumbUp}</div>
+            <div class="form-inline">
+                <img src="../img/thumbsUp.png" height="20" width="20" alt="xxx." class="img-responsive"
+                     onclick="sendUpdateCharityThumbUp()">
+>>>>>>> af56746e70591d865a03739181aaab0134791cc4
             </div>
         </div>
 
@@ -430,53 +440,67 @@
     </div>
 </div>
 
- <div class="modal fade show" id="loginModal" tabindex="-1" role="dialog"
-      aria-labelledby="loginLabel">
-     <div class="modal-dialog" role="document">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <h5 class="modal-title" id="loginLabel">Login with Following Accounts:</h5>
-                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true">&times;</span>
-                 </button>
-             </div>
-             <div class="modal-body" style="display:inline">
-                 <div  style="float:left">
-                     <div class="fb-login-button" data-width="50px" data-max-rows="1" data-size="medium" data-button-type="login_with"
-                          onlogin="checkLoginState();" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false">
-                     </div>
-                 </div>
-                 <div  style="float:left; padding-left:20px;" data-width="164px;" data-height="27px;" data-longtitle="true" class="g-signin2" data-onsuccess="onSignIn"></div>
-             </div>
-             <div class="modal-footer">
-                 <button type="button" id="loginModelCloseButton" class="btn btn-secondary" data-dismiss="modal">Close</button>
-             </div>
-         </div>
-     </div>
- </div>
+<div class="modal fade show" id="loginModal" tabindex="-1" role="dialog"
+     aria-labelledby="loginLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginLabel">Login with Following Accounts:</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="display:inline">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <a href="/login/facebook">
+                                <div class="fb-login-button" data-width="50px" data-max-rows="1" data-size="medium"
+                                     data-button-type="login_with"
+                                     data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false">
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="/login/google">
+                                <div class="g-signin2"></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="loginModelCloseButton" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
 
-<!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <!-- popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+            crossorigin="anonymous"></script>
 
-<!-- popper -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
-        crossorigin="anonymous"></script>
+    <!-- boostrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+            crossorigin="anonymous"></script>
 
-<!-- boostrap -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
-        crossorigin="anonymous"></script>
+    <!-- Cookie handling -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
-<!--js-->
-<script src="../script/charityPage.js"></script>
+    <!--js-->
+    <script src="../script/charityPage.js"></script>
 
 
- <!--Google Login JS-->
- <script src="https://apis.google.com/js/platform.js" async defer></script>
- <meta name="google-signin-client_id"
-       content="373171369886-2a8lv6uajc12cv54e1pdi4eog2kpqd32.apps.googleusercontent.com">
- <!-- End of Google Login JS-->
+    <!--Google Login JS-->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id"
+          content="373171369886-2a8lv6uajc12cv54e1pdi4eog2kpqd32.apps.googleusercontent.com">
+    <!-- End of Google Login JS-->
 
 </body>
 </html>
