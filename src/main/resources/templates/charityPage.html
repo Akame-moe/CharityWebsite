@@ -39,9 +39,12 @@
             <li class="navbar-item active"><a class="nav-link" href="/charity/random">A Random Charity</a></li>
         </ul>
         <ul class="navbar-nav navbar-right">
-            <li class="navbar-item active"><a class="nav-link" id="welcomeLabel"></a></li>
-            <li class="navbar-item active"><a class="nav-link" href="#" hidden="true"  data-value="test" onclick="logOutUser();" id="logOut">LogOut</a></li>
-            <li class="navbar-item active"><a class="nav-link" href="#" hidden="true"  data-toggle="modal" data-target="#loginModal" id="login">Login</a></li>
+            <li class="navbar-item active"><a class="nav-link authenticated">Welcome, <span
+                    id="welcomeLabel"></span></a></li>
+            <li class="navbar-item active authenticated"><a class="nav-link" href="#" data-value="test"
+                                                            onclick="logOutUser();" id="logOut">LogOut</a></li>
+            <li class="navbar-item active unauthenticated"><a class="nav-link" href="#" data-toggle="modal"
+                                                              data-target="#loginModal" id="login">Login</a></li>
             <li class="navbar-item active"><a class="nav-link" href="#" id="editLink">Edit this page</a></li>
         </ul>
     </div>
@@ -441,12 +444,12 @@
                  </button>
              </div>
              <div class="modal-body" style="display:inline">
-                 <div  style="float:left">
-                     <div class="fb-login-button" data-width="50px" data-max-rows="1" data-size="medium" data-button-type="login_with"
-                          onlogin="checkLoginState();" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false">
-                     </div>
+                 <div>
+                     With Facebook: <a href="/login/facebook">click here</a>
                  </div>
-                 <div  style="float:left; padding-left:20px;" data-width="164px;" data-height="27px;" data-longtitle="true" class="g-signin2" data-onsuccess="onSignIn"></div>
+                 <div>
+                     With Google: <a href="/login/google">click here</a>
+                 </div>
              </div>
              <div class="modal-footer">
                  <button type="button" id="loginModelCloseButton" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -468,7 +471,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
         crossorigin="anonymous"></script>
 
-<!--js-->
+ <!-- Cookie handling -->
+ <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+ <!--js-->
 <script src="../script/charityPage.js"></script>
 
 

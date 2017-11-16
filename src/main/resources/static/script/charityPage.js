@@ -1,15 +1,43 @@
 var areYouSureText = "Are you sure? You are about to delete the article";
 
-$(document).ready(function(){
+$(document).ready(function () {
+    $.ajax({
+        type: "GET",
+        url: "/user",
+        beforeSend: function (xhr, settings) {
+            if (settings.type == 'POST' || settings.type == 'PUT'
+                || settings.type == 'DELETE') {
+                xhr.setRequestHeader("X-XSRF-TOKEN",
+                    Cookies.get('XSRF-TOKEN'));
+            }
+        },
+        success: function (data, textStatus, xhr) {
+            if (xhr.status == 200 && data.hasOwnProperty("name")) {
+                console.log(xhr);
+                $("#welcomeLabel").html(data.name);
+                $(".unauthenticated").hide();
+                $(".authenticated").show();
+            } else {
+                $(".unauthenticated").show();
+                $(".authenticated").hide();
+            }
+        },
+        error: function (xhr, textStatus) {
+            $(".unauthenticated").show();
+            $(".authenticated").hide();
+        }
+    });
+
+
     $("#editLink").click(editModeToggle);
     $('[data-toggle="tooltip"]').tooltip({container: 'body'})
 
-    $("#active-button").click(function(){
+    $("#active-button").click(function () {
         var id = $("#active-button").attr("data-value");
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: "/charity/"+id+"/verify",
+            url: "/charity/" + id + "/verify",
             success: function (data, textStatus, xhr) {
                 alert("A verify message has been send to your email, please check it!");
             },
@@ -179,11 +207,24 @@ function sendUpdateCharity() {
 }
 
 
-function logOutUser(){
-   var loginType = $("#logOut").attr("data-value");
-   if(loginType=="fb")
-       logOutFaceBookUser();
-   else{
-       logOutGoogleUser();
-   }
+function logOutUser() {
+    $.ajax({
+        type: "POST",
+        url: "/logout",
+        beforeSend: function (xhr, settings) {
+            if (settings.type == 'POST' || settings.type == 'PUT'
+                || settings.type == 'DELETE') {
+                xhr.setRequestHeader("X-XSRF-TOKEN",
+                    Cookies.get('XSRF-TOKEN'));
+            }
+        },
+        success: function (data, textStatus, xhr) {
+            $("#welcomeLabel").html('');
+            $(".unauthenticated").show();
+            $(".authenticated").hide();
+        },
+        error: function (xhr, textStatus) {
+            console.log(xhr)
+        }
+    });
 }

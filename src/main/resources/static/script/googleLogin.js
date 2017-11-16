@@ -15,7 +15,8 @@ function onSignIn(googleUser) {
         contentType: "application/json",
         url: "/oauth/google/tokenString",
         data: JSON.stringify(id_token),
-        success: function () {
+        success: function (data) {
+            console.log(data);
             console.log("Send the id_token to the backend successfully!");
         },
         error: function (e) {
