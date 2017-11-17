@@ -40,7 +40,6 @@
                                               id="logOut">LogOut</a></li>
             <li class="navbar-item active"><a class="nav-link" href="#" hidden="true" data-toggle="modal"
                                               data-target="#loginModal" id="login">Login</a></li>
-            <li class="navbar-item active"><a class="nav-link" href="#" id="editLink">Edit this page</a></li>
         </ul>
     </div>
 </nav>
@@ -51,19 +50,28 @@
 <div id="main-container">
     <div id="cause-container" class="container">
         <div class="row">
+            <div class="col-">
+                <div><img alt="Cause Logo" width="150px" height="150px"
+                          src=${cause.logoFile!"../img/no-charity-logo.png"}></div>
+            </div>
             <div class="col-md">
                 <h2><span id="causeName">${cause.name}</span>
                 </h2>
+                <div id="charityDesc">
+                    ${cause.description}
+                </div>
+            </div>
+            <div class="container text-center">
+                <div id="donate-button" class="btn btn-primary text-center" data-toggle="modal"
+                     data-target="#donateModal">Donate to this cause!
+                </div>
             </div>
         </div>
 
+
+        <!--${cause.charities}-->
         <div class="vertical-spacer"></div>
 
-        <div class="container text-center">
-            <div id="donate-button" class="btn btn-primary text-center" data-toggle="modal"
-                 data-target="#donateModal">Donate to this cause!
-            </div>
-        </div>
 
         <div class="vertical-spacer"></div>
 

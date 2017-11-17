@@ -11,7 +11,9 @@ import java.util.Set;
 public class Cause{
     private Long id;
     private String name;
+    private String logoFile;
     private Set<Charity> charities;
+    private String description;
 
     /* Required by JPA specification */
     public Cause() {
@@ -52,6 +54,24 @@ public class Cause{
 
     public void setCharities(Set<Charity> charities) {
         this.charities = charities;
+    }
+
+    @Column(name = "logo_file")
+    public String getLogoFile() {
+        return logoFile;
+    }
+
+    public void setLogoFile(String logoFile) {
+        this.logoFile = logoFile;
+    }
+
+    @Column(name = "description")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String descriptin) {
+        this.description = descriptin;
     }
 }
 
