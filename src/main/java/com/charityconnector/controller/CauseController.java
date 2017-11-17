@@ -1,5 +1,6 @@
 package com.charityconnector.controller;
 
+import com.charityconnector.entity.Cause;
 import com.charityconnector.service.CauseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,9 @@ public class CauseController {
 
     @RequestMapping("/causePage/{id}")
     public String getCharityPage(Map<String, Object> model, @PathVariable("id") Long id) {
-        model.put("cause", causeService.findById(id));
+        Cause cause = causeService.findById(id);
+        model.put("cause",cause);
+        model.put("charities",cause.getCharities());
         return "causePage";
     }
 

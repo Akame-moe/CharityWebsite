@@ -68,15 +68,36 @@
             </div>
         </div>
 
-
-        <!--${cause.charities}-->
         <div class="vertical-spacer"></div>
 
 
         <div class="vertical-spacer"></div>
-
 
     </div>
+
+    <h3 style="margin-left: 75px">Related Charities: </h3>
+    <#if charities??>
+        <div id="searchResultsContainer" class="container">
+
+
+            <#list charities as charity>
+                <div class="row my-5" id="charity-row-${charity.id}">
+                    <a href="/charityPage/${charity.id}">
+                        <div class="col-md-3" id="charity-img-${charity.id}"><img alt="Charity logo" width="150px"
+                                                                                  height="150px"
+                                                                                  src=${charity.logoFile!"../img/no-charity-logo.png"}>
+                        </div>
+                    </a>
+                    <div class="col-md-9" id="charity-body-${charity.id}">
+                        <a href="/charityPage/${charity.id}">
+                            <strong>${charity.name}</strong>
+                        </a>
+                        <p class="charity-desc-p">${charity.description}</p>
+                    </div>
+                </div>
+            </#list>
+        </div>
+    </#if>
 </div>
 
 <footer class="footer p-5">
