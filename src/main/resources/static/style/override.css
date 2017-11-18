@@ -38,3 +38,21 @@ body {
     /* reset the font property */
     font: 16px/1 "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+.carousel-item {
+    width: 1100px;
+}
+
+.carousel-item img {
+    display: block;
+}
+
+.carousel {
+    background-color: #cccccc;
+}
+
+.carousel-inner {
+    background-color: #cccccc;
+}
+
+
