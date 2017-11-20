@@ -48,11 +48,11 @@ body {
 }
 
 .carousel {
-    background-color: #cccccc;
+    background-color: white;
 }
 
-.carousel-inner {
-    background-color: #cccccc;
+.carousel-control-prev:hover, .carousel-control-prev, .carousel-control-next:hover, .carousel-control-next {
+    color: black;
 }
 
 
