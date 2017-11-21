@@ -23,6 +23,7 @@ public class Charity {
     private String verifyCode;
     private int verifyStatus;
     private Long thumbUp;
+    private String oauthUserId;
 
     public Charity(Long id, String name, String description, String logoFile, String email, String paypalAccount, Set<Cause> causes, Set<Country> countries, String verifyCode, int verifyStatus, Long thumbUp) {
         this.id = id;
@@ -41,11 +42,16 @@ public class Charity {
     /* Required by JPA specification */
     public Charity() {
         super();
+        this.thumbUp = 0L;
     }
 
     public Charity(String desciption, Long id) {
-        this.description = desciption;
         this.id = id;
+    }
+
+    public Charity(String oauthUserId) {
+        this();
+        this.oauthUserId = oauthUserId;
     }
 
     @Id
@@ -154,6 +160,14 @@ public class Charity {
         this.thumbUp = thumbUp;
     }
 
+    @Column(name = "oauth_user_id")
+    public String getOauthUserId() {
+        return oauthUserId;
+    }
+
+    public void setOauthUserId(String oauthUserId) {
+        this.oauthUserId = oauthUserId;
+    }
 }
 
 

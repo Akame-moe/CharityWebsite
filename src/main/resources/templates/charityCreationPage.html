@@ -94,35 +94,37 @@
 
                 <#list charity.causes>
                     <div class="vertical-spacer-small"></div>
-                        <div>
+                    <div>
                         What we operate on:
                         <#items as cause>
-                        <a href="/causePage/${cause.id}" data-value=${cause.id} class="badge badge-success">${cause.name}</a>
-                    </#items>
+                            <a href="/causePage/${cause.id}" data-value=${cause.id} class="badge badge-success">${cause.name}</a>
+                        </#items>
                     </div>
                 </#list>
 
                 <#list charity.countries>
                     <div class="vertical-spacer-small"></div>
-                        <div>
+                    <div>
                         In these nations around the world:
                         <#items as country>
-                        <span class="badge badge-success">${country.countryValue}</span>
+                            <span class="badge badge-success">${country.countryValue}</span>
                         </#items>
                     </div>
                 </#list>
 
                 <div class="vertical-spacer"></div>
 
-                <div class="container text-center form-inline"  >
+                <div class="container text-center form-inline">
                     <div style="margin-left:-18px;">
-                        <div id="charityThumbUp" class="form-inline" style="float:left; margin-top: 10px" >Thumbs : ${charity.thumbUp}</div>
+                        <div id="charityThumbUp" class="form-inline" style="float:left; margin-top: 10px">Thumbs :
+                            ${charity.thumbUp}
+                        </div>
                         <div style="margin-left:10px;float:left;" class="form-inline">
                             <img src="../img/thumbs_up.png" height="40" width="40" alt="xxx." class="img-responsive"
                                  onclick="sendUpdateCharityThumbUp()">
                         </div>
                     </div>
-                    <div id="donate-button" class="btn btn-primary text-center"data-toggle="modal"
+                    <div id="donate-button" class="btn btn-primary text-center" data-toggle="modal"
                          data-target="#donateModal" style="float:left; margin-left: 100px">Donate to this charity!
                     </div>
                 </div>
@@ -131,7 +133,6 @@
                 </div>
             </div>
         </div>
-
 
 
         <div class="vertical-spacer"></div>
@@ -500,21 +501,21 @@
 
 
 <!-- jquery -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
 
-    <!-- popper -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
-            crossorigin="anonymous"></script>
+<!-- popper -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+        crossorigin="anonymous"></script>
 
-    <!-- boostrap -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
-            crossorigin="anonymous"></script>
+<!-- boostrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+        crossorigin="anonymous"></script>
 
-    <!-- Cookie handling -->
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<!-- Cookie handling -->
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
-    <!--js-->
-    <script src="../script/charityPage.js"></script>
+<!--js-->
+<script src="../script/charityPage.js"></script>
 
 </body>
 </html>

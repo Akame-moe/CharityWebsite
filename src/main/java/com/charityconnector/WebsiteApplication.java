@@ -3,6 +3,7 @@ package com.charityconnector;
 
 import com.charityconnector.auth.CharityAuthenticationSuccessHandler;
 import com.charityconnector.auth.DonorAuthenticationSuccessHandler;
+import com.charityconnector.service.CharityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
@@ -50,6 +51,9 @@ public class WebsiteApplication extends WebSecurityConfigurerAdapter {
     @Autowired
     OAuth2ClientContext oauth2ClientContext;
 
+    @Autowired
+    private CharityService charityService;
+
     //returns the user name
     @RequestMapping({"/user", "/me"})
     @ResponseBody
@@ -74,8 +78,8 @@ public class WebsiteApplication extends WebSecurityConfigurerAdapter {
         http.antMatcher("/**").authorizeRequests()
                 //permitted to all
                 .antMatchers("/style/**", "/script/**", "/img/**",
-                        "/", "/login**", "/charityPage/**", "/causePage/**", "/charity/random",
-                        "/charity/thumbUp", "/charities/rank").permitAll()
+                        "/", "/login**", "/charityPage/**", "/causePage/**",
+                        "/charity/thumbUp", "/charities/rank", "/charity").permitAll()
                 //everything else requires authentication
                 .anyRequest().authenticated().and().exceptionHandling()
                 //authentication entry point
@@ -113,7 +117,7 @@ public class WebsiteApplication extends WebSecurityConfigurerAdapter {
         oAuth2ClientAuthenticationFilter.setTokenServices(tokenServices);
 
         if (isCharity) {
-            oAuth2ClientAuthenticationFilter.setAuthenticationSuccessHandler(new CharityAuthenticationSuccessHandler());
+            oAuth2ClientAuthenticationFilter.setAuthenticationSuccessHandler(new CharityAuthenticationSuccessHandler(charityService));
         } else {
             oAuth2ClientAuthenticationFilter.setAuthenticationSuccessHandler(new DonorAuthenticationSuccessHandler());
         }

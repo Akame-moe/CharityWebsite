@@ -25,6 +25,7 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Map;
+import java.util.Objects;
 
 
 @Controller
@@ -52,9 +53,12 @@ public class CharityController {
 
     @RequestMapping(path = "/charity", method = RequestMethod.POST)
     @ResponseBody
-    public Charity addCharity(@RequestBody Charity charity) {
-        Charity res = charityService.addCharity(charity);
-        return res;
+    public Charity addCharity(@RequestBody Charity charity, Principal principal) {
+        MyOAuth2AuthenticationDetails authDetails = getAuthenticationDetails(principal);
+        if (authDetails == null || !authDetails.isCharity() || !Objects.equals(authDetails.getCharityId(), charity.getId()))
+            return null;
+
+        return charityService.addCharity(charity);
     }
 
     @RequestMapping(path = "/charity/thumbUp", method = RequestMethod.PATCH)
@@ -75,7 +79,11 @@ public class CharityController {
 
     @RequestMapping(path = "/charity/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public void deleteCharityById(@PathVariable("id") Long id) {
+    public void deleteCharityById(@PathVariable("id") Long id, Principal principal) {
+        MyOAuth2AuthenticationDetails authDetails = getAuthenticationDetails(principal);
+        if (authDetails == null || !authDetails.isCharity() || !Objects.equals(authDetails.getCharityId(), id))
+            return;
+
         charityService.deleteById(id);
     }
 
@@ -87,12 +95,7 @@ public class CharityController {
 
     @RequestMapping("/charityPage/{id}")
     public String getCharityPage(Map<String, Object> model, @PathVariable("id") Long id, Principal principal) {
-        MyOAuth2AuthenticationDetails authDetails = null;
-
-        OAuth2Authentication auth = (OAuth2Authentication) principal;
-
-        if (auth != null)
-            authDetails = (MyOAuth2AuthenticationDetails) auth.getDetails();
+        MyOAuth2AuthenticationDetails authDetails = getAuthenticationDetails(principal);
 
         model.put("charity", charityService.findById(id));
         model.put("articles", articleService.findArticlesByCharityId(id));
@@ -113,7 +116,11 @@ public class CharityController {
     // This method is used for upload the logo of the charity.
     // The image is encoded with base64 and then store directly to the databse.
     @RequestMapping(path = "/charity/{id}/logo", method = RequestMethod.POST)
-    public String updateCharityLogo(@RequestParam("file") MultipartFile file, @PathVariable("id") Long id) {
+    public String updateCharityLogo(@RequestParam("file") MultipartFile file, @PathVariable("id") Long id, Principal principal) {
+        MyOAuth2AuthenticationDetails authDetails = getAuthenticationDetails(principal);
+        if (authDetails == null || !authDetails.isCharity() || !Objects.equals(authDetails.getCharityId(), id))
+            return "error";
+
         Charity charity = charityService.findById(id);
         if (!file.isEmpty()) {
             try {
@@ -130,7 +137,11 @@ public class CharityController {
     }
 
     @RequestMapping(path = "/charity/{id}/verify", method = RequestMethod.POST)
-    public ResponseEntity<String> verifyCharity(@PathVariable("id") Long id) {
+    public ResponseEntity<String> verifyCharity(@PathVariable("id") Long id, Principal principal) {
+        MyOAuth2AuthenticationDetails authDetails = getAuthenticationDetails(principal);
+        if (authDetails == null || !authDetails.isCharity() || !Objects.equals(authDetails.getCharityId(), id))
+            return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+
         Charity charity = charityService.findById(id);
         String email = charity.getEmail();
         if (email == null) {
@@ -174,6 +185,29 @@ public class CharityController {
     @ResponseBody
     public Page<Charity> getEntryByPageable(@PageableDefault(value = 5, sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
         return charityService.findAll(pageable);
+    }
+
+    @RequestMapping("/charityCreationPage/{id}")
+    public String getCharityCreationPage(Map<String, Object> model, @PathVariable("id") Long id, Principal principal) {
+        MyOAuth2AuthenticationDetails authDetails = getAuthenticationDetails(principal);
+        if (authDetails == null || !authDetails.isCharity() || !Objects.equals(authDetails.getCharityId(), id))
+            return "error";
+
+        model.put("charity", charityService.findById(id));
+
+        return "charityCreationPage";
+    }
+
+    private MyOAuth2AuthenticationDetails getAuthenticationDetails(Principal principal) {
+        MyOAuth2AuthenticationDetails authDetails = null;
+        OAuth2Authentication auth;
+        if (principal != null) {
+            auth = (OAuth2Authentication) principal;
+            authDetails = (MyOAuth2AuthenticationDetails) auth.getDetails();
+            return authDetails;
+        } else {
+            return null;
+        }
     }
 }
 

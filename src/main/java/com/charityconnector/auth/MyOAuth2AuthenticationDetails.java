@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 public class MyOAuth2AuthenticationDetails extends OAuth2AuthenticationDetails {
 
     private boolean isCharity;
-    private int charityId;
+    private Long charityId;
 
     /**
      * Records the access token value and remote address and will also set the session Id if a session already exists
@@ -27,11 +27,11 @@ public class MyOAuth2AuthenticationDetails extends OAuth2AuthenticationDetails {
         isCharity = charity;
     }
 
-    public int getCharityId() {
+    public Long getCharityId() {
         return charityId;
     }
 
-    public void setCharityId(int charityId) {
+    public void setCharityId(Long charityId) {
         this.charityId = charityId;
     }
 }
