@@ -1,10 +1,12 @@
 package com.charityconnector.controller;
 
+
 import com.charityconnector.entity.Charity;
 import com.charityconnector.service.ArticleService;
 import com.charityconnector.service.CharityService;
 import com.charityconnector.util.CodeUtil;
 import com.charityconnector.util.MailUtil;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -19,6 +21,7 @@ import sun.misc.BASE64Encoder;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Map;
 
 
@@ -30,6 +33,8 @@ public class CharityController {
 
     @Resource
     private ArticleService articleService;
+
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(CharityController.class);
 
     @RequestMapping(path = "/charities/{name}", method = RequestMethod.GET)
     @ResponseBody
@@ -79,9 +84,19 @@ public class CharityController {
     }
 
     @RequestMapping("/charityPage/{id}")
-    public String getCharityPage(Map<String, Object> model, @PathVariable("id") Long id) {
+    public String getCharityPage(Map<String, Object> model, @PathVariable("id") Long id, Principal principal) {
+
+
         model.put("charity", charityService.findById(id));
         model.put("articles", articleService.findArticlesByCharityId(id));
+
+        if (principal != null) {
+            model.put("principal", principal);
+            logger.debug(principal.toString());
+        } else {
+            model.put("principal", "NULL");
+            logger.debug("UNLOGGED charityPAge");
+        }
 
         return "charityPage";
     }
@@ -140,15 +155,15 @@ public class CharityController {
      * page: represent the current page index from 0
      * size: the size of one page
      * sort: the info of how to sort. For example: if I write request param like: sort=thumbUp,desc , then
-     *       we get charities sorted by thumbUp in DESC order.
-     *       The attribute value for sort is the name of attribute in Charity Entity not the name in database table.
+     * we get charities sorted by thumbUp in DESC order.
+     * The attribute value for sort is the name of attribute in Charity Entity not the name in database table.
      *
      * @param pageable default value is sort by charity id in DESC order and the default page size is 5.
      * @return
      */
-    @RequestMapping(path = "/charities/rank", method=RequestMethod.GET)
+    @RequestMapping(path = "/charities/rank", method = RequestMethod.GET)
     @ResponseBody
-    public Page<Charity> getEntryByPageable(@PageableDefault(value=5, sort = { "id" }, direction=Sort.Direction.DESC) Pageable pageable) {
+    public Page<Charity> getEntryByPageable(@PageableDefault(value = 5, sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
         return charityService.findAll(pageable);
     }
 }

@@ -1,5 +1,7 @@
 package com.charityconnector;
 
+
+import com.charityconnector.auth.CharityAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
@@ -54,6 +56,18 @@ public class WebsiteApplication extends WebSecurityConfigurerAdapter {
         return principal;
     }
 
+    //provide filters by path
+    private Filter ssoFilter() {
+        CompositeFilter filter = new CompositeFilter();
+        List<Filter> filters = new ArrayList<>();
+        filters.add(ssoFilter(facebook(), true, "/login/charity/facebook"));
+        filters.add(ssoFilter(google(), true, "/login/charity/google"));
+        filters.add(ssoFilter(facebook(), false, "/login/donor/facebook"));
+        filters.add(ssoFilter(google(), false, "/login/donor/google"));
+        filter.setFilters(filters);
+        return filter;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/**").authorizeRequests()
@@ -84,7 +98,28 @@ public class WebsiteApplication extends WebSecurityConfigurerAdapter {
         SpringApplication.run(WebsiteApplication.class, args);
     }
 
+    //filters resource provider by path
+    private Filter ssoFilter(ClientResources client, boolean isCharity, String path) {
+        OAuth2ClientAuthenticationProcessingFilter oAuth2ClientAuthenticationFilter = new OAuth2ClientAuthenticationProcessingFilter(path);
+
+        OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(client.getClient(), oauth2ClientContext);
+        oAuth2ClientAuthenticationFilter.setRestTemplate(oAuth2RestTemplate);
+
+        UserInfoTokenServices tokenServices = new UserInfoTokenServices(client.getResource().getUserInfoUri(),
+                client.getClient().getClientId());
+
+        tokenServices.setRestTemplate(oAuth2RestTemplate);
+        oAuth2ClientAuthenticationFilter.setTokenServices(tokenServices);
+
+        if (isCharity) {
+            oAuth2ClientAuthenticationFilter.setAuthenticationSuccessHandler(new CharityAuthenticationSuccessHandler());
+        }
+
+        return oAuth2ClientAuthenticationFilter;
+    }
+
     @Bean
+    //allows to use facebook as a root auth property in application.yml
     @ConfigurationProperties("facebook")
     public ClientResources facebook() {
         return new ClientResources();
@@ -94,28 +129,6 @@ public class WebsiteApplication extends WebSecurityConfigurerAdapter {
     @ConfigurationProperties("google")
     public ClientResources google() {
         return new ClientResources();
-    }
-
-    //provide filters by path
-    private Filter ssoFilter() {
-        CompositeFilter filter = new CompositeFilter();
-        List<Filter> filters = new ArrayList<>();
-        filters.add(ssoFilter(facebook(), "/login/facebook"));
-        filters.add(ssoFilter(google(), "/login/google"));
-        filter.setFilters(filters);
-        return filter;
-    }
-
-    //filters resource provider by path
-    private Filter ssoFilter(ClientResources client, String path) {
-        OAuth2ClientAuthenticationProcessingFilter oAuth2ClientAuthenticationFilter = new OAuth2ClientAuthenticationProcessingFilter(path);
-        OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(client.getClient(), oauth2ClientContext);
-        oAuth2ClientAuthenticationFilter.setRestTemplate(oAuth2RestTemplate);
-        UserInfoTokenServices tokenServices = new UserInfoTokenServices(client.getResource().getUserInfoUri(),
-                client.getClient().getClientId());
-        tokenServices.setRestTemplate(oAuth2RestTemplate);
-        oAuth2ClientAuthenticationFilter.setTokenServices(tokenServices);
-        return oAuth2ClientAuthenticationFilter;
     }
 
     @Configuration

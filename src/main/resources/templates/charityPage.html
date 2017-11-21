@@ -44,6 +44,8 @@
 
 <div id="main-container">
     <div id="charity-container" class="container">
+        Principal:${principal}
+
         <button type="button" class="btn btn-primary edit-badge" id="editImageButton" data-toggle="modal"
                 data-target="#uploadImageModal">
             <svg height="28" width="20" viewBox="0 0 14 14" version="1.1" aria-hidden="true">
@@ -441,31 +443,65 @@
                 </button>
             </div>
             <div class="modal-body" style="display:inline">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <a href="/login/facebook">
-                                <img height="40rem" src="../img/facebook_sign_in_button.png"/>
-                            </a>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a id="charityLoginTab" class="nav-link active" data-toggle="tab"
+                           href="#charityLogin" role="tab" aria-controls="charityLogin"
+                           aria-expanded="true">Charity Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="donorLoginTab" class="nav-link" data-toggle="tab"
+                           href="#donorLogin" role="tab" aria-controls="donorLogin"
+                           aria-expanded="false">Donor Login</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="charityLogin" class="tab-pane fade active show" role="tabpanel"
+                         aria-labelledby="charityLoginTab" aria-expanded="true">
+                        <div class="container">
+                            <div class="row login-buttons">
+                                <div class="col">
+                                    <a href="/login/charity/facebook">
+                                        <img height="40rem" src="../img/facebook_sign_in_button.png"/>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a href="/login/charity/google">
+                                        <img height="40rem" src="../img/google_sign_in_button.png"/>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col">
-                            <a href="/login/google">
-                                <img height="40rem" src="../img/google_sign_in_button.png"/>
-                            </a>
+                    </div>
+                    <div id="donorLogin" class="tab-pane fade" role="tabpanel"
+                         aria-labelledby="donorLoginTab" aria-expanded="false">
+                        <div class="container">
+                            <div class="row login-buttons">
+                                <div class="col">
+                                    <a href="/login/charity/facebook">
+                                        <img height="40rem" src="../img/facebook_sign_in_button.png"/>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a href="/login/charity/google">
+                                        <img height="40rem" src="../img/google_sign_in_button.png"/>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" id="loginModelCloseButton" class="btn btn-secondary" data-dismiss="modal">
-                        Close
-                    </button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="loginModelCloseButton" class="btn btn-secondary" data-dismiss="modal">Close
+                </button>
             </div>
         </div>
     </div>
+</div>
 
 
-    <!-- jquery -->
+<!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
 
     <!-- popper -->
