@@ -2,6 +2,7 @@ package com.charityconnector;
 
 
 import com.charityconnector.auth.CharityAuthenticationSuccessHandler;
+import com.charityconnector.auth.DonorAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
@@ -113,6 +114,8 @@ public class WebsiteApplication extends WebSecurityConfigurerAdapter {
 
         if (isCharity) {
             oAuth2ClientAuthenticationFilter.setAuthenticationSuccessHandler(new CharityAuthenticationSuccessHandler());
+        } else {
+            oAuth2ClientAuthenticationFilter.setAuthenticationSuccessHandler(new DonorAuthenticationSuccessHandler());
         }
 
         return oAuth2ClientAuthenticationFilter;

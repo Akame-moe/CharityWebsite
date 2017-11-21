@@ -1,6 +1,7 @@
 package com.charityconnector.controller;
 
 
+import com.charityconnector.auth.MyOAuth2AuthenticationDetails;
 import com.charityconnector.entity.Charity;
 import com.charityconnector.service.ArticleService;
 import com.charityconnector.service.CharityService;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -85,16 +87,23 @@ public class CharityController {
 
     @RequestMapping("/charityPage/{id}")
     public String getCharityPage(Map<String, Object> model, @PathVariable("id") Long id, Principal principal) {
+        MyOAuth2AuthenticationDetails authDetails = null;
 
+        OAuth2Authentication auth = (OAuth2Authentication) principal;
+
+        if (auth != null)
+            authDetails = (MyOAuth2AuthenticationDetails) auth.getDetails();
 
         model.put("charity", charityService.findById(id));
         model.put("articles", articleService.findArticlesByCharityId(id));
 
-        if (principal != null) {
-            model.put("principal", principal);
-            logger.debug(principal.toString());
+        if (authDetails != null) {
+            model.put("isCharity", authDetails.isCharity());
+            if (authDetails.isCharity())
+                model.put("charityId", authDetails.getCharityId());
+            logger.debug(authDetails.toString());
         } else {
-            model.put("principal", "NULL");
+            model.put("isCharity", "UNLOGGED");
             logger.debug("UNLOGGED charityPAge");
         }
 
