@@ -152,4 +152,3 @@ public class CharityController {
         return charityService.findAll(pageable);
     }
 }
-
