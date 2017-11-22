@@ -21,25 +21,8 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-primary">
-    <a class="navbar-brand" href="#">ConnectCharites</a>
-    <div id="navBarButtons" class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto">
-            <li class="navbar-item active"><a class="nav-link" href="/">Home</a></li>
-            <li class="navbar-item active"><a class="nav-link" href="/results">Search</a></li>
-            <li class="navbar-item active"><a class="nav-link" href="/charity/random">A Random Charity</a></li>
-        </ul>
-        <ul class="navbar-nav navbar-right">
-            <li class="navbar-item active"><a class="nav-link authenticated">Welcome, <span
-                    id="welcomeLabel"></span></a></li>
-            <li class="navbar-item active authenticated"><a class="nav-link" href="#" data-value="test"
-                                                            onclick="logOutUser();" id="logOut">LogOut</a></li>
-            <li class="navbar-item active unauthenticated"><a class="nav-link" href="#" data-toggle="modal"
-                                                              data-target="#loginModal" id="login">Login</a></li>
-            <li class="navbar-item active"><a class="nav-link" href="#" id="editLink">Edit this page</a></li>
-        </ul>
-    </div>
-</nav>
+<#include "navigationBar.html" parse=false>
+    
 <div id="charityIdDiv" style="display : none;">${charity.id}</div>
 
 <div id="main-container">
