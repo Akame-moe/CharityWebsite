@@ -79,6 +79,7 @@ public class WebsiteApplication extends WebSecurityConfigurerAdapter {
         http.antMatcher("/**").authorizeRequests()
                 //permitted to all
                 .antMatchers(HttpMethod.GET).permitAll()
+                .antMatchers("/charity/thumbUp").permitAll()
                 //everything else requires authentication
                 .anyRequest().authenticated().and().exceptionHandling()
                 //authentication entry point
