@@ -18,6 +18,7 @@ spring:
                 format_sql: true
         show-sql: true
 
+
 facebook:
     client:
       clientId: 1570076623086785
@@ -43,3 +44,7 @@ google:
   resource:
     userInfoUri: https://www.googleapis.com/userinfo/v2/me
     preferTokenInfo: false
+
+logging:
+  level:
+    root: WARN

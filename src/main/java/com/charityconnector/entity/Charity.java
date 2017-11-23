@@ -42,11 +42,16 @@ public class Charity {
     /* Required by JPA specification */
     public Charity() {
         super();
+        this.thumbUp = 0L;
     }
 
     public Charity(String desciption, Long id) {
-        this.description = desciption;
         this.id = id;
+    }
+
+    public Charity(String oauthUserId) {
+        this();
+        this.oauthUserId = oauthUserId;
     }
 
     @Id

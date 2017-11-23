@@ -1,16 +1,20 @@
 package com.charityconnector.controller;
 
+
+import com.charityconnector.auth.MyOAuth2AuthenticationDetails;
 import com.charityconnector.entity.Charity;
 import com.charityconnector.service.ArticleService;
 import com.charityconnector.service.CharityService;
 import com.charityconnector.util.CodeUtil;
 import com.charityconnector.util.MailUtil;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,7 +23,9 @@ import sun.misc.BASE64Encoder;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Map;
+import java.util.Objects;
 
 
 @Controller
@@ -30,6 +36,8 @@ public class CharityController {
 
     @Resource
     private ArticleService articleService;
+
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(CharityController.class);
 
     @RequestMapping(path = "/charities/{name}", method = RequestMethod.GET)
     @ResponseBody
@@ -45,9 +53,12 @@ public class CharityController {
 
     @RequestMapping(path = "/charity", method = RequestMethod.POST)
     @ResponseBody
-    public Charity addCharity(@RequestBody Charity charity) {
-        Charity res = charityService.addCharity(charity);
-        return res;
+    public Charity addCharity(@RequestBody Charity charity, Principal principal) {
+        MyOAuth2AuthenticationDetails authDetails = getAuthenticationDetails(principal);
+        if (authDetails == null || !authDetails.isCharity() || !Objects.equals(authDetails.getCharityId(), charity.getId()))
+            return null;
+
+        return charityService.addCharity(charity);
     }
 
     @RequestMapping(path = "/charity/thumbUp", method = RequestMethod.PATCH)
@@ -68,7 +79,11 @@ public class CharityController {
 
     @RequestMapping(path = "/charity/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public void deleteCharityById(@PathVariable("id") Long id) {
+    public void deleteCharityById(@PathVariable("id") Long id, Principal principal) {
+        MyOAuth2AuthenticationDetails authDetails = getAuthenticationDetails(principal);
+        if (authDetails == null || !authDetails.isCharity() || !Objects.equals(authDetails.getCharityId(), id))
+            return;
+
         charityService.deleteById(id);
     }
 
@@ -79,9 +94,21 @@ public class CharityController {
     }
 
     @RequestMapping("/charityPage/{id}")
-    public String getCharityPage(Map<String, Object> model, @PathVariable("id") Long id) {
+    public String getCharityPage(Map<String, Object> model, @PathVariable("id") Long id, Principal principal) {
+        MyOAuth2AuthenticationDetails authDetails = getAuthenticationDetails(principal);
+
         model.put("charity", charityService.findById(id));
         model.put("articles", articleService.findArticlesByCharityId(id));
+
+        if (authDetails != null) {
+            model.put("isCharity", authDetails.isCharity());
+            if (authDetails.isCharity())
+                model.put("charityId", authDetails.getCharityId());
+            logger.debug(authDetails.toString());
+        } else {
+            model.put("isCharity", "UNLOGGED");
+            logger.debug("UNLOGGED charityPAge");
+        }
 
         return "charityPage";
     }
@@ -89,7 +116,11 @@ public class CharityController {
     // This method is used for upload the logo of the charity.
     // The image is encoded with base64 and then store directly to the databse.
     @RequestMapping(path = "/charity/{id}/logo", method = RequestMethod.POST)
-    public String updateCharityLogo(@RequestParam("file") MultipartFile file, @PathVariable("id") Long id) {
+    public String updateCharityLogo(@RequestParam("file") MultipartFile file, @PathVariable("id") Long id, Principal principal) {
+        MyOAuth2AuthenticationDetails authDetails = getAuthenticationDetails(principal);
+        if (authDetails == null || !authDetails.isCharity() || !Objects.equals(authDetails.getCharityId(), id))
+            return "error";
+
         Charity charity = charityService.findById(id);
         if (!file.isEmpty()) {
             try {
@@ -106,7 +137,11 @@ public class CharityController {
     }
 
     @RequestMapping(path = "/charity/{id}/verify", method = RequestMethod.POST)
-    public ResponseEntity<String> verifyCharity(@PathVariable("id") Long id) {
+    public ResponseEntity<String> verifyCharity(@PathVariable("id") Long id, Principal principal) {
+        MyOAuth2AuthenticationDetails authDetails = getAuthenticationDetails(principal);
+        if (authDetails == null || !authDetails.isCharity() || !Objects.equals(authDetails.getCharityId(), id))
+            return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+
         Charity charity = charityService.findById(id);
         String email = charity.getEmail();
         if (email == null) {
@@ -140,15 +175,38 @@ public class CharityController {
      * page: represent the current page index from 0
      * size: the size of one page
      * sort: the info of how to sort. For example: if I write request param like: sort=thumbUp,desc , then
-     *       we get charities sorted by thumbUp in DESC order.
-     *       The attribute value for sort is the name of attribute in Charity Entity not the name in database table.
+     * we get charities sorted by thumbUp in DESC order.
+     * The attribute value for sort is the name of attribute in Charity Entity not the name in database table.
      *
      * @param pageable default value is sort by charity id in DESC order and the default page size is 5.
      * @return
      */
-    @RequestMapping(path = "/charities/rank", method=RequestMethod.GET)
+    @RequestMapping(path = "/charities/rank", method = RequestMethod.GET)
     @ResponseBody
-    public Page<Charity> getEntryByPageable(@PageableDefault(value=5, sort = { "id" }, direction=Sort.Direction.DESC) Pageable pageable) {
+    public Page<Charity> getEntryByPageable(@PageableDefault(value = 5, sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
         return charityService.findAll(pageable);
+    }
+
+    @RequestMapping("/charityCreationPage/{id}")
+    public String getCharityCreationPage(Map<String, Object> model, @PathVariable("id") Long id, Principal principal) {
+        MyOAuth2AuthenticationDetails authDetails = getAuthenticationDetails(principal);
+        if (authDetails == null || !authDetails.isCharity() || !Objects.equals(authDetails.getCharityId(), id))
+            return "error";
+
+        model.put("charity", charityService.findById(id));
+
+        return "charityCreationPage";
+    }
+
+    private MyOAuth2AuthenticationDetails getAuthenticationDetails(Principal principal) {
+        MyOAuth2AuthenticationDetails authDetails = null;
+        OAuth2Authentication auth;
+        if (principal != null) {
+            auth = (OAuth2Authentication) principal;
+            authDetails = (MyOAuth2AuthenticationDetails) auth.getDetails();
+            return authDetails;
+        } else {
+            return null;
+        }
     }
 }

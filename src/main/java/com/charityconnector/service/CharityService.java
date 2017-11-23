@@ -28,6 +28,7 @@ public interface CharityService {
 
     Charity findById(Long id);
 
+    Charity findByOauthUserId(String oauthUserId);
 
     Charity[] findPaged(Pageable pageable);
 

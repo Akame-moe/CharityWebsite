@@ -97,6 +97,11 @@ public class CharityServiceImpl implements CharityService {
     }
 
     @Override
+    public Charity findByOauthUserId(String oauthUserId) {
+        return charityRepository.findByOauthUserId(oauthUserId);
+    }
+
+    @Override
     public Charity[] findPaged(Pageable pageable) {
         Page<Charity> page = charityRepository.findAll(pageable);
         return page.getContent().toArray(new Charity[0]);

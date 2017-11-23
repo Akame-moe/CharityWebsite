@@ -24,4 +24,6 @@ public interface CharityRepository extends JpaRepository<Charity, Long> {
 
     @Query(value = "SELECT * FROM Charity c ORDER BY random() LIMIT 1;", nativeQuery = true)
     Charity findRandom();
+
+    Charity findByOauthUserId(String oauthUserId);
 }
