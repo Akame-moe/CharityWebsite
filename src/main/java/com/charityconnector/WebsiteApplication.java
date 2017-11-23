@@ -16,6 +16,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
@@ -77,9 +78,7 @@ public class WebsiteApplication extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/**").authorizeRequests()
                 //permitted to all
-                .antMatchers("/style/**", "/script/**", "/img/**",
-                        "/", "/login**", "/charityPage/**", "/causePage/**",
-                        "/charity/thumbUp", "/charities/rank", "/charity").permitAll()
+                .antMatchers(HttpMethod.GET).permitAll()
                 //everything else requires authentication
                 .anyRequest().authenticated().and().exceptionHandling()
                 //authentication entry point
