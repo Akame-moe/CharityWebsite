@@ -89,7 +89,11 @@ public class CharityController {
 
     @RequestMapping(path = "/charity", method = RequestMethod.PATCH)
     @ResponseBody
-    public void updateCharity(@RequestBody Charity charity) {
+    public void updateCharity(@RequestBody Charity charity, Principal principal) {
+        MyOAuth2AuthenticationDetails authDetails = getAuthenticationDetails(principal);
+        if (authDetails == null || !authDetails.isCharity() || !Objects.equals(authDetails.getCharityId(), charity.getId()))
+            return;
+
         charityService.updateSelective(charity);
     }
 
