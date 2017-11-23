@@ -19,6 +19,7 @@ public class DonorAuthenticationSuccessHandler implements AuthenticationSuccessH
 
         oauthAuthentication.setDetails(ud);
 
+        // redirect to previous page
         response.sendRedirect("/");
     }
 }
