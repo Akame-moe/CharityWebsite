@@ -7,5 +7,5 @@ import java.util.List;
 public interface CauseService {
     Cause findById(Long id);
 
-    List<String> getAllCauses();
+    List<Cause> getAllCauses();
 }

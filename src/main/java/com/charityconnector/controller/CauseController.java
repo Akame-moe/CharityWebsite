@@ -1,6 +1,7 @@
 package com.charityconnector.controller;
 
 import com.charityconnector.entity.Cause;
+import com.charityconnector.entity.Charity;
 import com.charityconnector.service.CauseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Controller
 public class CauseController {
@@ -27,9 +29,10 @@ public class CauseController {
     }
 
     @RequestMapping("/causes")
-    @ResponseBody
-    public List<String> getCharityPage() {
-        return causeService.getAllCauses();
+    public String getAllCauses(Map<String, Object> model) {
+        List<Cause> causes = causeService.getAllCauses();
+        model.put("causes",causes);
+        return "causes";
     }
 
 }

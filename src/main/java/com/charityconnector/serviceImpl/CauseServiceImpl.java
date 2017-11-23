@@ -27,12 +27,7 @@ public class CauseServiceImpl implements CauseService {
     }
 
     @Override
-    public List<String> getAllCauses() {
-        List<String> res = new ArrayList<>();
-        List<Cause> causes = causeRepository.findAll();
-        for (Cause cause : causes) {
-            res.add(cause.getName());
-        }
-        return res;
+    public List<Cause> getAllCauses() {
+        return  causeRepository.findAll();
     }
 }
