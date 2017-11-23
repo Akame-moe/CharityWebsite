@@ -5,6 +5,7 @@ import com.charityconnector.entity.Charity;
 import com.charityconnector.entity.Paypal;
 import com.charityconnector.service.CausePaymentService;
 import com.charityconnector.service.CauseService;
+import com.charityconnector.service.DonorService;
 import com.charityconnector.service.PaypalService;
 import com.paypal.api.payments.Currency;
 import com.paypal.api.payments.*;
@@ -38,11 +39,16 @@ public class PaypalController {
     private PaypalService paypalService;
 
     @Resource
+    private DonorService donorService;
+
+    @Resource
     private CausePaymentService causePaymentService;
 
     @RequestMapping(path = "/paypal", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Paypal> addPaypal(@RequestBody Paypal paypal) {
+    public ResponseEntity<Paypal> addPaypal(@RequestBody Paypal paypal, @RequestBody String donorId) {
+        if (!donorId.isEmpty())
+            paypal.setDonor(donorService.findById(Long.parseLong(donorId)));
         Paypal res = paypalService.addPaypal(paypal);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }

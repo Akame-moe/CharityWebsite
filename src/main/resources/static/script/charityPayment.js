@@ -26,7 +26,7 @@ paypal.Button.render({
         return actions.payment.execute().then(function (payment) {
             $('#donateModal').modal('toggle');
             var paypalPayment = {
-                "userId": $('#userIdSpan').html(),
+                "donor": $('#userIdSpan').html(),
                 "transactionId": payment.id,
                 "charityId": $('#charityIdDiv').html(),
                 "amount": payment.transactions[0].amount.total
