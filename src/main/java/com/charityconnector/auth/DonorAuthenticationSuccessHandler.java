@@ -15,7 +15,8 @@ public class DonorAuthenticationSuccessHandler implements AuthenticationSuccessH
 
         OAuth2Authentication oauthAuthentication = (OAuth2Authentication) authentication;
         MyOAuth2AuthenticationDetails ud = new MyOAuth2AuthenticationDetails(request);
-        ud.setCharity(true);
+        ud.setCharity(false);
+
         oauthAuthentication.setDetails(ud);
 
         response.sendRedirect("/");
