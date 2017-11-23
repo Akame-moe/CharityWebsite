@@ -12,6 +12,7 @@ public class Paypal {
     private Double amount;
     private Date date;
     private String transactionId;
+    private Donor donor;
 
 
     /* Required by JPA specification */
@@ -78,6 +79,15 @@ public class Paypal {
     }
 
 
+    @ManyToOne
+    @JoinColumn(name = "donor_id")
+    public Donor getDonor() {
+        return donor;
+    }
+
+    public void setDonor(Donor donor) {
+        this.donor = donor;
+    }
 }
 
 

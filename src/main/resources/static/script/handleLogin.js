@@ -14,7 +14,10 @@ $(document).ready(function () {
             console.log(data);
             if (xhr.status == 200 && data.hasOwnProperty("userAuthentication")) {
                 console.log(xhr);
+
                 $("#welcomeLabel").html(data.userAuthentication.details.name);
+                $("#userIdSpan").html(data.userAuthentication.details.id);
+
                 $(".unauthenticated").hide();
                 $(".authenticated").show();
             } else {
