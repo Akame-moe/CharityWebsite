@@ -105,7 +105,7 @@ public class CharityController {
         model.put("articles", articleService.findArticlesByCharityId(id));
 
         if (authDetails != null) {
-            model.put("isCharity", authDetails.isCharity());
+            model.put("isCharity", Boolean.toString(authDetails.isCharity()));
             if (authDetails.isCharity())
                 model.put("charityId", authDetails.getCharityId());
             logger.debug(authDetails.toString());
