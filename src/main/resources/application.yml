@@ -48,3 +48,4 @@ google:
 logging:
   level:
     root: WARN
+    com.charityconnector: DEBUG
