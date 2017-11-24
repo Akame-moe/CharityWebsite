@@ -28,11 +28,17 @@ public class CauseController {
         return "causePage";
     }
 
-    @RequestMapping("/causes")
+    @RequestMapping("/causesPage")
     public String getAllCauses(Map<String, Object> model) {
         List<Cause> causes = causeService.getAllCauses();
         model.put("causes",causes);
-        return "causes";
+        return "causesPage";
+    }
+
+    @RequestMapping("/causes")
+    @ResponseBody
+    public List<String> getAllCausesName() {
+        return causeService.getAllCausesName();
     }
 
 }

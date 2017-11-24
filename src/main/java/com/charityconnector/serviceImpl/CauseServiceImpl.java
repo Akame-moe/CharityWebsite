@@ -30,4 +30,15 @@ public class CauseServiceImpl implements CauseService {
     public List<Cause> getAllCauses() {
         return  causeRepository.findAll();
     }
+
+    @Override
+    public List<String> getAllCausesName() {
+        List<String> res = new ArrayList<>();
+        List<Cause> causes = causeRepository.findAll();
+        for (Cause cause : causes) {
+            res.add(cause.getName());
+        }
+        return res;
+    }
+
 }

@@ -8,4 +8,6 @@ public interface CauseService {
     Cause findById(Long id);
 
     List<Cause> getAllCauses();
+
+    List<String> getAllCausesName();
 }
