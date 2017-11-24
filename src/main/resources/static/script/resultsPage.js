@@ -39,7 +39,7 @@ function fillConditionValue(){
     if(selected == 'cause'){
        $("#conditionValue").empty();
        $.ajax({
-               type: "POST",
+               type: "GET",
                contentType: "application/json",
                url: "/causes",
                success: function (resultArray) {
@@ -66,7 +66,7 @@ function fillConditionValue(){
     if(selected == 'country'){
         $("#conditionValue").empty();
            $.ajax({
-                   type: "POST",
+                   type: "GET",
                    contentType: "application/json",
                    url: "/countries",
                    success: function (resultArray) {
