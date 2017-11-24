@@ -10,7 +10,7 @@ $(document).ready(function () {
     });
 
 
-    $.ajax({
+    /*$.ajax({
         type: "POST",
         contentType: "application/json",
         url: "/searchKeys",
@@ -27,12 +27,12 @@ $(document).ready(function () {
             console.log("There was an error communicating with the server");
             console.log("ERROR : ", e);
         }
-    });
+    });*/
 
 });
 function fillConditionValue(){
     var selected = $('select  option:selected').val();
-    //alert(selected);
+
     if(selected == 'name'){
            $("#conditionValue").empty();
     }
@@ -43,10 +43,14 @@ function fillConditionValue(){
                contentType: "application/json",
                url: "/causes",
                success: function (resultArray) {
+                    //alert(resultArray[0]);
                    for (var i=0;i<resultArray.length;i++){
+
                        //console.log(resultArray[i]);
                        //var option = $("<option>").val(11).text(resultArray[i]);
+
                        $("#conditionValue").append(   "<option value='"    + resultArray[i]+   "'>"   + resultArray[i]+  "</option>"   );
+
                       // var option = $'<option value="'+i+'">'+resultArray[i]+'</option>';
                        //$("#conditionKey").append(option);
                    }

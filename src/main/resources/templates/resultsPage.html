@@ -30,10 +30,17 @@
                         <div class="form-group" style="width:120px;display:inline-block">
                             <select id="conditionKey" class="form-control container" name="searchKey"
                                     onchange="fillConditionValue();">
+                                <option value='name'>name</option>
+                                <option value='cause'>cause</option>
+                                <option value='country'>country</option>
                             </select>
                         </div>
                         <div class="form-group" style="width:150px;display:inline-block">
                             <select id="conditionValue" class="form-control" name="searchValue">
+                                <option value='rescue'>rescue</option>
+                                <option value='children'>children</option>
+                                <option value='disability'>disability</option>
+                                <option value='art&culture'>art&culture</option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-default">Conditional Search</button>
