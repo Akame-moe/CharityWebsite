@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -20,8 +21,10 @@ public class CauseController {
 
 
     @RequestMapping("/causePage/{id}")
-    public String getCharityPage(Map<String, Object> model, @PathVariable("id") Long id) {
+    public String getCharityPage(Map<String, Object> model, @PathVariable("id") Long id, Principal principal) {
         Cause cause = causeService.findById(id);
+        if (principal != null)
+            model.put("userId", principal.getName());
         model.put("cause",cause);
         model.put("charities",cause.getCharities());
         return "causePage";

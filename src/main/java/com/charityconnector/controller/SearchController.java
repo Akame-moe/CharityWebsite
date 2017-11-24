@@ -3,13 +3,17 @@ package com.charityconnector.controller;
 import com.charityconnector.entity.Charity;
 import com.charityconnector.service.CharityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.security.Principal;
 import java.util.*;
 
 
@@ -33,7 +37,10 @@ public class SearchController {
                                  @RequestParam(name = "searchValue", defaultValue = "") String searchValue,
                                  @RequestParam(name = "searchKey", defaultValue = "name") String searchKey,
                                  @RequestParam(defaultValue = "0") int pageNumber,
-                                 @RequestParam(defaultValue = "10") int pageSize) {
+                                 @RequestParam(defaultValue = "10") int pageSize,
+                                 Principal principal) {
+        if (principal != null)
+            model.put("userId", principal.getName());
         if (searchValue == null || searchValue.trim().equals(""))
             return "resultsPage";
         if (pageSize != 10 && pageSize != 25 && pageSize != 50)

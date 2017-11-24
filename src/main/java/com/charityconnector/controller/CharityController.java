@@ -14,7 +14,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +25,8 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.Map;
 import java.util.Objects;
+
+import static com.charityconnector.auth.MyOAuth2AuthenticationDetails.getAuthenticationDetails;
 
 
 @Controller
@@ -100,6 +101,9 @@ public class CharityController {
     @RequestMapping("/charityPage/{id}")
     public String getCharityPage(Map<String, Object> model, @PathVariable("id") Long id, Principal principal) {
         MyOAuth2AuthenticationDetails authDetails = getAuthenticationDetails(principal);
+
+        if (principal != null)
+            model.put("userId", principal.getName());
 
         model.put("charity", charityService.findById(id));
         model.put("articles", articleService.findArticlesByCharityId(id));
@@ -200,17 +204,5 @@ public class CharityController {
         model.put("charity", charityService.findById(id));
 
         return "charityCreationPage";
-    }
-
-    private MyOAuth2AuthenticationDetails getAuthenticationDetails(Principal principal) {
-        MyOAuth2AuthenticationDetails authDetails = null;
-        OAuth2Authentication auth;
-        if (principal != null) {
-            auth = (OAuth2Authentication) principal;
-            authDetails = (MyOAuth2AuthenticationDetails) auth.getDetails();
-            return authDetails;
-        } else {
-            return null;
-        }
     }
 }

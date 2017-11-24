@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,10 @@ public class HomepageController {
     private CharityService charityService;
 
     @RequestMapping("/")
-    public String getHomePage(Map<String, Object> model) {
+    public String getHomePage(Map<String, Object> model, Principal principal) {
+        if (principal != null)
+            model.put("userId", principal.getName());
+
         List<Charity> featuredCharities = new ArrayList<>();
         Sort sort = new Sort(Sort.Direction.DESC, "thumbUp");
         List<Charity> res = charityService.findAll(sort);
