@@ -5,7 +5,7 @@ $(document).ready(function () {
         url: "/user",
         success: function (data, textStatus, xhr) {
             console.log(data);
-            if (xhr.status == 200 && data.hasOwnProperty("userAuthentication")) {
+            if (xhr.status === 200 && data.hasOwnProperty("userAuthentication")) {
                 console.log(xhr);
                 var matchCharityPage = /charityPage\/*[0-9]*\/*$/;
                 var charityPageString = matchCharityPage.exec(window.location.pathname);

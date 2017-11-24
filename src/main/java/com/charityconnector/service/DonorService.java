@@ -5,4 +5,6 @@ import com.charityconnector.entity.Donor;
 public interface DonorService {
 
     Donor findById(Long id);
+
+    Donor addDonor(Donor donor);
 }

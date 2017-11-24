@@ -4,6 +4,7 @@ package com.charityconnector;
 import com.charityconnector.auth.CharityAuthenticationSuccessHandler;
 import com.charityconnector.auth.DonorAuthenticationSuccessHandler;
 import com.charityconnector.service.CharityService;
+import com.charityconnector.service.DonorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
@@ -55,6 +56,9 @@ public class WebsiteApplication extends WebSecurityConfigurerAdapter {
     @Autowired
     private CharityService charityService;
 
+    @Autowired
+    private DonorService donorService;
+
     //returns the user name
     @RequestMapping({"/user", "/me"})
     @ResponseBody
@@ -80,6 +84,7 @@ public class WebsiteApplication extends WebSecurityConfigurerAdapter {
                 //permitted to all
                 .antMatchers(HttpMethod.GET).permitAll()
                 .antMatchers("/charity/thumbUp").permitAll()
+                .antMatchers(HttpMethod.POST, "/paypal**").permitAll()
                 //everything else requires authentication
                 .anyRequest().authenticated().and().exceptionHandling()
                 //authentication entry point
@@ -119,7 +124,7 @@ public class WebsiteApplication extends WebSecurityConfigurerAdapter {
         if (isCharity) {
             oAuth2ClientAuthenticationFilter.setAuthenticationSuccessHandler(new CharityAuthenticationSuccessHandler(charityService));
         } else {
-            oAuth2ClientAuthenticationFilter.setAuthenticationSuccessHandler(new DonorAuthenticationSuccessHandler());
+            oAuth2ClientAuthenticationFilter.setAuthenticationSuccessHandler(new DonorAuthenticationSuccessHandler(donorService));
         }
 
         return oAuth2ClientAuthenticationFilter;

@@ -25,19 +25,23 @@ paypal.Button.render({
     onAuthorize: function (data, actions) {
         return actions.payment.execute().then(function (payment) {
             $('#donateModal').modal('toggle');
-            var paypalPayment = {
-                "donor": $('#userIdSpan').html(),
+            var paymentDetails = {
+                "donorId": $('#userIdSpan').html(),
                 "transactionId": payment.id,
                 "charityId": $('#charityIdDiv').html(),
                 "amount": payment.transactions[0].amount.total
             };
+
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
                 url: "/paypal",
-                data: JSON.stringify(paypalPayment),
-                success: function () {
-                    console.log("Payment logged.");
+                data: JSON.stringify(paymentDetails),
+                success: function (data, textStatus, xhr) {
+                    if (xhr.status === 200)
+                        console.log("Payment logged.");
+                    else
+                        console.log("Payment not logged.");
                 },
                 error: function (e) {
                     console.log("Payment not logged.");

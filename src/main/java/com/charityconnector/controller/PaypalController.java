@@ -46,9 +46,17 @@ public class PaypalController {
 
     @RequestMapping(path = "/paypal", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Paypal> addPaypal(@RequestBody Paypal paypal, @RequestBody String donorId) {
-        if (!donorId.isEmpty())
-            paypal.setDonor(donorService.findById(Long.parseLong(donorId)));
+    public ResponseEntity<Paypal> addPaypal(@RequestBody Map<String, String> paymentDetails) {
+        Paypal paypal = new Paypal();
+        if (!paymentDetails.get("donorId").equals("")) {
+            Long donorId = Long.parseLong(paymentDetails.get("donorId"));
+            paypal.setDonor(donorService.findById(donorId));
+        }
+
+        paypal.setAmount(Double.parseDouble(paymentDetails.get("amount")));
+        paypal.setTransactionId(paymentDetails.get("transactionId"));
+        paypal.setCharityId(Long.parseLong(paymentDetails.get("charityId")));
+
         Paypal res = paypalService.addPaypal(paypal);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
