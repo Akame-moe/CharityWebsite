@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
-    <title>${charity.name}</title>
+    <title>Donor page</title>
 
     <!--bootstrap css-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
@@ -23,7 +23,28 @@
 
 <#include "navigationBar.html" parse=true>
 
-    User Page
+    <div class="container" id="main-container">
+        <h1>Welcome to your personal page, <span class="nameLabel"></span></h1>
+
+        <#list payments>
+            <div class="vertical-spacer-small"></div>
+            <div>
+                <h2>This is your donation history:</h2>
+                <#items as payment>
+                    <div class="container">
+                        <h5>Your donation to <a href="/charityPage/${payment.charity.id}">${payment.charity.name}</a>
+                        </h5>
+                        <ul>
+                            <li>amount: ${payment.paymentDetails.amount} £</li>
+                            <li>date: ${payment.paymentDetails.date?date}</li>
+                        </ul>
+                    </div>
+                </#items>
+            </div>
+            <#else>
+                You have no payments
+        </#list>
+    </div>
 
     <footer class="footer p-5">
         <div class="container">

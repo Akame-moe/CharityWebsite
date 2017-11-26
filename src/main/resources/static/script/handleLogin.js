@@ -14,7 +14,7 @@ $(document).ready(function () {
                     $("#editLink").toggle();
                 }
 
-                $("#welcomeLabel").html(data.userAuthentication.details.name);
+                $(".nameLabel").html(data.userAuthentication.details.name);
                 $("#userIdSpan").html(data.userAuthentication.details.id);
 
                 $(".unauthenticated").hide();
@@ -45,7 +45,7 @@ function logOutUser() {
             }
         },
         success: function (data, textStatus, xhr) {
-            $("#welcomeLabel").html('');
+            $(".nameLabel").html('');
             $(".unauthenticated").show();
             $(".authenticated").hide();
         },

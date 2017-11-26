@@ -12,12 +12,12 @@
                 <span style="display: none;" id="userIsCharity"><#if isCharity??>${isCharity!}</#if></span>
                 <span style="display: none;" id="userCharityId"><#if charityId??>${charityId!}</#if></span>
                 <a class="nav-link"
-                <#if isCharity??>
+                <#if (isCharity!"false") == "true">
                     href="/charityPage/${charityId!}"
                     <#else>
                         href="/donorPage/${userId!}"
                 </#if>
-                >Welcome, <span id="welcomeLabel"></span></a>
+                >Welcome, <span class="nameLabel"></span></a>
             </li>
             <li class="navbar-item active authenticated"><a class="nav-link" href="#" data-value="test"
                                                             onclick="logOutUser();" id="logOut">LogOut</a></li>

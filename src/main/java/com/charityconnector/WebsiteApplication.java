@@ -81,6 +81,9 @@ public class WebsiteApplication extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/**").authorizeRequests()
+                //donor page is locked
+                .antMatchers("/donorPage/**").authenticated().and().exceptionHandling()
+                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")).and().authorizeRequests()
                 //permitted to all
                 .antMatchers(HttpMethod.GET).permitAll()
                 .antMatchers("/charity/thumbUp").permitAll()

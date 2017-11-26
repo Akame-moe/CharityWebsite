@@ -23,10 +23,9 @@
 
 <#include "navigationBar.html" parse=true>
 
-<div id="charityIdDiv" style="display : none;">${charity.id}</div>
+    <div id="charityIdDiv" style="display : none;">${charity.id}</div>
 
-<div id="main-container">
-    <div id="charity-container" class="container">
+    <div id="main-container" class="container">
         <button type="button" class="btn btn-primary edit-badge" id="editImageButton" data-toggle="modal"
                 data-target="#uploadImageModal">
             <svg height="28" width="20" viewBox="0 0 14 14" version="1.1" aria-hidden="true">
@@ -77,39 +76,41 @@
 
                 <#list charity.causes>
                     <div class="vertical-spacer-small"></div>
-                        <div>
+                    <div>
                         What we operate on:
                         <#items as cause>
-                        <a href="/causePage/${cause.id}" data-value=${cause.id} class="badge badge-success">${cause.name}</a>
-                    </#items>
+                            <a href="/causePage/${cause.id}" data-value=${cause.id} class="badge badge-success">${cause.name}</a>
+                        </#items>
                     </div>
                 </#list>
 
                 <#list charity.countries>
                     <div class="vertical-spacer-small"></div>
-                        <div>
+                    <div>
                         In these nations around the world:
                         <#items as country>
-                        <span class="badge badge-success">${country.countryValue}</span>
+                            <span class="badge badge-success">${country.countryValue}</span>
                         </#items>
                     </div>
                 </#list>
 
                 <div class="vertical-spacer"></div>
 
-                <div class="container text-center form-inline"  >
+                <div class="container text-center form-inline">
                     <div style="margin-left:-18px;">
-                        <div id="charityThumbUp" class="form-inline" style="float:left; margin-top: 10px" >Thumbs : ${charity.thumbUp}</div>
+                        <div id="charityThumbUp" class="form-inline" style="float:left; margin-top: 10px">Thumbs :
+                            ${charity.thumbUp}
+                        </div>
                         <div style="margin-left:10px;float:left;" class="form-inline">
-                            <a href="#" >
+                            <a href="#">
                                 <img src="../img/thumbs_up.png" height="40" width="40" alt="xxx." class="img-responsive"
-                                 onclick="sendUpdateCharityThumbUp()">
+                                     onclick="sendUpdateCharityThumbUp()">
                             </a>
                         </div>
                     </div>
-                    <div id="donate-button"  class="btn btn-primary text-center"data-toggle="modal"
+                    <div id="donate-button" class="btn btn-primary text-center" data-toggle="modal"
                          data-target="#donateModal" style="float:left; margin-left: 100px">
-                         Donate to this charity!
+                        Donate to this charity!
                     </div>
                 </div>
 
@@ -117,7 +118,6 @@
                 </div>
             </div>
         </div>
-
 
 
         <div class="vertical-spacer"></div>
@@ -170,252 +170,250 @@
             </div>
         </div>
     </div>
-</div>
 
-<footer class="footer p-5">
-    <div class="container">
-        <span class="text-muted">About us - Developers - Legal - Privacy - Cookies - Language</span>
-    </div>
-</footer>
+    <footer class="footer p-5">
+        <div class="container">
+            <span class="text-muted">About us - Developers - Legal - Privacy - Cookies - Language</span>
+        </div>
+    </footer>
 
-<div class="modal fade show" id="uploadImageModal" tabindex="-1" role="dialog"
-     aria-labelledby="ulpoadImageLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="uploadImageLabel">Update a new logo</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="/charity/${charity.id}/logo" method="POST" enctype="multipart/form-data"
-                      name="upload_form">
-                    <div class="form-group">
-                        <input name="file" type="file" class="form-control-file" id="inputCharityLogo"
-                               aria-describedby="fileHelp"/>
-                        <small id="fileHelp" class="form-text text-muted">Accepted formats: .jpg, png</small>
-                        <input name=upload" type="submit" value="Submit" class="btn btn-primary"/>
-                    </div>
-                </form>
+    <div class="modal fade show" id="uploadImageModal" tabindex="-1" role="dialog"
+         aria-labelledby="ulpoadImageLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadImageLabel">Update a new logo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/charity/${charity.id}/logo" method="POST" enctype="multipart/form-data"
+                          name="upload_form">
+                        <div class="form-group">
+                            <input name="file" type="file" class="form-control-file" id="inputCharityLogo"
+                                   aria-describedby="fileHelp"/>
+                            <small id="fileHelp" class="form-text text-muted">Accepted formats: .jpg, png</small>
+                            <input name=upload" type="submit" value="Submit" class="btn btn-primary"/>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade show" id="editNameModal" tabindex="-1" role="dialog"
-     aria-labelledby="editNameLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editNameLabel">Edit your charity name</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="inputName"
-                               value="${charity.name}">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="editCharityName()">Save changes</button>
-            </div>
+    <div class="modal fade show" id="editNameModal" tabindex="-1" role="dialog"
+         aria-labelledby="editNameLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editNameLabel">Edit your charity name</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="inputName"
+                                   value="${charity.name}">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="editCharityName()">Save changes</button>
+                </div>
 
+            </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade show" id="editDescriptionModal" tabindex="-1" role="dialog"
-     aria-labelledby="editDescriptionLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editDescriptionLabel">Edit your charity description</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <textarea class="form-control" id="inputDescription" rows="3"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="editCharityDesc()">Save changes</button>
-            </div>
+    <div class="modal fade show" id="editDescriptionModal" tabindex="-1" role="dialog"
+         aria-labelledby="editDescriptionLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editDescriptionLabel">Edit your charity description</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <textarea class="form-control" id="inputDescription" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="editCharityDesc()">Save changes</button>
+                </div>
 
+            </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade show" id="addArticleModal" tabindex="-1" role="dialog"
-     aria-labelledby="addArticleLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addArticleLabel">Insert your article title and body text here</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="inputNewArticleTitle"
-                               placeholder="Your article title">
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-control" id="inputNewArticleBody" rows="3"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="sendAddArticle()">Save changes</button>
-            </div>
+    <div class="modal fade show" id="addArticleModal" tabindex="-1" role="dialog"
+         aria-labelledby="addArticleLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addArticleLabel">Insert your article title and body text here</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="inputNewArticleTitle"
+                                   placeholder="Your article title">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" id="inputNewArticleBody" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="sendAddArticle()">Save changes</button>
+                </div>
 
+            </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade show" id="editArticleModal" tabindex="-1" role="dialog"
-     aria-labelledby="editArticleLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editArticleLable">Insert your article title and body text here</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div style="visibility:hidden" id="inputEditArticleId"></div>
-                <form>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="inputEditArticleTitle"
-                               placeholder="Your article title">
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-control" id="inputEditArticleBody" rows="3"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="btnEditArticle" onclick="sendEditArticle()">Save
-                    changes
-                </button>
-            </div>
+    <div class="modal fade show" id="editArticleModal" tabindex="-1" role="dialog"
+         aria-labelledby="editArticleLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editArticleLable">Insert your article title and body text here</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div style="visibility:hidden" id="inputEditArticleId"></div>
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="inputEditArticleTitle"
+                                   placeholder="Your article title">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" id="inputEditArticleBody" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="btnEditArticle" onclick="sendEditArticle()">Save
+                        changes
+                    </button>
+                </div>
 
+            </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade show" id="viewArticleModal" tabindex="-1" role="dialog"
-     aria-labelledby="viewArticleLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="viewArticleLabel"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="viewArticleBody">
+    <div class="modal fade show" id="viewArticleModal" tabindex="-1" role="dialog"
+         aria-labelledby="viewArticleLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewArticleLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="viewArticleBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-            </div>
-
         </div>
     </div>
-</div>
 
-<div class="modal fade show" id="deleteArticleModal" tabindex="-1" role="dialog"
-     aria-labelledby="deleteArticleLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteArticleLabel">Please confirm your choice</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div style="visibility:hidden" id="inputDeleteArticleId"></div>
-                <p id="deleteArticleBody">Are you sure? You are about to delete the article</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="sendDeleteArticle()">Delete</button>
-            </div>
+    <div class="modal fade show" id="deleteArticleModal" tabindex="-1" role="dialog"
+         aria-labelledby="deleteArticleLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteArticleLabel">Please confirm your choice</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div style="visibility:hidden" id="inputDeleteArticleId"></div>
+                    <p id="deleteArticleBody">Are you sure? You are about to delete the article</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="sendDeleteArticle()">Delete</button>
+                </div>
 
+            </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade show" id="donateModal" tabindex="-1" role="dialog"
-     aria-labelledby="donateLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="donateLabel">Please confirm your donation</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Thanks for being willing to donate to one of the charities we support, please enter the donation
-                    amount and proceed to the PayPal checkout</p>
-                <form>
-                    <div class="form-group">
-                        <input type="number" class="form-control" id="inputDonationAmount"
-                               placeholder="0.00">
-                    </div>
-                </form>
-                <div id="paypal-button"></div>
+    <div class="modal fade show" id="donateModal" tabindex="-1" role="dialog"
+         aria-labelledby="donateLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="donateLabel">Please confirm your donation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Thanks for being willing to donate to one of the charities we support, please enter the donation
+                        amount and proceed to the PayPal checkout</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="inputDonationAmount"
+                                   placeholder="0.00">
+                        </div>
+                    </form>
+                    <div id="paypal-button"></div>
 
-                <script type="text/javascript" src="../script/charityPayment.js"></script>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
+                    <script type="text/javascript" src="../script/charityPayment.js"></script>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
 
+            </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade show" id="donateSuccessModal" tabindex="-1" role="dialog"
-     aria-labelledby="donateSuccessLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="donateSuccessLabel">Please confirm your donation</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Your donation was succesful! Thank you for helping ${charity.name}!</p>
+    <div class="modal fade show" id="donateSuccessModal" tabindex="-1" role="dialog"
+         aria-labelledby="donateSuccessLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="donateSuccessLabel">Please confirm your donation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Your donation was succesful! Thank you for helping ${charity.name}!</p>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-
         </div>
     </div>
-</div>
-
 
 
     <!-- jquery -->

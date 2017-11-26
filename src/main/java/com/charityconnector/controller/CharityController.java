@@ -114,8 +114,7 @@ public class CharityController {
                 model.put("charityId", authDetails.getCharityId());
             logger.debug(authDetails.toString());
         } else {
-            model.put("isCharity", "UNLOGGED");
-            logger.debug("UNLOGGED charityPAge");
+            model.put("isCharity", "false");
         }
 
         return "charityPage";
