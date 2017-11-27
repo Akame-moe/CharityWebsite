@@ -1,5 +1,7 @@
 package com.charityconnector.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -9,6 +11,7 @@ import java.util.Set;
 public class Donor {
     private Long id;
     private Set<Paypal> payments;
+    private Set<Charity> thumbUpCharities;
 
     /* Required by JPA specification */
     public Donor() {
@@ -36,5 +39,16 @@ public class Donor {
 
     public void setPayments(Set<Paypal> payments) {
         this.payments = payments;
+    }
+
+
+
+
+    @ManyToMany(mappedBy = "thumbUpDonors")
+    @JsonIgnore
+    public Set<Charity> getThumbUpCharities() {return thumbUpCharities; }
+
+    public void setThumbUpCharities(Set<Charity> thumbUpCharities) {
+        this.thumbUpCharities = thumbUpCharities;
     }
 }

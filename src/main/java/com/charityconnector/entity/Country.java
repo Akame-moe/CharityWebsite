@@ -45,7 +45,7 @@ public class Country {
         this.countryValue = countryValue;
     }
 
-    @ManyToMany(mappedBy = "causes")
+    @ManyToMany(mappedBy = "countries")
     @JsonIgnore
     public Set<Charity> getCharities() {
         return charities;

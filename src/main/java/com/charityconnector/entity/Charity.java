@@ -14,6 +14,8 @@ public class Charity {
 
     private Set<Cause> causes;
     private Set<Country> countries;
+    private Set<Donor> thumbUpDonors;
+
 
     private String name;
     private String description;
@@ -25,7 +27,8 @@ public class Charity {
     private Long thumbUp;
     private String oauthUserId;
 
-    public Charity(Long id, String name, String description, String logoFile, String email, String paypalAccount, Set<Cause> causes, Set<Country> countries, String verifyCode, int verifyStatus, Long thumbUp) {
+    public Charity(Long id, String name, String description, String logoFile, String email, String paypalAccount,
+                   Set<Cause> causes, Set<Country> countries, Set<Donor> thumbUpDonors,String verifyCode, int verifyStatus, Long thumbUp) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -34,6 +37,7 @@ public class Charity {
         this.paypalAccount = paypalAccount;
         this.causes = causes;
         this.countries = countries;
+        this.thumbUpDonors = thumbUpDonors;
         this.verifyCode = verifyCode;
         this.verifyStatus = verifyStatus;
         this.thumbUp = thumbUp;
@@ -150,6 +154,23 @@ public class Charity {
     public void setCountries(Set<Country> countries) {
         this.countries = countries;
     }
+
+
+
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "thumb_ups", joinColumns = @JoinColumn(name = "charity_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "donor_id", referencedColumnName = "id"))
+    @JsonIgnore
+    public Set<Donor> getThumbUpDonors() {
+        return thumbUpDonors;
+    }
+
+    public void setThumbUpDonors(Set<Donor> thumbUpDonors) {
+        this.thumbUpDonors = thumbUpDonors;
+    }
+
+
+
 
     @Column(name = "thumb_up")
     public Long getThumbUp() {

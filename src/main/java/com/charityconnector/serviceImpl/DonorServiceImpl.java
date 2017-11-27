@@ -3,6 +3,7 @@ package com.charityconnector.serviceImpl;
 import com.charityconnector.dao.DonorRepository;
 import com.charityconnector.entity.Donor;
 import com.charityconnector.service.DonorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
