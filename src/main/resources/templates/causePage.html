@@ -100,26 +100,19 @@
                 </div>
                 <div class="modal-body">
                     <p>Thanks for being willing to donate to all the charities working on ${cause.name}, please enter
-                        the
-                        donation
-                        amount and proceed to the PayPal checkout</p>
+                        the donation amount and proceed to the PayPal checkout</p>
                     <form>
                         <div class="form-group">
                             <input type="number" class="form-control" id="inputDonationAmount"
                                    placeholder="0.00">
                         </div>
                     </form>
-                    <div id="paypal-button"></div>
-
-                    <script type="text/javascript" src="../script/causePayment.js"></script>
-
                     <p>Note that this payment will be processed internally by us, so the receiver of the payment will be
-                        Connect Charities itself</p>
+                        Connect Charities itself.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <div id="paypal-button"></div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -163,6 +156,10 @@
 
     <!--handle Login.js-->
     <script src="../script/handleLogin.js"></script>
+
+
+    <!--handle papal payment button of cause page-->
+    <script type="text/javascript" src="../script/causePayment.js"></script>
 
     <!--ajax setup-->
     <script src="../script/ajaxSetup.js"></script>

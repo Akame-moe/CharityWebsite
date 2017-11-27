@@ -4,6 +4,7 @@ $(document).ready(function () {
 
     $("#editLink").click(editModeToggle);
     $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+    $("#amountErrorHint").hide();
 
     $("#active-button").click(function () {
         var id = $("#active-button").attr("data-value");
@@ -23,6 +24,7 @@ $(document).ready(function () {
             }
         });
     });
+
 });
 
 function editModeToggle() {
@@ -185,4 +187,7 @@ function sendUpdateCharity() {
         }
     });
 }
+
+
+
 
