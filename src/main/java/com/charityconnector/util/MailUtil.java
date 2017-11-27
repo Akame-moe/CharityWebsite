@@ -66,11 +66,11 @@ public class MailUtil implements Runnable {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
             message.setSubject("Account Verification");
             String content = "<html><head></head><body><h2>Please click the following link to verify your charity account:</h2></br></br><h3>" +
-                    "<a href=herokuURL"+"verifyCharity/"+charityID+"/"+code +
-                    "'>"+herokuURL+"verifyCharity/"+charityID+"/"+code+"</href></h3></body></html>";
+                    "<a href="+herokuURL+"verifyCharity/"+charityID+"/"+code +
+                    ">"+herokuURL+"verifyCharity/"+charityID+"/"+code+"</href></h3></body></html>";
             message.setContent(content, "text/html;charset=UTF-8");
             Transport.send(message);
-            System.out.println("The email is sent successfully!");
+            System.out.println("The email is sent successfully to  "+email);
             status = 1;
         } catch (Exception e) {
             System.out.println("Error sending the email!");
