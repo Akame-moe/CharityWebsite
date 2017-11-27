@@ -10,15 +10,18 @@ $(document).ready(function () {
                 var matchCharityPage = /charityPage\/*[0-9]*\/*$/;
                 var charityPageString = matchCharityPage.exec(window.location.pathname);
 
-                if (charityPageString !== "" && $("#userIsCharity").html() === "true" && $("#userCharityId").html() === $("#charityIdDiv").html()) {
-                    $("#editLink").toggle();
-                }
-
                 $(".nameLabel").html(data.userAuthentication.details.name);
                 $("#userIdSpan").html(data.userAuthentication.details.id);
 
                 $(".unauthenticated").hide();
                 $(".authenticated").show();
+
+                if (charityPageString !== "" && $("#userIsCharity").html() === "true" && $("#userCharityId").html() === $("#charityIdDiv").html()) {
+                    $("#editLink").toggle();
+                } else {
+                    $("#active-button").hide();
+                }
+
             } else {
                 $(".unauthenticated").show();
                 $(".authenticated").hide();

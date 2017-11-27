@@ -16,7 +16,7 @@ $(document).ready(function () {
             },
             error: function (xhr, textStatus) {
                 if (xhr.status == 405)
-                    alert("first add an email address for your charity please");
+                    $("#addMailModal").modal("toggle");
                 else
                     alert("There was an error communicating with the server");
                 console.log("ERROR : ", xhr.status);
@@ -134,6 +134,12 @@ function editCharityName() {
     $("#editNameModal").modal('toggle');
 }
 
+function editCharityMail() {
+    $("#charityEmail").html($("#inputMail").val());
+    $("#addMailModal").modal('toggle');
+    sendUpdateCharity();
+}
+
 function editCharityDesc() {
     $("#charityDesc").html($("#inputDescription").val());
     sendUpdateCharity();
@@ -162,7 +168,8 @@ function sendUpdateCharity() {
     var charity = {
         "id": $("#charityIdDiv").html(),
         "name": $("#charityName").html(),
-        "description": $("#charityDesc").html()
+        "description": $("#charityDesc").html(),
+        "email": $("#charityEmail").html()
     };
     $.ajax({
         type: "PATCH",

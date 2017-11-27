@@ -59,7 +59,8 @@
                                data-placement="right" href="#">
                                 <img height="25rem" src="../img/unverifiedTick.png"/>
                             </a>
-                            <div id="active-button" data-value=${charity.id} class="btn btn-success btn-sm"> Activate Now! </div>
+                            <div id="active-button" data-value=${charity.id}
+                                 class="btn btn-success btn-sm authenticated " style="display: inline-block;"> Get verified now! </div>
                         </#if>
                     </span>
                 </h2>
@@ -223,6 +224,34 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" onclick="editCharityName()">Save changes</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade show" id="addMailModal" tabindex="-1" role="dialog"
+         aria-labelledby="editNameLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addMailLabel">Please add an email address</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div style="visibility: hidden;" id="charityEmail"></div>
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="inputMail"
+                                   value="">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="editCharityMail()">Save changes</button>
                 </div>
 
             </div>

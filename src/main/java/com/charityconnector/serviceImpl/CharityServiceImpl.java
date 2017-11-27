@@ -77,6 +77,9 @@ public class CharityServiceImpl implements CharityService {
             Long thumb = charity.getThumbUp() == null ? origin.getThumbUp() : charity.getThumbUp();
             readyToUpdate.setThumbUp(thumb);
 
+            String email = charity.getEmail() == null ? origin.getEmail() : charity.getEmail();
+            readyToUpdate.setEmail(email);
+
             String oauthUserId = charity.getOauthUserId() == null ? origin.getOauthUserId() : charity.getOauthUserId();
             readyToUpdate.setOauthUserId(oauthUserId);
         }
