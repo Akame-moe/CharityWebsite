@@ -78,17 +78,15 @@
                 <div class="col-sm-4">
                     <div class="card featured-charity-card">
                         <div class="card-body">
-                            <img class="card-img-top" width="150px" height="150px"
+                            <img class="card-img-top" width="150px" height="120px"
                                  src=${charity.logoFile!"../img/no-charity-logo.png"}>
-                            <a href="charityPage/${charity.id}"><h5 class="card-title ">
+                            <a href="charityPage/${charity.id}"><h5 style="margin-top:15px;" class="card-title ">
                                 ${charity.name}</h5>
                             </a>
                             <p class="card-text charity-desc-p">${charity.description}</p>
                             <div class="card-block">
                                 <div style="float:left;" class="form-inline">
-                                    <a href="#" >
-                                        <img src="../img/like_home.png" height="40" width="50" alt="xxx." class="img-responsive">
-                                    </a>
+                                    <img src="../img/like_home.png" height="40" width="50" alt="xxx." class="img-responsive">
                                 </div>
                                 <p class="card-text" style="margin-left:5px;float:left; margin-top: 10px" >Thumbs up: ${charity.thumbUp}</p>
                             </div>
