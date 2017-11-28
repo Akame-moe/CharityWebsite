@@ -22,6 +22,10 @@ paypal.Button.render({
         });
     },
 
+    onError: function(err) {
+        $("#amountErrorHint").css("display","");
+    },
+
     onAuthorize: function (data, actions) {
         return actions.payment.execute().then(function (payment) {
             var causeId = $('#causeIdDiv').html();

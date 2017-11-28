@@ -3,9 +3,8 @@ var areYouSureText = "Are you sure? You are about to delete the article";
 $(document).ready(function () {
 
     $("#editLink").click(editModeToggle);
-    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
-    $("#amountErrorHint").hide();
 
+    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
     $("#active-button").click(function () {
         var id = $("#active-button").attr("data-value");
         $.ajax({
@@ -24,7 +23,6 @@ $(document).ready(function () {
             }
         });
     });
-
 });
 
 function editModeToggle() {

@@ -23,12 +23,9 @@ paypal.Button.render({
     },
 
     onError: function(err) {
-        $("#amountErrorHint").show();
+        $("#amountErrorHint").css("display","");
     },
 
-    payment: function(data, actions) {
-        $("#amountErrorHint").hide();
-    },
 
     onAuthorize: function (data, actions) {
         return actions.payment.execute().then(function (payment) {

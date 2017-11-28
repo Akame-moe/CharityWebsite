@@ -21,8 +21,8 @@
 </head>
 <body>
 
-<#include "navigationBar.html" parse=true>
 
+    <!--Used for FB share -->
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -32,6 +32,7 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
 
+    <#include "navigationBar.html" parse=true>
 
 
     <div id="charityIdDiv" style="display : none;">${charity.id}</div>
@@ -420,7 +421,7 @@
                             <input type="number" class="form-control" id="inputDonationAmount"
                                    placeholder="0.00">
                         </div>
-                        <p  id="amountErrorHint" style="color:red">Sorry, the donation amount should be positive. </p>
+                        <p  id="amountErrorHint" style="color:red; display:none; ">Sorry, the donation amount should be positive. </p>
                     </form>
 
                 </div>
