@@ -1,6 +1,8 @@
 package com.charityconnector.service;
 
+import com.charityconnector.entity.Cause;
 import com.charityconnector.entity.Charity;
+import com.charityconnector.entity.Country;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -13,8 +15,6 @@ public interface CharityService {
     Charity getCharity();
 
     Charity addCharity(Charity charity);
-
-    Charity[] findByName(String name);
 
     Charity findRandom();
 
@@ -32,6 +32,8 @@ public interface CharityService {
 
     Charity[] findPaged(Pageable pageable);
 
+    Charity[] findByName(String name);
+
     Page<Charity> findByNameLike(String name, Pageable pageable);
 
     Set<Charity> getCharitiesByCause(String cause);
@@ -43,4 +45,12 @@ public interface CharityService {
     List<Charity> findAll(Sort sort);
 
     Charity thumbUp(Long id);
+
+    Charity[] findByCauseAndCountry(Cause cause, Country country, String name);
+
+    Charity[] findByCountry(Country country, String name);
+
+    Charity[] findByCause(Cause cause, String name);
+
+    Charity[] findByNameLike(String name);
 }

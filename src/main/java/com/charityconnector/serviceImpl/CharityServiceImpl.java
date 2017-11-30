@@ -51,6 +51,13 @@ public class CharityServiceImpl implements CharityService {
         return charities;
     }
 
+
+    @Override
+    public Charity[] findByNameLike(String name) {
+        Charity[] charities = charityRepository.findByNameLike(name);
+        return charities;
+    }
+
     @Override
     public Charity findRandom() {
         return charityRepository.findRandom();
@@ -148,4 +155,24 @@ public class CharityServiceImpl implements CharityService {
         updateDirect(charity);
         return findById(id);
     }
+
+    @Override
+    public Charity[] findByCauseAndCountry(Cause  cause, Country country, String name) {
+        return charityRepository.findByCauseAndCountry(cause,country,name);
+    }
+
+    @Override
+    public Charity[] findByCountry(Country country, String name) {
+        return charityRepository.findByCountry(country,name);
+    }
+
+    @Override
+    public Charity[] findByCause(Cause  cause,String name) {
+        return charityRepository.findByCause(cause,name);
+    }
+
+
+
+
+
 }

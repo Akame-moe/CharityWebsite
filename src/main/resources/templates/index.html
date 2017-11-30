@@ -59,17 +59,53 @@
 
     <div class="verticalSpacer"></div>
 
-    <form id="searchForm" action="results">
-        <div class="form-group container">
-            <input type="text" class="form-control" name="searchValue" aria-describedby="searchHelp"
-                   placeholder="Serach charities" onkeydown="searchBarKeyDown()">
-            <input type="hidden" name="searchKey" value="name">
-            <input type="submit" id="searchFormSubmit" style="visibility: hidden;"/>
-        </div>
-    </form>
+    <div style="text-align:center;align-self:center;">
+        <form id="conditionSearchForm" action="results">
+            <div class="input-group" style="margin-top: 100px; margin-left: 200px;margin-right: 50px; margin-bottom: 50px;">
+                <div class="input-group-btn">
+                    <button type="button" id="causeButton" style="background-color: rgba(255, 255, 255, 0);color: black;"
+                            class="btn btn-secondary dropdown-toggle"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Causes
+                    </button>
+                    <div class="dropdown-menu" id="causeOptions"}>
+                        <#if causeOptions??>
+                            <a class="dropdown-item cause-dropdown-item" onclick="changeCauseName(this.innerHTML);" href="#">Causes</a>
+                            <#list causeOptions as causeName>
+                                <a class="dropdown-item cause-dropdown-item" onclick="changeCauseName(this.innerHTML);">${causeName}</a>
+                            </#list>
+                        </#if>
+                    </div>
+                </div>
+                <div class="input-group-btn">
+                    <button type="button" id="countryButton" style="background-color: rgba(255, 255, 255, 0);color: black;"  class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Countries
+                    </button>
+                    <div class="dropdown-menu"  id="countryOptions">
+                        <a class="dropdown-item cause-dropdown-item" onclick="changeCountryName(this.innerHTML);" href="#">Countries</a>
+                        <#if countryOptions??>
+                            <#list countryOptions as countryName>
+                                <a class="dropdown-item" onclick="changeCountryName(this.innerHTML)">${countryName}</a>
+                            </#list>
+                        </#if>
+                    </div>
+                </div>
+                <#if searchName??>
+                    <input type="text" style=""  value={searchName} name="searchString" class="form-control" placeholder="Please Search here...">
+                    <#else>
+                        <input type="text" style=""  name="searchString" class="form-control" placeholder="Search Charities Here...">
+                </#if>
+                <input id="causeResult" name="causeString"  value="Causes" style="display:none" >
+                <input id="countryResult" name="countryString" value="Countries" style="display:none" >
+                <div class="input-group-btn">
+                    <button type="submit" style="margin-right:400px;" class="btn btn-danger btn-md"> Go!
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
 
     <div class="container text-center">
-        or browse these featured ones
+       <h5> or browse these featured ones ... </h5>
     </div>
 
     <div class="container" id="charitiesShowcase">

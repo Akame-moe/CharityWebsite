@@ -24,4 +24,9 @@ public class CountryServiceImpl implements CountryService {
         }
         return res;
     }
+
+    @Override
+    public Country findCountryByName(String name) {
+        return countryRepository.findCountryByName(name);
+    }
 }
