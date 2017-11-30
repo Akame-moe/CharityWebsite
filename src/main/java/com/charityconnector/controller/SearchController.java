@@ -14,11 +14,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.security.Principal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -54,11 +56,11 @@ public class SearchController {
 
         if (principal != null)
             model.put("userId", principal.getName());
-        if (searchString == null || searchString.trim().equals(""))
+        if (searchString == null /*|| searchString.trim().equals("")*/)
             return "resultsPage";
         if (pageSize != 10 && pageSize != 25 && pageSize != 50)
             pageSize = 10;
-        PageRequest pageRequest = new PageRequest(pageNumber, pageSize, Sort.Direction.DESC, searchString);
+        PageRequest pageRequest = new PageRequest(pageNumber, pageSize, Sort.Direction.DESC, "name");
         Page<Charity> page = null;
 
         if(causeString.equals("Causes") && countryString.equals("Countries")){
