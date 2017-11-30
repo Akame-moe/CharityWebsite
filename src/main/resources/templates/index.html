@@ -69,7 +69,7 @@
                     </button>
                     <div class="dropdown-menu" id="causeOptions"}>
                         <#if causeOptions??>
-                            <a class="dropdown-item cause-dropdown-item" onclick="changeCauseName(this.innerHTML);" href="#">Causes</a>
+                            <a class="dropdown-item cause-dropdown-item" onclick="changeCauseName(this.innerHTML);">Causes</a>
                             <#list causeOptions as causeName>
                                 <a class="dropdown-item cause-dropdown-item" onclick="changeCauseName(this.innerHTML);">${causeName}</a>
                             </#list>
@@ -81,7 +81,7 @@
                         Countries
                     </button>
                     <div class="dropdown-menu"  id="countryOptions">
-                        <a class="dropdown-item cause-dropdown-item" onclick="changeCountryName(this.innerHTML);" href="#">Countries</a>
+                        <a class="dropdown-item cause-dropdown-item" onclick="changeCountryName(this.innerHTML);">Countries</a>
                         <#if countryOptions??>
                             <#list countryOptions as countryName>
                                 <a class="dropdown-item" onclick="changeCountryName(this.innerHTML)">${countryName}</a>

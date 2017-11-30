@@ -26,3 +26,7 @@ function changeCountryName(name){
 }
 
 
+function searchBarKeyDown(key) {
+    if (key.keyCode === 13)
+        $('#searchFormSubmit').click();
+}

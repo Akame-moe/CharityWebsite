@@ -25,8 +25,8 @@
 
     <div id="main-container">
         <div style="text-align:center;align-self:center;">
-            <form id="conditionSearchForm" action="results">
-                <div class="input-group" style="margin-top: 100px; margin-left: 200px;margin-right: 200px;">
+            <form id="searchFormSubmit" action="results">
+                <div class="input-group" style="margin-top: 100px; margin-left: 150px;margin-right: 100px;">
                     <div class="input-group-btn">
                         <button type="button" id="causeButton" style="background-color: rgba(255, 255, 255, 0);color: black;"
                                 class="btn btn-secondary dropdown-toggle"
@@ -34,7 +34,7 @@
                         </button>
                         <div class="dropdown-menu" id="causeOptions"}>
                             <#if causeOptions??>
-                                <a class="dropdown-item cause-dropdown-item" onclick="changeCauseName(this.innerHTML);" href="#">Causes</a>
+                                <a class="dropdown-item cause-dropdown-item" onclick="changeCauseName(this.innerHTML);">Causes</a>
                                 <#list causeOptions as causeName>
                                     <a class="dropdown-item cause-dropdown-item" onclick="changeCauseName(this.innerHTML);">${causeName}</a>
                                 </#list>
@@ -46,7 +46,7 @@
                             Countries
                         </button>
                         <div class="dropdown-menu"  id="countryOptions">
-                            <a class="dropdown-item cause-dropdown-item" onclick="changeCountryName(this.innerHTML);" href="#">Countries</a>
+                            <a class="dropdown-item cause-dropdown-item" onclick="changeCountryName(this.innerHTML);">Countries</a>
                             <#if countryOptions??>
                                 <#list countryOptions as countryName>
                                     <a class="dropdown-item" onclick="changeCountryName(this.innerHTML)">${countryName}</a>
@@ -57,7 +57,7 @@
                     <#if searchName??>
                         <input type="text" style=""  value={searchName} name="searchString" class="form-control" placeholder="Please Search here...">
                         <#else>
-                        <input type="text" style=""  name="searchString" class="form-control" placeholder="Please Search here...">
+                        <input type="text" style=""  name="searchString" class="form-control" placeholder="Search Charities Here...">
                     </#if>
                     <input id="causeResult" name="causeString"  value="Causes" style="display:none" >
                     <input id="countryResult" name="countryString" value="Countries" style="display:none" >

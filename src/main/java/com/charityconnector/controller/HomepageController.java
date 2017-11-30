@@ -1,7 +1,9 @@
 package com.charityconnector.controller;
 
 import com.charityconnector.entity.Charity;
+import com.charityconnector.service.CauseService;
 import com.charityconnector.service.CharityService;
+import com.charityconnector.service.CountryService;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,12 @@ public class HomepageController {
     @Resource
     private CharityService charityService;
 
+    @Resource
+    private CountryService countryService;
+
+    @Resource
+    private CauseService causeService;
+
     @RequestMapping("/")
     public String getHomePage(Map<String, Object> model, Principal principal) {
         if (principal != null)
@@ -33,6 +41,8 @@ public class HomepageController {
                 featuredCharities.add(c);
             }
         }
+        model.put("causeOptions",causeService.getAllCausesName());
+        model.put("countryOptions",countryService.getAllCountries());
         model.put("featuredCharities", featuredCharities);
         return "index";
     }
