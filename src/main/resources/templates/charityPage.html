@@ -207,6 +207,7 @@
                     <form action="/charity/${charity.id}/logo" method="POST" enctype="multipart/form-data"
                           name="upload_form">
                         <div class="form-group">
+                            <input id="csrfTokenInput" name="_csrf" type="hidden"/>
                             <input name="file" type="file" class="form-control-file" id="inputCharityLogo"
                                    aria-describedby="fileHelp"/>
                             <small id="fileHelp" class="form-text text-muted">Accepted formats: .jpg, png</small>
