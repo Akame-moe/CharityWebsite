@@ -11,9 +11,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Set;
-
 public interface CharityRepository extends JpaRepository<Charity, Long> {
 
     Page<Charity> findByNameLike(@Param("name") String name, Pageable pageable);
@@ -38,6 +35,6 @@ public interface CharityRepository extends JpaRepository<Charity, Long> {
     Charity[] findByCause(@Param("cause") Cause cause, @Param("name") String name);
 
     // The table name should be exactly as the entity name in the entity package
-    @Query("select c from Charity c where c.name LIKE  CONCAT('%',:name,'%')")
+    @Query("select c from Charity c where lower(c.name) LIKE  lower(CONCAT('%',:name,'%'))")
     Charity[] findByNameLike(@Param("name") String name);
 }
