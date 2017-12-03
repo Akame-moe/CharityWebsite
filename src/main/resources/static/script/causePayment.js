@@ -1,6 +1,6 @@
 paypal.Button.render({
 
-    env: 'sandbox', // Or 'sandbox'
+    env: 'sandbox', // Or 'Sandbox'
 
     client: {
         sandbox: 'AZ4rzAJMd3YLKr5-Av9DuqvF0LdsnIN65aRFQpbNF78-jATGOCKDKHQ9Idk0yIXZuX2E7kJ-xqkp3yI1',
