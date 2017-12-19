@@ -109,7 +109,8 @@
                     <div>
                         In these nations around the world:
                         <#items as country>
-                            <span class="badge badge-success">${country.countryValue}</span>
+                            <a href="/results?searchString=&causeString=Causes&countryString=${country.countryValue}"
+                               data-value="${country.id}" class="badge badge-success">${country.countryValue}</a>
                         </#items>
                     </div>
                 </#list>
