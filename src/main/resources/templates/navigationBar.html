@@ -1,13 +1,18 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
     <a class="navbar-brand" href="/">ConnectCharites</a>
+    <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navBarButtons" aria-controls="navBarButtons" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
     <div id="navBarButtons" class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
-            <li class="navbar-item active"><a class="nav-link" href="/results">Search</a></li>
-            <li class="navbar-item active"><a class="nav-link" href="/causesPage">Causes</a></li>
-            <li class="navbar-item active"><a class="nav-link" href="/charity/random">A Random Charity</a></li>
+            <li class="nav-item active"><a class="nav-link" href="/results">Search</a></li>
+            <li class="nav-item active"><a class="nav-link" href="/causesPage">Causes</a></li>
+            <li class="nav-item active"><a class="nav-link" href="/charity/random">A Random Charity</a></li>
         </ul>
-        <ul class="navbar-nav navbar-right">
-            <li class="navbar-item active authenticated">
+        <ul class="navbar-nav">
+            <li class="nav-item active authenticated">
                 <span style="display: none;" id="userIdSpan"></span>
                 <span style="display: none;" id="userIsCharity"><#if isCharity??>${isCharity!}</#if></span>
                 <span style="display: none;" id="userCharityId"><#if charityId??>${charityId!}</#if></span>
@@ -19,20 +24,15 @@
                 </#if>
                 >Welcome, <span class="nameLabel"></span></a>
             </li>
-            <li class="navbar-item active authenticated"><a class="nav-link" href="#" data-value="test"
-                                                            onclick="logOutUser();" id="logOut">LogOut</a></li>
-            <li class="navbar-item active unauthenticated"><a class="nav-link" href="#" data-toggle="modal"
-                                                              data-target="#loginModal" id="login">Login</a></li>
-            <li class="navbar-item active"><a style="display: none;" class="nav-link" href="#" id="editLink">Edit this
+            <li class="nav-item active authenticated"><a class="nav-link" href="#" data-value="test"
+                                                         onclick="logOutUser();" id="logOut">LogOut</a></li>
+            <li class="nav-item active unauthenticated"><a class="nav-link" href="#" data-toggle="modal"
+                                                           data-target="#loginModal" id="login">Login</a></li>
+            <li class="nav-item active"><a style="display: none;" class="nav-link" href="#" id="editLink">Edit this
                 page</a></li>
         </ul>
     </div>
 </nav>
-
-
-
-
-
 
 
 <div class="modal fade show" id="loginModal" tabindex="-1" role="dialog"

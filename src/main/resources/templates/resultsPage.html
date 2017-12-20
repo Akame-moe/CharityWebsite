@@ -7,8 +7,6 @@
 
     <title>Results of your search</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-
     <!--bootstrap css-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"/>
@@ -24,118 +22,128 @@
 <#include "navigationBar.html" parse=false>
 
     <div id="main-container">
-        <div style="text-align:center;align-self:center;">
+        <div class="container">
             <form id="searchFormSubmit" action="results">
-                <div class="input-group" style="margin-top: 100px; margin-left: 150px;margin-right: 100px;">
+                <div class="input-group" style="margin-top: 100px">
                     <div class="input-group-btn">
-                        <button type="button" id="causeButton" style="background-color: rgba(255, 255, 255, 0);color: black;"
+                        <button type="button" id="causeButton"
+                                style="background-color: rgba(255, 255, 255, 0);color: black;"
                                 class="btn btn-secondary dropdown-toggle"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Causes
                         </button>
-                        <div class="dropdown-menu" id="causeOptions"}>
+                        <div class="dropdown-menu" id="causeOptions" }>
                             <#if causeOptions??>
                                 <a class="dropdown-item cause-dropdown-item" onclick="changeCauseName(this.innerHTML);">Causes</a>
                                 <#list causeOptions as causeName>
-                                    <a class="dropdown-item cause-dropdown-item" onclick="changeCauseName(this.innerHTML);">${causeName}</a>
+                                    <a class="dropdown-item cause-dropdown-item"
+                                       onclick="changeCauseName(this.innerHTML);">${causeName}</a>
                                 </#list>
                             </#if>
                         </div>
                     </div>
                     <div class="input-group-btn">
-                        <button type="button" id="countryButton" style="background-color: rgba(255, 255, 255, 0);color: black;"  class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" id="countryButton"
+                                style="background-color: rgba(255, 255, 255, 0);color: black;"
+                                class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
                             Countries
                         </button>
-                        <div class="dropdown-menu"  id="countryOptions">
+                        <div class="dropdown-menu" id="countryOptions">
                             <a class="dropdown-item cause-dropdown-item" onclick="changeCountryName(this.innerHTML);">Countries</a>
                             <#if countryOptions??>
                                 <#list countryOptions as countryName>
-                                    <a class="dropdown-item" onclick="changeCountryName(this.innerHTML)">${countryName}</a>
+                                    <a class="dropdown-item"
+                                       onclick="changeCountryName(this.innerHTML)">${countryName}</a>
                                 </#list>
                             </#if>
                         </div>
                     </div>
                     <#if searchName??>
-                        <input type="text" style=""  value={searchName} name="searchString" class="form-control" placeholder="Please Search here...">
+                        <input type="text" id="searchBarField" style="" value={searchName} name="searchString"
+                               class="form-control" placeholder="Search Charities Here...">
                         <#else>
-                        <input type="text" style=""  name="searchString" class="form-control" placeholder="Search Charities Here...">
+                            <input type="text" id="searchBarField" style="" name="searchString" class="form-control"
+                                   placeholder="Search Charities Here...">
                     </#if>
-                    <input id="causeResult" name="causeString"  value="Causes" style="display:none" >
-                    <input id="countryResult" name="countryString" value="Countries" style="display:none" >
+                    <input id="causeResult" name="causeString" value="Causes" style="display:none">
+                    <input id="countryResult" name="countryString" value="Countries" style="display:none">
                     <div class="input-group-btn">
-                        <button type="submit" style="margin-right:400px;" class="btn btn-danger btn-md"> Go!
+                        <button type="submit" class="btn btn-danger btn-md"> Go!
                         </button>
                     </div>
                 </div>
             </form>
         </div>
-    </div>
 
 
-    <#if charities??>
-        <div id="searchResultsContainer" class="container">
+        <#if charities??>
+            <div id="searchResultsContainer" class="container">
 
-            <#list charities as charity>
-                <div class="row my-5" id="charity-row-${charity.id}">
-                    <a href="/charityPage/${charity.id}">
-                        <div class="col-md-3" id="charity-img-${charity.id}"><img alt="Charity logo" width="150px"
-                                                                                  height="150px"
-                                                                                  src=${charity.logoFile!"../img/no-charity-logo.png"}>
-                        </div>
-                    </a>
-                    <div class="col-md-9" id="charity-body-${charity.id}">
+                <#list charities as charity>
+                    <div class="row my-5" id="charity-row-${charity.id}">
                         <a href="/charityPage/${charity.id}">
-                            <strong>${charity.name}</strong>
+                            <div class="col-md-3" id="charity-img-${charity.id}"><img alt="Charity logo" width="150px"
+                                                                                      height="150px"
+                                                                                      src=${charity.logoFile!"../img/no-charity-logo.png"}>
+                            </div>
                         </a>
-                        <p class="charity-desc-p">${charity.description}</p>
+                        <div class="col-md-9" id="charity-body-${charity.id}">
+                            <a href="/charityPage/${charity.id}">
+                                <strong>${charity.name}</strong>
+                            </a>
+                            <p class="charity-desc-p">${charity.description}</p>
+                        </div>
                     </div>
-                </div>
-            </#list>
-        </div>
-        <#else>
-            <#if searchedName??>
-                <div id="sorryNoCharties" class="container">
-                    No charities matched your search, please try again
-                </div>
-            </#if>
-    </#if>
+                </#list>
+            </div>
+            <#else>
+                <#if searchedName??>
+                    <div id="sorryNoCharties" class="container">
+                        No charities matched your search, please try again
+                    </div>
+                </#if>
+        </#if>
 
-    <#if charities??>
-        <div id="pageChanger" class="container text-center">
-            <#if pageNumber!= 0>
-                <a href="results?name=${searchedName}&pageSize=${pageSize}&pageNumber=${pageNumber - 1}"><</a>
-            </#if>
-            <span id="pageCounter">Page ${pageNumber + 1} of ${numberOfPages}</span>
-            <#if pageNumber!= (numberOfPages - 1)>
-                <a href="results?name=${searchedName}&pageSize=${pageSize}&pageNumber=${pageNumber + 1}">></a>
-            </#if>
-        </div>
-    </#if>
+        <#if charities??>
+            <div id="pageChanger" class="container text-center">
+                <#if pageNumber!= 0>
+                    <a href="results?name=${searchedName}&pageSize=${pageSize}&pageNumber=${pageNumber - 1}"><</a>
+                </#if>
+                <span id="pageCounter">Page ${pageNumber + 1} of ${numberOfPages}</span>
+                <#if pageNumber!= (numberOfPages - 1)>
+                    <a href="results?name=${searchedName}&pageSize=${pageSize}&pageNumber=${pageNumber + 1}">></a>
+                </#if>
+            </div>
+        </#if>
+
+
+    </div>
 
     <#include "footer.html" parse=false>
 
 
-    <!-- jquery -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+        <!-- jquery -->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
 
-    <!-- popper -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
-            crossorigin="anonymous"></script>
+        <!-- popper -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+                crossorigin="anonymous"></script>
 
-    <!-- boostrap -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
-            crossorigin="anonymous"></script>
+        <!-- boostrap -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+                crossorigin="anonymous"></script>
 
 
-    <script src="../script/resultsPage.js"></script>
+        <script src="../script/resultsPage.js"></script>
 
-    <!--handle Login.js-->
-    <script src="../script/handleLogin.js"></script>
+        <!--handle Login.js-->
+        <script src="../script/handleLogin.js"></script>
 
-    <!--ajax setup-->
-    <script src="../script/ajaxSetup.js"></script>
+        <!--ajax setup-->
+        <script src="../script/ajaxSetup.js"></script>
 
-    <!-- Cookie handling -->
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+        <!-- Cookie handling -->
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
 </body>
 </html>

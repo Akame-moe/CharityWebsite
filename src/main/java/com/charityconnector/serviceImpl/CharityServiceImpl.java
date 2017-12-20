@@ -127,6 +127,12 @@ public class CharityServiceImpl implements CharityService {
     }
 
     @Override
+    public Charity[] findByNameOrDescriptionLike(String name) {
+        Charity[] charity = charityRepository.findByNameOrDescriptionLike(name);
+        return charity;
+    }
+
+    @Override
     public Set<Charity> getCharitiesByCause(String cause) {
         Cause res = causeRepository.findCauseByName(cause);
         return res.getCharities();

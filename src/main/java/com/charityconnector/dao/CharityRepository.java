@@ -15,6 +15,8 @@ public interface CharityRepository extends JpaRepository<Charity, Long> {
 
     Page<Charity> findByNameLike(@Param("name") String name, Pageable pageable);
 
+    Page<Charity> findByNameOrDescriptionLike(@Param("stringToMatch") String stringToMatch, Pageable pageable);
+
     @Modifying
     @Transactional
     @Query("UPDATE Charity c SET c.name = :name, c.description = :description WHERE c.id = :id")
@@ -37,4 +39,7 @@ public interface CharityRepository extends JpaRepository<Charity, Long> {
     // The table name should be exactly as the entity name in the entity package
     @Query("select c from Charity c where lower(c.name) LIKE  lower(CONCAT('%',:name,'%'))")
     Charity[] findByNameLike(@Param("name") String name);
+
+    @Query("select c from Charity c where lower(c.name) LIKE lower(CONCAT('%', :stringToMatch, '%')) or lower(c.description) LIKE lower(CONCAT('%', :stringToMatch, '%'))")
+    Charity[] findByNameOrDescriptionLike(@Param("stringToMatch") String stringToMatch);
 }

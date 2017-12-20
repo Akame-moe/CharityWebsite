@@ -53,4 +53,6 @@ public interface CharityService {
     Charity[] findByCause(Cause cause, String name);
 
     Charity[] findByNameLike(String name);
+
+    Charity[] findByNameOrDescriptionLike(String stringToMatch);
 }

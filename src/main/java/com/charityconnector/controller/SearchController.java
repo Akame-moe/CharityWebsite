@@ -64,7 +64,7 @@ public class SearchController {
         Page<Charity> page = null;
 
         if(causeString.equals("Causes") && countryString.equals("Countries")){
-            Charity[] res = charityService.findByNameLike(searchString);
+            Charity[] res = charityService.findByNameOrDescriptionLike(searchString);
             ArrayList<Charity> arrayList = new ArrayList<>(Arrays.asList(res));
             page = new PageImpl<>(arrayList, pageRequest, arrayList.size());
         }else if(!causeString.equals("Causes") && !countryString.equals("Countries")){
