@@ -41,4 +41,9 @@ public class CauseServiceImpl implements CauseService {
         return res;
     }
 
+    @Override
+    public Cause findByName(String name) {
+        return causeRepository.findCauseByName(name);
+    }
+
 }

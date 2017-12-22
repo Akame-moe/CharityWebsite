@@ -5,6 +5,9 @@ $(document).ready(function () {
     $("#editLink").click(editModeToggle);
 
     $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+
+    $("#csrfTokenInput").attr("value", Cookies.get('XSRF-TOKEN'));
+
     $("#active-button").click(function () {
         var id = $("#active-button").attr("data-value");
         $.ajax({

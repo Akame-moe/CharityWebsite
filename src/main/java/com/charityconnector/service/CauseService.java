@@ -10,4 +10,6 @@ public interface CauseService {
     List<Cause> getAllCauses();
 
     List<String> getAllCausesName();
+
+    Cause findByName(String name);
 }

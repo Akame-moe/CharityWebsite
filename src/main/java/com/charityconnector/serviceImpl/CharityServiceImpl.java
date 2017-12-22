@@ -56,6 +56,13 @@ public class CharityServiceImpl implements CharityService {
         return charities;
     }
 
+
+    @Override
+    public Charity[] findByNameLike(String name) {
+        Charity[] charities = charityRepository.findByNameLike(name);
+        return charities;
+    }
+
     @Override
     public Charity findRandom() {
         return charityRepository.findRandom();
@@ -125,6 +132,12 @@ public class CharityServiceImpl implements CharityService {
     }
 
     @Override
+    public Charity[] findByNameOrDescriptionLike(String name) {
+        Charity[] charity = charityRepository.findByNameOrDescriptionLike(name);
+        return charity;
+    }
+
+    @Override
     public Set<Charity> getCharitiesByCause(String cause) {
         Cause res = causeRepository.findCauseByName(cause);
         return res.getCharities();
@@ -182,5 +195,19 @@ public class CharityServiceImpl implements CharityService {
     public int getCharityThumbsUpById(Long id) {
         Charity charity = findById(id);
         return charity.getThumbUpDonors().size();
+    }
+
+    public Charity[] findByCauseAndCountry(Cause  cause, Country country, String name) {
+        return charityRepository.findByCauseAndCountry(cause,country,name);
+    }
+
+    @Override
+    public Charity[] findByCountry(Country country, String name) {
+        return charityRepository.findByCountry(country,name);
+    }
+
+    @Override
+    public Charity[] findByCause(Cause  cause,String name) {
+        return charityRepository.findByCause(cause,name);
     }
 }

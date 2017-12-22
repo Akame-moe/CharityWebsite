@@ -28,14 +28,16 @@
 
 
     <!--Used for FB share -->
-    <div id="fb-root"></div>
+    <div id="fb-root">
     <script>(function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
         js = d.createElement(s); js.id = id;
         js.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.11&appId=893012947524181';
         fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
+    </div>
 
     <#include "navigationBar.html" parse=true>
 
@@ -107,7 +109,8 @@
                     <div>
                         In these nations around the world:
                         <#items as country>
-                            <span class="badge badge-success">${country.countryValue}</span>
+                            <a href="/results?searchString=&causeString=Causes&countryString=${country.countryValue}"
+                               data-value="${country.id}" class="badge badge-success">${country.countryValue}</a>
                         </#items>
                     </div>
                 </#list>
@@ -189,11 +192,7 @@
         </div>
     </div>
 
-    <footer class="footer p-5">
-        <div class="container">
-            <span class="text-muted">About us - Developers - Legal - Privacy - Cookies - Language</span>
-        </div>
-    </footer>
+        <#include "footer.html" parse=false>
 
     <div class="modal fade show" id="uploadImageModal" tabindex="-1" role="dialog"
          aria-labelledby="ulpoadImageLabel">
@@ -209,6 +208,7 @@
                     <form action="/charity/${charity.id}/logo" method="POST" enctype="multipart/form-data"
                           name="upload_form">
                         <div class="form-group">
+                            <input id="csrfTokenInput" name="_csrf" type="hidden"/>
                             <input name="file" type="file" class="form-control-file" id="inputCharityLogo"
                                    aria-describedby="fileHelp"/>
                             <small id="fileHelp" class="form-text text-muted">Accepted formats: .jpg, png</small>

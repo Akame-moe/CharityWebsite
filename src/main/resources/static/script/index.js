@@ -28,3 +28,14 @@ function searchBarKeyDown(key) {
     if (key.keyCode === 13)
         $('#searchFormSubmit').click();
 }
+
+
+function changeCauseName(name){
+    $("#causeButton").html(name);
+    $("#causeResult").attr("value",name);
+}
+
+function changeCountryName(name){
+    $("#countryButton").html(name);
+    $("#countryResult").attr("value",name);
+}

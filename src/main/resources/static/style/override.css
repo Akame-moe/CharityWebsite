@@ -3,13 +3,17 @@
     border-color: #CC0700 !important;
 }
 
+body {
+    min-width: 35rem;
+}
+
 #main-container {
     padding-top: 2rem !important;
     padding-bottom: 2rem !important;
     padding-left: 2rem !important;
     padding-right: 2rem !important;
-    min-height: 20rem;
     background-color: #FFFFFF;
+    min-height: 20rem;
     border-radius: 0rem 0rem 2rem 2rem;
 }
 
@@ -68,5 +72,4 @@ body {
 .authenticated, .unauthenticated {
     display: none;
 }
-
 
