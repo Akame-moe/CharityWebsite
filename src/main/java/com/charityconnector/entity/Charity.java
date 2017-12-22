@@ -174,7 +174,7 @@ public class Charity {
 
     @Column(name = "thumb_up")
     public Long getThumbUp() {
-        return thumbUp;
+        return new Long(thumbUpDonors.size());
     }
 
     public void setThumbUp(Long thumbUp) {

@@ -3,9 +3,11 @@ package com.charityconnector.serviceImpl;
 import com.charityconnector.dao.CauseRepository;
 import com.charityconnector.dao.CharityRepository;
 import com.charityconnector.dao.CountryRepository;
+import com.charityconnector.dao.DonorRepository;
 import com.charityconnector.entity.Cause;
 import com.charityconnector.entity.Charity;
 import com.charityconnector.entity.Country;
+import com.charityconnector.entity.Donor;
 import com.charityconnector.service.CharityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +30,9 @@ public class CharityServiceImpl implements CharityService {
 
     @Resource
     private CountryRepository countryRepository;
+
+    @Resource
+    private DonorRepository donorRepository;
 
     @Autowired
     public CharityServiceImpl(CharityRepository charityRepository) {
@@ -147,5 +152,35 @@ public class CharityServiceImpl implements CharityService {
         charity.setThumbUp(charity.getThumbUp()+1);
         updateDirect(charity);
         return findById(id);
+    }
+
+    @Override
+    public int thumbUpUnique(Long charityId, Long donorId) {
+        int res = 0;
+        Charity charity = charityRepository.getOne(charityId);
+        Set<Donor> donors = charity.getThumbUpDonors();
+        for (Donor donor : donors) {
+            if (donor.getId().equals(donorId)) {
+                res = -2;
+                break;
+            }
+        }
+        if (res != 0) {
+            return res;
+        }
+        Donor donor = donorRepository.getOne(donorId);
+        Set<Charity> charities = donor.getThumbUpCharities();
+        charities.add(charity);
+        donor.setThumbUpCharities(charities);
+        donors.add(donor);
+        charity.setThumbUpDonors(donors);
+        res = charity.getThumbUpDonors().size();
+        return res;
+    }
+
+    @Override
+    public int getCharityThumbsUpById(Long id) {
+        Charity charity = findById(id);
+        return charity.getThumbUpDonors().size();
     }
 }

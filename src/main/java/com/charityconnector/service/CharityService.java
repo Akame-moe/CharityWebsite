@@ -43,4 +43,8 @@ public interface CharityService {
     List<Charity> findAll(Sort sort);
 
     Charity thumbUp(Long id);
+
+    int thumbUpUnique(Long charityId, Long donorId);
+
+    int getCharityThumbsUpById(Long id);
 }
