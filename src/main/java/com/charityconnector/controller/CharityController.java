@@ -79,7 +79,7 @@ public class CharityController {
         if (id == null) {
             return -1;
         }
-        int res= charityService.thumbUpUnique(charity.getId(), Long.valueOf(id));
+        int res = charityService.thumbUpUnique(charity.getId(), Long.valueOf(id));
         return res;
     }
 

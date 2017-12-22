@@ -169,8 +169,12 @@ public class Charity {
         this.thumbUpDonors = thumbUpDonors;
     }
 
-
-
+    public Set<Donor> addThumbUpDonor(Donor donor) {
+        thumbUpDonors.add(donor);
+        Set<Charity> charities = donor.getThumbUpCharities();
+        charities.add(this);
+        return thumbUpDonors;
+    }
 
     @Column(name = "thumb_up")
     public Long getThumbUp() {

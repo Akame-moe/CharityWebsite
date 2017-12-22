@@ -174,19 +174,17 @@ public class CharityServiceImpl implements CharityService {
         Set<Donor> donors = charity.getThumbUpDonors();
         for (Donor donor : donors) {
             if (donor.getId().equals(donorId)) {
-                res = -2;
+                res = -2; // represent this donor has thumbed up
                 break;
             }
         }
         if (res != 0) {
             return res;
         }
+        // only charity side own the relationship
         Donor donor = donorRepository.getOne(donorId);
-        Set<Charity> charities = donor.getThumbUpCharities();
-        charities.add(charity);
-        donor.setThumbUpCharities(charities);
-        donors.add(donor);
-        charity.setThumbUpDonors(donors);
+        charity.addThumbUpDonor(donor);
+        charityRepository.save(charity);
         res = charity.getThumbUpDonors().size();
         return res;
     }
