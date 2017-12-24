@@ -15,14 +15,19 @@ public class Activity {
     private Charity charity;
     private String content;
 
+
+
+    private String title;
+
     public Activity() {
         super();
     }
 
-    public Activity(Long id, String country, Date holdDate) {
+    public Activity(Long id, String country, Date holdDate, String title) {
         this.id = id;
         this.country = country;
         this.holdDate = holdDate;
+        this.title = title;
     }
 
     @Id
@@ -54,6 +59,14 @@ public class Activity {
         this.holdDate = holdDate;
     }
 
+    @Column(name = "title")
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "activities_donar", joinColumns = @JoinColumn(name = "activity_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "donor_id", referencedColumnName = "id"))
