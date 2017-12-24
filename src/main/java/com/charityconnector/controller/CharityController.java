@@ -68,6 +68,21 @@ public class CharityController {
         return charityService.thumbUp(charity.getId()).getThumbUp();
     }
 
+    @RequestMapping(path = "/charity/thumbUpUnique", method = RequestMethod.PATCH)
+    @ResponseBody
+    public int thumbUpUnique(@RequestBody Charity charity, Principal principal) {
+        if (principal == null) {
+            return -1;
+        }
+        String id = principal.getName();
+        System.out.println(id);
+        if (id == null) {
+            return -1;
+        }
+        int res = charityService.thumbUpUnique(charity.getId(), Long.valueOf(id));
+        return res;
+    }
+
     @RequestMapping(path = "/charity/random", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView getRandomCharity() {

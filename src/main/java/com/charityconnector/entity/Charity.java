@@ -26,9 +26,11 @@ public class Charity {
     private int verifyStatus;
     private Long thumbUp;
     private String oauthUserId;
+    private Set<Activity> activities;
 
     public Charity(Long id, String name, String description, String logoFile, String email, String paypalAccount,
-                   Set<Cause> causes, Set<Country> countries, Set<Donor> thumbUpDonors,String verifyCode, int verifyStatus, Long thumbUp) {
+                   Set<Cause> causes, Set<Country> countries, Set<Donor> thumbUpDonors,String verifyCode,
+                   int verifyStatus, Long thumbUp,Set<Activity> activities ) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -41,6 +43,7 @@ public class Charity {
         this.verifyCode = verifyCode;
         this.verifyStatus = verifyStatus;
         this.thumbUp = thumbUp;
+        this.activities = activities;
     }
 
     /* Required by JPA specification */
@@ -128,18 +131,16 @@ public class Charity {
     public int getVerifyStatus() {
         return verifyStatus;
     }
-
     public void setVerifyStatus(int verifyStatus) {
         this.verifyStatus = verifyStatus;
     }
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "causes", joinColumns = @JoinColumn(name = "charity_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "cause_id", referencedColumnName = "id"))
-    //@JsonIgnore
+    @JsonIgnore
     public Set<Cause> getCauses() {
         return causes;
     }
-
     public void setCauses(Set<Cause> causes) {
         this.causes = causes;
     }
@@ -150,7 +151,6 @@ public class Charity {
     public Set<Country> getCountries() {
         return countries;
     }
-
     public void setCountries(Set<Country> countries) {
         this.countries = countries;
     }
@@ -169,12 +169,16 @@ public class Charity {
         this.thumbUpDonors = thumbUpDonors;
     }
 
-
-
+    public Set<Donor> addThumbUpDonor(Donor donor) {
+        thumbUpDonors.add(donor);
+        Set<Charity> charities = donor.getThumbUpCharities();
+        charities.add(this);
+        return thumbUpDonors;
+    }
 
     @Column(name = "thumb_up")
     public Long getThumbUp() {
-        return thumbUp;
+        return new Long(thumbUpDonors.size());
     }
 
     public void setThumbUp(Long thumbUp) {
@@ -188,6 +192,15 @@ public class Charity {
 
     public void setOauthUserId(String oauthUserId) {
         this.oauthUserId = oauthUserId;
+    }
+
+
+    @OneToMany(mappedBy = "charity", cascade = CascadeType.ALL)
+    public Set<Activity> getActivities() {
+        return activities;
+    }
+    public void setActivities(Set<Activity> activities) {
+        this.activities = activities;
     }
 }
 

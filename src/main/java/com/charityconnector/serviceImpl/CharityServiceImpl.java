@@ -3,9 +3,11 @@ package com.charityconnector.serviceImpl;
 import com.charityconnector.dao.CauseRepository;
 import com.charityconnector.dao.CharityRepository;
 import com.charityconnector.dao.CountryRepository;
+import com.charityconnector.dao.DonorRepository;
 import com.charityconnector.entity.Cause;
 import com.charityconnector.entity.Charity;
 import com.charityconnector.entity.Country;
+import com.charityconnector.entity.Donor;
 import com.charityconnector.service.CharityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +30,9 @@ public class CharityServiceImpl implements CharityService {
 
     @Resource
     private CountryRepository countryRepository;
+
+    @Resource
+    private DonorRepository donorRepository;
 
     @Autowired
     public CharityServiceImpl(CharityRepository charityRepository) {
@@ -163,6 +168,33 @@ public class CharityServiceImpl implements CharityService {
     }
 
     @Override
+    public int thumbUpUnique(Long charityId, Long donorId) {
+        int res = 0;
+        Charity charity = charityRepository.getOne(charityId);
+        Set<Donor> donors = charity.getThumbUpDonors();
+        for (Donor donor : donors) {
+            if (donor.getId().equals(donorId)) {
+                res = -2; // represent this donor has thumbed up
+                break;
+            }
+        }
+        if (res != 0) {
+            return res;
+        }
+        // only charity side own the relationship
+        Donor donor = donorRepository.getOne(donorId);
+        charity.addThumbUpDonor(donor);
+        charityRepository.save(charity);
+        res = charity.getThumbUpDonors().size();
+        return res;
+    }
+
+    @Override
+    public int getCharityThumbsUpById(Long id) {
+        Charity charity = findById(id);
+        return charity.getThumbUpDonors().size();
+    }
+
     public Charity[] findByCauseAndCountry(Cause  cause, Country country, String name) {
         return charityRepository.findByCauseAndCountry(cause,country,name);
     }
@@ -176,9 +208,4 @@ public class CharityServiceImpl implements CharityService {
     public Charity[] findByCause(Cause  cause,String name) {
         return charityRepository.findByCause(cause,name);
     }
-
-
-
-
-
 }

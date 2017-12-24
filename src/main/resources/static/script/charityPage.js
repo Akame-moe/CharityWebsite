@@ -155,10 +155,15 @@ function sendUpdateCharityThumbUp() {
     $.ajax({
         type: "PATCH",
         contentType: "application/json",
-        url: "/charity/thumbUp",
+        url: "/charity/thumbUpUnique",
         data: JSON.stringify(charity),
         success: function (result) {
-            $("#charityThumbUp").html("Thumbs : " +result);
+            if (result == -1)
+                alert("You need to login!");
+            if (result == -2)
+                alert("You have alreay thumb up!");
+            if (result > 0)
+               $("#charityThumbUp").html("Thumbs : " +result);
         },
         error: function (e) {
             alert("There was an error communicating with the server");

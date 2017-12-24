@@ -46,6 +46,10 @@ public interface CharityService {
 
     Charity thumbUp(Long id);
 
+    int thumbUpUnique(Long charityId, Long donorId);
+
+    int getCharityThumbsUpById(Long id);
+
     Charity[] findByCauseAndCountry(Cause cause, Country country, String name);
 
     Charity[] findByCountry(Country country, String name);
@@ -55,4 +59,5 @@ public interface CharityService {
     Charity[] findByNameLike(String name);
 
     Charity[] findByNameOrDescriptionLike(String stringToMatch);
+
 }
