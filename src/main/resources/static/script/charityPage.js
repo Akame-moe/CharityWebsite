@@ -57,6 +57,7 @@ function addArticle() {
 }
 
 
+
 function sendEditArticle() {
     id = $('#inputEditArticleId').html();
     var article = {
@@ -125,6 +126,12 @@ function deleteArticle(id) {
     $('#deleteArticleBody').html(areYouSureText + " \"" + $("#showArticle_" + id.toString()).html() + "\"");
     $('#inputDeleteArticleId').html(id);
     $('#deleteArticleModal').modal('toggle');
+}
+
+function showActivity(id) {
+    $('#viewActivityModal').modal('toggle');
+    $('#viewActivityLabel').html($("#showActivity_" + id.toString()).html());
+    $('#viewActivityBody').html($("#activityDesc_" + id.toString()).html());
 }
 
 function loadDescriptionModal() {

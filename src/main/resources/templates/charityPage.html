@@ -147,7 +147,7 @@
         <div class="vertical-spacer"></div>
 
         <div class="container">
-            <h2>Our recent activities
+            <h2>Our recent articles
                 <button class="btn edit-badge badge-success" id="addArticleBadge" onclick="addArticle()">
                     <svg width="18" height="21" viewBox="0 0 12 14" version="1.1"
                          aria-hidden="true">
@@ -182,6 +182,7 @@
                                 </svg>
                             </button>
                         </div>
+
                     </div>
                     <span id="articleDesc_${article.id}"
                           style="position:fixed; visibility:hidden">${article.body}</span>
@@ -190,6 +191,54 @@
                 </table>
             </div>
         </div>
+
+        <div class="container">
+            <h2>Our recent activities
+                <button class="btn edit-badge badge-success" id="addActivityBadge" onclick="addActivity()">
+                    <svg width="18" height="21" viewBox="0 0 12 14" version="1.1"
+                         aria-hidden="true">
+                        <path style="fill:#FFFFFF" fill-rule="evenodd" d="M12 9H7v5H5V9H0V7h5V2h2v5h5z"></path>
+                    </svg>
+                </button>
+            </h2>
+
+            <div class="container">
+                <#list activities as activity>
+                    <div class="row row-article">
+                        <div class="col-sm"><a href="#" id="showActivity_${activity.id}"
+                                               onclick="showActivity(${activity.id})">${activity.title}</a>
+                        </div>
+
+                        <#if activity.holdDate??>
+                            <div class="col-sm text-right">${activity.holdDate?date}</div>
+                        </#if>
+                        <div class="col-sm-2 edit-badge">
+                            <button class="btn edit-badge badge-primary" id="editActivityBadge_${activity.id}"
+                                    onclick="editActivity(${activity.id})">
+                                <svg height="28" width="20" viewBox="0 0 14 14" version="1.1" aria-hidden="true">
+                                    <path style="fill:#FFFFFF" fill-rule="evenodd"
+                                          d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"/>
+                                </svg>
+                            </button>
+                            <button class="btn edit-badge badge-default" id="deleteActivityBadge_${activity.id}"
+                                    onclick="deleteActivity(${activity.id})">
+                                <svg height="28" width="20" viewBox="0 0 12 14"
+                                     version="1.1" aria-hidden="true">
+                                    <path fill-rule="evenodd"
+                                          d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path>
+                                </svg>
+                            </button>
+                        </div>
+
+                    </div>
+                    <span id="activityDesc_${activity.id}"
+                          style="position:fixed; visibility:hidden">${activity.content}</span>
+                </#list>
+                </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 
         <#include "footer.html" parse=false>
@@ -454,6 +503,27 @@
                 </div>
                 <div class="modal-footer">
                     <div class="fb-share-button"  data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade show" id="viewActivityModal" tabindex="-1" role="dialog"
+         aria-labelledby="viewActivityLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewActivityLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="viewActivityBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                 </div>
 
             </div>

@@ -122,6 +122,7 @@ public class CharityController {
 
         model.put("charity", charityService.findById(id));
         model.put("articles", articleService.findArticlesByCharityId(id));
+        model.put("activities", charityService.findById(id).getActivities());
 
         if (authDetails != null) {
             model.put("isCharity", Boolean.toString(authDetails.isCharity()));
