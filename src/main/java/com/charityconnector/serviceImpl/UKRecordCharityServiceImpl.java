@@ -6,14 +6,14 @@ import com.charityconnector.service.UKRecordCharityService;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
-/*@Service
+@Service
 public class UKRecordCharityServiceImpl implements UKRecordCharityService {
 
-  /*  @Resource
+    @Resource
     UKRecordCharityRepository ukRecordCharityRepository;
 
     @Override
-    public UKRecordCharity findById(String email) {
-        return ukRecordCharityRepository.findById(email);
+    public UKRecordCharity findByEmail(String email) {
+        return ukRecordCharityRepository.findByEmail(email);
     }
-}*/
+}
