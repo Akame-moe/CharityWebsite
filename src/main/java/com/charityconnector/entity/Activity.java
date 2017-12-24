@@ -14,7 +14,8 @@ public class Activity {
     private Set<Donor> donors;
     private Charity charity;
     private String content;
-
+    private Date insertTime;
+    private Date updateTime;
 
 
     private String title;
@@ -94,4 +95,23 @@ public class Activity {
     public void setContent(String content) {
         this.content = content;
     }
+
+    @Column(name="insert_time")
+    public Date getInsertTime() {
+        return insertTime;
+    }
+
+    public void setInsertTime(Date insertTime) {
+        this.insertTime = insertTime;
+    }
+
+    @Column(name="update_time")
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
 }
