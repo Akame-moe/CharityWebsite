@@ -84,7 +84,6 @@ public class Paypal {
     public Donor getDonor() {
         return donor;
     }
-
     public void setDonor(Donor donor) {
         this.donor = donor;
     }

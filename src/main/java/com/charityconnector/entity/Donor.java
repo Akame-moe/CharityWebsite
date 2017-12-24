@@ -12,12 +12,13 @@ public class Donor {
     private Long id;
     private Set<Paypal> payments;
     private Set<Charity> thumbUpCharities;
+    private Set<Activity> activities;
+
 
     /* Required by JPA specification */
     public Donor() {
         super();
     }
-
     public Donor(Long id) {
         this.id = id;
     }
@@ -27,7 +28,6 @@ public class Donor {
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -36,19 +36,21 @@ public class Donor {
     public Set<Paypal> getPayments() {
         return payments;
     }
-
     public void setPayments(Set<Paypal> payments) {
         this.payments = payments;
     }
 
-
-
-
     @ManyToMany(mappedBy = "thumbUpDonors")
     @JsonIgnore
-    public Set<Charity> getThumbUpCharities() {return thumbUpCharities; }
-
+    public Set<Charity> getThumbUpCharities() { return thumbUpCharities; }
     public void setThumbUpCharities(Set<Charity> thumbUpCharities) {
         this.thumbUpCharities = thumbUpCharities;
+    }
+
+    @ManyToMany(mappedBy = "donors")
+    @JsonIgnore
+    public Set<Activity> getActivities() { return activities; }
+    public void setActivities(Set<Activity> activities) {
+        this.activities = activities;
     }
 }
