@@ -3,15 +3,15 @@ package com.charityconnector.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "uk_record_charities")
-public class UKRecordCharities {
+@Table(name = "uk_record_charity")
+public class UKRecordCharity {
     private String email;
 
-    public UKRecordCharities(String email){
+    public UKRecordCharity(String email){
         this.email = email;
     }
 
-    public UKRecordCharities() {
+    public UKRecordCharity() {
         super();
     }
 
