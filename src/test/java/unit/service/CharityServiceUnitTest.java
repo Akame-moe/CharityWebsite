@@ -91,9 +91,9 @@ public class CharityServiceUnitTest {
 
     @Test
     public void selectiveUpdatingCharity() {
-        Charity oldCharity = new Charity(1L, "name", "description", "123", "email", "paypal", null, null, null,"verifyCode", 1, 1L);
+        Charity oldCharity = new Charity(1L, "name", "description", "123", "email", "paypal", null, null, null,"verifyCode", 1, 1L,null);
 
-        Charity newCharity = new Charity(1L, null, "adifferentDescription", null, "email2", "paypal", null, null, null, null, 0, 2L);
+        Charity newCharity = new Charity(1L, null, "adifferentDescription", null, "email2", "paypal", null, null, null, null, 0, 2L,null);
 
         when(mockRepo.findOne(1L)).thenReturn(oldCharity);
 
