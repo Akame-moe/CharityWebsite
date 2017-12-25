@@ -208,7 +208,7 @@
                         <div class="col-sm"><a href="#" id="showActivity_${activity.id}"
                                                onclick="showActivity(${activity.id})">${activity.title}</a>
                         </div>
-
+                        <button type="button" class ="btn btn-info btn-sm" style="height:30px;width:100px" onclick="applyVolunteer(${activity.id})">Volunteer</button>
                         <#if activity.holdDate??>
                             <div class="col-sm text-right">${activity.holdDate?date}</div>
                         </#if>

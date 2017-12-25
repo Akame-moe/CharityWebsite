@@ -87,6 +87,7 @@ public class WebsiteApplication extends WebSecurityConfigurerAdapter {
                 //permitted to all
                 .antMatchers(HttpMethod.GET).permitAll()
                 .antMatchers("/charity/thumbUpUnique").permitAll()
+                .antMatchers("/activity/volunteer").permitAll()
                 .antMatchers("/charity/thumbUp").permitAll()
                 .antMatchers(HttpMethod.POST, "/paypal**").permitAll()
                 //everything else requires authentication

@@ -2,6 +2,7 @@ package com.charityconnector.serviceImpl;
 
 import com.charityconnector.dao.ActivityRepository;
 import com.charityconnector.dao.CharityRepository;
+import com.charityconnector.dao.DonorRepository;
 import com.charityconnector.entity.Activity;
 import com.charityconnector.entity.Charity;
 import com.charityconnector.entity.Donor;
@@ -18,6 +19,9 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Resource
     private CharityRepository charityRepository;
+
+    @Resource
+    private DonorRepository donorRepository;
 
     @Override
     public Activity findById(Long id) {
@@ -84,5 +88,25 @@ public class ActivityServiceImpl implements ActivityService {
     public Activity[] findArticlesByCharityId(Long charityId) {
         Set<Activity> temp = charityRepository.findOne(charityId).getActivities();
         return temp.toArray(new Activity[temp.size()]);
+    }
+
+    @Override
+    public int volunteer(Long activityId, Long donorId) {
+        Activity activity = activityRepository.findOne(activityId);
+        Set<Donor> donors = activity.getDonors();
+        int res = 0;
+        for (Donor donor : donors) {
+            if (donor.getId().equals(donorId)) {
+                res = -2; // represent this donor has thumbed up
+                break;
+            }
+        }
+        if (res != 0) {
+            return res;
+        }
+        Donor donor = donorRepository.getOne(donorId);
+        activity.addVolunteerDonor(donor);
+        activityRepository.save(activity);
+        return 0;
     }
 }

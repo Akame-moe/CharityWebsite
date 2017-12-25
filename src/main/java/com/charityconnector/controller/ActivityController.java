@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.security.Principal;
 
 @Controller
 public class ActivityController {
@@ -45,6 +46,20 @@ public class ActivityController {
     public ResponseEntity<String> updateArticle(@RequestBody Activity activity) {
         activityService.updateSelective(activity);
         return new ResponseEntity<String>(HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/activity/volunteer", method = RequestMethod.PATCH)
+    @ResponseBody
+    public int volunteer(@RequestBody Activity activity, Principal principal) {
+        if (principal == null) {
+            return -1;
+        }
+        String id = principal.getName();
+        System.out.println(id);
+        if (id == null) {
+            return -1;
+        }
+        return activityService.volunteer(activity.getId(), Long.valueOf(id));
     }
 
 

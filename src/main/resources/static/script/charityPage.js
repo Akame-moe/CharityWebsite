@@ -128,6 +128,30 @@ function deleteArticle(id) {
     $('#deleteArticleModal').modal('toggle');
 }
 
+function applyVolunteer(id) {
+    var activity = {
+        "id": id.toString()
+    };
+    $.ajax({
+        type: "PATCH",
+        contentType: "application/json",
+        url: "/activity/volunteer",
+        data: JSON.stringify(activity),
+        success: function (result) {
+            if (result == -1)
+                alert("You need to login!");
+            if (result == -2)
+                alert("You have already become volunteer!");
+            if (result == 0)
+                alert("You become volunteer successfully!");
+        },
+        error: function (e) {
+            alert("There was an error communicating with the server");
+            console.log("ERROR : ", e);
+        }
+    });
+}
+
 function showActivity(id) {
     $('#viewActivityModal').modal('toggle');
     $('#viewActivityLabel').html($("#showActivity_" + id.toString()).html());
@@ -168,7 +192,7 @@ function sendUpdateCharityThumbUp() {
             if (result == -1)
                 alert("You need to login!");
             if (result == -2)
-                alert("You have alreay thumb up!");
+                alert("You have already thumb up!");
             if (result > 0)
                $("#charityThumbUp").html("Thumbs : " +result);
         },

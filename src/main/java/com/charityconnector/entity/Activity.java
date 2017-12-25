@@ -79,6 +79,13 @@ public class Activity {
         this.donors = donors;
     }
 
+    public Set<Donor> addVolunteerDonor(Donor donor) {
+        donors.add(donor);
+        Set<Activity> activities = donor.getActivities();
+        activities.add(this);
+        return donors;
+    }
+
     @ManyToOne
     @JoinColumn(name = "charity_id")
     public Charity getCharity() {

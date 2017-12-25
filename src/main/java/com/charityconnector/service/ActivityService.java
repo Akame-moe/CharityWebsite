@@ -15,4 +15,6 @@ public interface ActivityService {
     void updateDirect(Activity activity);
 
     Activity[] findArticlesByCharityId(Long charityId);
+
+    int volunteer(Long id, Long donorId);
 }
