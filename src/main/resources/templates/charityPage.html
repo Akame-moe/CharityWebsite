@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta property="og:url"                content="https://hidden-hollows-44587.herokuapp.com/charityPage/${charity.id}">
+    <meta property="og:url"                content="https://hidden-hollows-44587.herokuapp.com/charityPage/${charity.id?c}">
     <meta property="og:type"               content="website">
     <meta property="og:title"              content="${charity.name}">
     <meta property="og:description"        content="${charity.description}">
@@ -42,7 +42,7 @@
     <#include "navigationBar.html" parse=true>
 
 
-    <div id="charityIdDiv" style="display : none;">${charity.id}</div>
+    <div id="charityIdDiv" style="display : none;">${charity.id?c}</div>
 
     <div id="main-container" class="container">
         <button type="button" class="btn btn-primary edit-badge" id="editImageButton" data-toggle="modal"
@@ -78,7 +78,7 @@
                                data-placement="right" href="#">
                                 <img height="25rem" src="../img/unverifiedTick.png"/>
                             </a>
-                            <div id="active-button" data-value=${charity.id}
+                            <div id="active-button" data-value=${charity.id?c}
                                  class="btn btn-success btn-sm authenticated " style="display: inline-block;"> Get verified now! </div>
                         </#if>
                     </span>
@@ -254,7 +254,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/charity/${charity.id}/logo" method="POST" enctype="multipart/form-data"
+                    <form action="/charity/${charity.id?c}/logo" method="POST" enctype="multipart/form-data"
                           name="upload_form">
                         <div class="form-group">
                             <input id="csrfTokenInput" name="_csrf" type="hidden"/>

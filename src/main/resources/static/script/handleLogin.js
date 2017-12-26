@@ -15,12 +15,13 @@ $(document).ready(function () {
 
                 $(".unauthenticated").hide();
                 $(".authenticated").show();
-
+                
                 if (charityPageString !== "" && $("#userIsCharity").html() === "true" && $("#userCharityId").html() === $("#charityIdDiv").html()) {
                     $("#editLink").toggle();
                 } else {
                     $("#active-button").hide();
                 }
+                // $("#editLink").toggle();
 
             } else {
                 $(".unauthenticated").show();

@@ -10,6 +10,7 @@ $(document).ready(function () {
 
     $("#active-button").click(function () {
         var id = $("#active-button").attr("data-value");
+        alert(id);
         $.ajax({
             type: "POST",
             contentType: "application/json",
