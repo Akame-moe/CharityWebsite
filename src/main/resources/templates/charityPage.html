@@ -205,10 +205,11 @@
             <div class="container">
                 <#list activities as activity>
                     <div class="row row-article">
-                        <div class="col-sm"><a href="#" id="showActivity_${activity.id}"
-                                               onclick="showActivity(${activity.id})">${activity.title}</a>
+                        <div class="col-sm">
+                            <a href="#" id="showActivity_${activity.id}" onclick="showActivity(${activity.id})">${activity.title}</a>
+                            <p class="text-justify">Current volunteers : ${activity.numDonors}</p>
+                            <button type="button" class="btn btn-info btn-sm" style="height:30px;width:100px" onclick="applyVolunteer(${activity.id})">Volunteer</button>
                         </div>
-                        <button type="button" class ="btn btn-info btn-sm" style="height:30px;width:100px" onclick="applyVolunteer(${activity.id})">Volunteer</button>
                         <#if activity.holdDate??>
                             <div class="col-sm text-right">${activity.holdDate?date}</div>
                         </#if>

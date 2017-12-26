@@ -2,6 +2,7 @@ package com.charityconnector.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.persistence.Transient;
 import java.util.Date;
 import java.util.Set;
 
@@ -16,8 +17,8 @@ public class Activity {
     private String content;
     private Date insertTime;
     private Date updateTime;
-
-
+    @Transient
+    private int numDonors;
     private String title;
 
     public Activity() {
@@ -121,4 +122,13 @@ public class Activity {
         this.updateTime = updateTime;
     }
 
+    @Transient
+    public int getNumDonors() {
+        numDonors = donors.size();
+        return numDonors;
+    }
+
+    public void setNumDonors(int numDonors) {
+        this.numDonors = numDonors;
+    }
 }
