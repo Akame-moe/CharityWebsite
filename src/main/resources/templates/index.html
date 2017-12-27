@@ -122,10 +122,11 @@
                 <div class="col-sm-4">
                     <div class="card featured-charity-card">
                         <div class="card-body">
-                            <img class="card-img-top" width="150px" height="120px"
+                            <img class="card-img-top" height="150px" style="object-fit: scale-down"
                                  src=${charity.logoFile!"../img/no-charity-logo.png"}>
-                            <a href="charityPage/${charity.id}"><h5 style="margin-top:15px;" class="card-title ">
-                                ${charity.name}</h5>
+                            <a href="charityPage/${charity.id}">
+                                <h5 style="margin-top:15px;" class="card-title">
+                                    <p class="charity-name-p">${charity.name}</p></h5>
                             </a>
                             <p class="card-text charity-desc-p">${charity.description}</p>
                             <div class="card-block">

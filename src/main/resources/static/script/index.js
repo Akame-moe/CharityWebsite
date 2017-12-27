@@ -2,8 +2,8 @@ $(document).ready(function () {
 
 
     $(".charity-desc-p").each(function () {
-        if ($(this).html().length > 80) {
-            var words = $(this).html().substring(0, 80).split(" ");
+        if ($(this).html().length > 110) {
+            var words = $(this).html().substring(0, 110).split(" ");
             if (words.length > 1) {
                 words = words.slice(0, -1);
             }
@@ -11,7 +11,7 @@ $(document).ready(function () {
         }
     });
 
-    $(".charity-name-h").each(function () {
+    $(".charity-name-p").each(function () {
         if ($(this).html().length > 30) {
             var words = $(this).html().substring(0, 30).split(" ");
             if (words.length > 1) {
