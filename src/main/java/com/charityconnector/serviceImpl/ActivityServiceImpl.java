@@ -43,12 +43,12 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public void updateSelective(Activity activity) {
-        Activity readyToUpdate = new Activity();
+        Activity readyToUpdate;
         if (activity.getId() == null) {
             return;
         } else {
             Activity origin = activityRepository.findOne(activity.getId());
-
+            readyToUpdate = origin;
             readyToUpdate.setId(activity.getId());
 
             String title = activity.getTitle() == null ? origin.getTitle() : activity.getTitle();
@@ -62,15 +62,6 @@ public class ActivityServiceImpl implements ActivityService {
 
             Date holdDate = activity.getHoldDate() == null ? origin.getHoldDate() : activity.getHoldDate();
             readyToUpdate.setHoldDate(holdDate);
-
-            Set<Donor> donors = activity.getDonors() == null ? origin.getDonors() : activity.getDonors();
-            readyToUpdate.setDonors(donors);
-
-            Charity charity = activity.getCharity() == null ? origin.getCharity() : activity.getCharity();
-            readyToUpdate.setCharity(charity);
-
-            Date insertTime = activity.getInsertTime() == null ? origin.getInsertTime() : activity.getInsertTime();
-            readyToUpdate.setInsertTime(insertTime);
         }
         Date now = new Date();
         readyToUpdate.setUpdateTime(now);
