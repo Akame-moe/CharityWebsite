@@ -26,12 +26,12 @@ public class DonorAuthenticationSuccessHandler implements AuthenticationSuccessH
         MyOAuth2AuthenticationDetails ud = new MyOAuth2AuthenticationDetails(request);
         ud.setCharity(false);
 
-        Long userId = Long.parseLong(oauthAuthentication.getUserAuthentication().getPrincipal().toString());
+        String oauthUserId = oauthAuthentication.getUserAuthentication().getPrincipal().toString();
 
         oauthAuthentication.setDetails(ud);
 
-        if (donorService.findById(userId) == null) {
-            donorService.addDonor(new Donor(userId));
+        if (donorService.findByOauthId(oauthUserId) == null) {
+            donorService.addDonor(new Donor(oauthUserId));
         }
 
         // redirect to previous page

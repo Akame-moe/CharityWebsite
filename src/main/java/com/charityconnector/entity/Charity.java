@@ -25,6 +25,7 @@ public class Charity {
     private String verifyCode;
     private int verifyStatus;
     private Long thumbUp;
+
     private String oauthUserId;
     private Set<Activity> activities;
 
@@ -176,9 +177,10 @@ public class Charity {
         return thumbUpDonors;
     }
 
-    @Column(name = "thumb_up")
     public Long getThumbUp() {
-        return new Long(thumbUpDonors.size());
+        if (thumbUpDonors == null)
+            return 0L;
+        return (long) thumbUpDonors.size();
     }
 
     public void setThumbUp(Long thumbUp) {

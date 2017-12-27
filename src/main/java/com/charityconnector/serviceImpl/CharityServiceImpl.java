@@ -70,12 +70,12 @@ public class CharityServiceImpl implements CharityService {
 
     @Override
     public void updateSelective(Charity charity) {
-        Charity readyToUpdate = new Charity();
+        Charity readyToUpdate;
         if (charity.getId() == null) {
             return;
         } else {
             Charity origin = charityRepository.findOne(charity.getId());
-            readyToUpdate.setId(charity.getId());
+            readyToUpdate = origin;
 
             String des = charity.getDescription() == null ? origin.getDescription() : charity.getDescription();
             readyToUpdate.setDescription(des);
@@ -86,17 +86,8 @@ public class CharityServiceImpl implements CharityService {
             String logoPath = charity.getLogoFile() == null ? origin.getLogoFile() : charity.getLogoFile();
             readyToUpdate.setLogoFile(logoPath);
 
-            Long thumb = charity.getThumbUp() == null ? origin.getThumbUp() : charity.getThumbUp();
-            readyToUpdate.setThumbUp(thumb);
-
-            String email = charity.getEmail() == null ? origin.getEmail() : charity.getEmail();
-            readyToUpdate.setEmail(email);
-
-            String oauthUserId = charity.getOauthUserId() == null ? origin.getOauthUserId() : charity.getOauthUserId();
-            readyToUpdate.setOauthUserId(oauthUserId);
+            charityRepository.save(readyToUpdate);
         }
-        charityRepository.save(readyToUpdate);
-        //charityRepository.updateById(readyToUpdate.getId(), readyToUpdate.getName(), readyToUpdate.getDescription());
     }
 
     @Override
