@@ -7,4 +7,5 @@ public interface DonorRepository extends JpaRepository<Donor, Long> {
 
     Donor findById(Long id);
 
+    Donor findByOauthId(String oauthId);
 }

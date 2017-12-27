@@ -4,10 +4,10 @@ import com.charityconnector.dao.ActivityRepository;
 import com.charityconnector.dao.CharityRepository;
 import com.charityconnector.dao.DonorRepository;
 import com.charityconnector.entity.Activity;
-import com.charityconnector.entity.Charity;
 import com.charityconnector.entity.Donor;
 import com.charityconnector.service.ActivityService;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.Set;

@@ -178,8 +178,9 @@ public class Charity {
     }
 
     public Long getThumbUp() {
-        thumbUp = new Long(thumbUpDonors.size());
-        return thumbUp;
+        if (thumbUpDonors == null)
+            return 0L;
+        return (long) thumbUpDonors.size();
     }
 
     public void setThumbUp(Long thumbUp) {
