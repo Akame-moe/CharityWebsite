@@ -142,9 +142,9 @@ function applyVolunteer(id) {
             if (result == -1)
                 alert("You need to login!");
             if (result == -2)
-                alert("You have already become volunteer!");
+                alert("You have already applied to volunteer for this activity!");
             if (result == 0)
-                alert("You become volunteer successfully!");
+                alert("You become successfully applied to volunteer for this activity!");
         },
         error: function (e) {
             alert("There was an error communicating with the server");
@@ -193,7 +193,7 @@ function sendUpdateCharityThumbUp() {
             if (result == -1)
                 alert("You need to login!");
             if (result == -2)
-                alert("You have already thumb up!");
+                alert("Your thumbs up is already registered!");
             if (result > 0)
                $("#charityThumbUp").html("Thumbs : " +result);
         },

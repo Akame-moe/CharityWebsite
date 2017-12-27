@@ -21,17 +21,10 @@
 
 
 <#include "navigationBar.html" parse=true>
-
-
-    <div class="vertical-spacer"></div>
-
-
-    <div id="main-container">
-
+    <div id="main-container" class="container">
+        <div class="vertical-spacer"></div>
         <#if causes??>
             <div id="searchResultsContainer" class="container">
-
-
                 <#list causes as singleCause>
                     <div class="row my-5" id="charity-row-${singleCause.id}">
                         <a href="/causePage/${singleCause.id}">
