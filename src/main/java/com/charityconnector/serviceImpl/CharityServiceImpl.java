@@ -86,6 +86,9 @@ public class CharityServiceImpl implements CharityService {
             String logoPath = charity.getLogoFile() == null ? origin.getLogoFile() : charity.getLogoFile();
             readyToUpdate.setLogoFile(logoPath);
 
+            String email = charity.getEmail() == null ? origin.getEmail() : charity.getEmail();
+            readyToUpdate.setEmail(email);
+
             charityRepository.save(readyToUpdate);
         }
     }

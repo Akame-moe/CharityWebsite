@@ -10,7 +10,7 @@ $(document).ready(function () {
 
     $("#active-button").click(function () {
         var id = $("#active-button").attr("data-value");
-        alert(id);
+        //alert(id);
         $.ajax({
             type: "POST",
             contentType: "application/json",
@@ -19,10 +19,15 @@ $(document).ready(function () {
                 alert("A verify message has been send to your email, please check it!");
             },
             error: function (xhr, textStatus) {
-                if (xhr.status == 405)
-                    $("#addMailModal").modal("toggle");
-                else
-                    alert("There was an error communicating with the server");
+                if (xhr.status == 405){
+                    $("#addMailModal").modal("toggle");}
+                else if(xhr.status == 406){
+                     alert("Invalid email. Please use an official one.");
+                     $("#addMailModal").modal("toggle");
+                }
+                else{
+                    alert("There was an error communicating with the server");}
+
                 console.log("ERROR : ", xhr.status);
             }
         });
@@ -171,8 +176,8 @@ function editCharityName() {
 
 function editCharityMail() {
     $("#charityEmail").html($("#inputMail").val());
-    $("#addMailModal").modal('toggle');
     sendUpdateCharity();
+    $("#addMailModal").modal('toggle');
 }
 
 function editCharityDesc() {

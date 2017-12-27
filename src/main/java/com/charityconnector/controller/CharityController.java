@@ -3,8 +3,10 @@ package com.charityconnector.controller;
 
 import com.charityconnector.auth.MyOAuth2AuthenticationDetails;
 import com.charityconnector.entity.Charity;
+import com.charityconnector.entity.UKRecordCharity;
 import com.charityconnector.service.ArticleService;
 import com.charityconnector.service.CharityService;
+import com.charityconnector.service.UKRecordCharityService;
 import com.charityconnector.util.CodeUtil;
 import com.charityconnector.util.MailUtil;
 import org.slf4j.LoggerFactory;
@@ -38,6 +40,9 @@ public class CharityController {
     @Resource
     private ArticleService articleService;
 
+    @Resource
+    private UKRecordCharityService ukRecordCharityService;
+
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(CharityController.class);
 
     @RequestMapping(path = "/charities/{name}", method = RequestMethod.GET)
@@ -50,6 +55,26 @@ public class CharityController {
     @ResponseBody
     Charity getCharityById(@PathVariable("id") Long id) {
         return charityService.findById(id);
+    }
+
+
+
+    @RequestMapping(path = "/lalala1/{email}", method = RequestMethod.GET)
+    @ResponseBody
+    UKRecordCharity getEmailByEmail1(@PathVariable("email") String email){
+        System.out.println("here!!!");
+        return ukRecordCharityService.findByEmail(email);
+    }
+
+    @RequestMapping(path = "/lalala2/{email}", method = RequestMethod.GET)
+    @ResponseBody
+    String getEmailByEmail2(@PathVariable("email") String email) {
+        UKRecordCharity result = ukRecordCharityService.findByEmail(email);
+        if (result == null) {
+            return "sorry";
+        } else {
+            return result.getEmail();
+        }
     }
 
     @RequestMapping(path = "/charity", method = RequestMethod.POST)
@@ -107,9 +132,8 @@ public class CharityController {
     @ResponseBody
     public void updateCharity(@RequestBody Charity charity, Principal principal) {
         MyOAuth2AuthenticationDetails authDetails = getAuthenticationDetails(principal);
-        if (authDetails == null || !authDetails.isCharity() || !Objects.equals(authDetails.getCharityId(), charity.getId()))
-            return;
-
+        if (authDetails == null || !authDetails.isCharity() || !Objects.equals(authDetails.getCharityId(), charity.getId())){
+            return;}
         charityService.updateSelective(charity);
     }
 
@@ -161,6 +185,8 @@ public class CharityController {
         }
     }
 
+
+
     @RequestMapping(path = "/charity/{id}/verify", method = RequestMethod.POST)
     public ResponseEntity<String> verifyCharity(@PathVariable("id") Long id, Principal principal) {
         MyOAuth2AuthenticationDetails authDetails = getAuthenticationDetails(principal);
@@ -172,13 +198,18 @@ public class CharityController {
         if (email == null) {
             return new ResponseEntity<String>(HttpStatus.METHOD_NOT_ALLOWED);
         } else {
-            //Generate the verify code and save it to the database;
-            String code = CodeUtil.generateUniqueCode();
-            Long charityID = charity.getId();
-            charity.setVerifyCode(code);
-            charityService.updateDirect(charity);
-            new Thread(new MailUtil(email, code, charityID)).start();
-            return new ResponseEntity<String>(HttpStatus.OK);
+            UKRecordCharity result = ukRecordCharityService.findByEmail(email);
+            if (result == null) {
+                return new ResponseEntity<String>(HttpStatus.NOT_ACCEPTABLE);
+            } else {
+                //Generate the verify code and save it to the database;
+                String code = CodeUtil.generateUniqueCode();
+                Long charityID = charity.getId();
+                charity.setVerifyCode(code);
+                charityService.updateDirect(charity);
+                new Thread(new MailUtil(email, code, charityID)).start();
+                return new ResponseEntity<String>(HttpStatus.OK);
+            }
         }
     }
 
