@@ -114,11 +114,13 @@ public class CharityController {
     }
 
     @RequestMapping("/charityPage/{id}")
-    public String getCharityPage(Map<String, Object> model, @PathVariable("id") Long id, Principal principal) {
+    public String getCharityPage(Map<String, Object> model, @PathVariable("id") String charityId, Principal principal) {
         MyOAuth2AuthenticationDetails authDetails = getAuthenticationDetails(principal);
 
         if (principal != null)
             model.put("userId", principal.getName());
+
+        Long id = Long.valueOf(charityId.replaceAll(",", "").toString());
 
         model.put("charity", charityService.findById(id));
         model.put("articles", articleService.findArticlesByCharityId(id));
