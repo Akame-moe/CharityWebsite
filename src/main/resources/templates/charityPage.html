@@ -100,7 +100,7 @@
                     <div>
                         What we operate on:
                         <#items as cause>
-                            <a href="/causePage/${cause.id}" data-value=${cause.id} class="badge badge-success">${cause.name}</a>
+                            <a href="/causePage/${cause.id?c}" data-value=${cause.id?c} class="badge badge-success">${cause.name}</a>
                         </#items>
                     </div>
                 </#list>
@@ -111,7 +111,7 @@
                         In these nations around the world:
                         <#items as country>
                             <a href="/results?searchString=&causeString=Causes&countryString=${country.countryValue}"
-                               data-value="${country.id}" class="badge badge-success">${country.countryValue}</a>
+                               data-value="${country.id?c}" class="badge badge-success">${country.countryValue}</a>
                         </#items>
                     </div>
                 </#list>
@@ -161,22 +161,22 @@
                 <#list articles>
                     <#items as article>
                         <div class="row row-article">
-                            <div class="col-sm"><a href="#" id="showArticle_${article.id}"
-                                                   onclick="showArticle(${article.id})">${article.title}</a>
+                            <div class="col-sm"><a href="#" id="showArticle_${article.id?c}"
+                                                   onclick="showArticle(${article.id?c})">${article.title}</a>
                             </div>
                             <#if article.insertTime??>
                                 <div class="col-sm text-right">${article.insertTime?date}</div>
                             </#if>
                             <div class="col-sm-2 edit-badge">
-                                <button class="btn edit-badge badge-primary" id="editArticleBadge_${article.id}"
-                                        onclick="editArticle(${article.id})">
+                                <button class="btn edit-badge badge-primary" id="editArticleBadge_${article.id?c}"
+                                        onclick="editArticle(${article.id?c})">
                                     <svg height="28" width="20" viewBox="0 0 14 14" version="1.1" aria-hidden="true">
                                         <path style="fill:#FFFFFF" fill-rule="evenodd"
                                               d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"/>
                                     </svg>
                                 </button>
-                                <button class="btn edit-badge badge-default" id="deleteArticleBadge_${article.id}"
-                                        onclick="deleteArticle(${article.id})">
+                                <button class="btn edit-badge badge-default" id="deleteArticleBadge_${article.id?c}"
+                                        onclick="deleteArticle(${article.id?c})">
                                     <svg height="28" width="20" viewBox="0 0 12 14"
                                          version="1.1" aria-hidden="true">
                                         <path fill-rule="evenodd"
@@ -186,7 +186,7 @@
                             </div>
 
                         </div>
-                        <span id="articleDesc_${article.id}"
+                        <span id="articleDesc_${article.id?c}"
                               style="position:fixed; visibility:hidden">${article.body}</span>
                     </#items>
                     <#else>
@@ -215,25 +215,25 @@
                     <#items as activity>
                         <div class="row row-article">
                             <div class="col-sm">
-                                <a href="#" id="showActivity_${activity.id}" onclick="showActivity(${activity.id})">${activity.title}</a>
+                                <a href="#" id="showActivity_${activity.id?c}" onclick="showActivity(${activity.id?c})">${activity.title}</a>
                                 <p class="text-justify">Current volunteers : ${activity.numDonors}</p>
                                 <button type="button" class="btn btn-info btn-sm" style="height:30px;width:100px"
-                                        onclick="applyVolunteer(${activity.id})">Volunteer
+                                        onclick="applyVolunteer(${activity.id?c})">Volunteer
                                 </button>
                             </div>
                             <#if activity.holdDate??>
                                 <div class="col-sm text-right">${activity.holdDate?date}</div>
                             </#if>
                             <div class="col-sm-2 edit-badge">
-                                <button class="btn edit-badge badge-primary" id="editActivityBadge_${activity.id}"
-                                        onclick="editActivity(${activity.id})">
+                                <button class="btn edit-badge badge-primary" id="editActivityBadge_${activity.id?c}"
+                                        onclick="editActivity(${activity.id?c})">
                                     <svg height="28" width="20" viewBox="0 0 14 14" version="1.1" aria-hidden="true">
                                         <path style="fill:#FFFFFF" fill-rule="evenodd"
                                               d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"/>
                                     </svg>
                                 </button>
-                                <button class="btn edit-badge badge-default" id="deleteActivityBadge_${activity.id}"
-                                        onclick="deleteActivity(${activity.id})">
+                                <button class="btn edit-badge badge-default" id="deleteActivityBadge_${activity.id?c}"
+                                        onclick="deleteActivity(${activity.id?c})">
                                     <svg height="28" width="20" viewBox="0 0 12 14"
                                          version="1.1" aria-hidden="true">
                                         <path fill-rule="evenodd"
@@ -243,7 +243,7 @@
                             </div>
 
                         </div>
-                        <span id="activityDesc_${activity.id}"
+                        <span id="activityDesc_${activity.id?c}"
                               style="position:fixed; visibility:hidden">${activity.content}</span>
                     </#items>
                     <#else>
