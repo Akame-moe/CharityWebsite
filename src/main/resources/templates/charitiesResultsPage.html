@@ -12,7 +12,7 @@
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"/>
 
 
-    <link rel="stylesheet" href="../style/resultsPage.css"/>
+    <link rel="stylesheet" href="../style/charitiesResultsPage.css"/>
     <link rel="stylesheet" href="../style/override.css"/>
 
 
@@ -21,17 +21,17 @@
 
 <#include "navigationBar.html" parse=true>
 
-    <div id="main-container">
+    <div id="main-container" class="container">
         <ul class="nav nav-pills nav-fill" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" href="#">Charities</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/results/activities">Activities</a>
+                <a class="nav-link nav-link-search-inactive" href="/results/activities">Activities</a>
             </li>
         </ul>
         <div>
-            <form id="searchFormSubmit" action="results">
+            <form id="searchFormSubmit" action="/results/charities">
                 <div class="input-group" style="margin-top: 40px;margin-left:10px;width:98.5%">
                     <div class="input-group-btn">
                         <button type="button" id="causeButton"
@@ -115,11 +115,11 @@
         <#if charities??>
             <div id="pageChanger" class="container text-center">
                 <#if pageNumber!= 0>
-                    <a href="results?name=${searchedName}&pageSize=${pageSize}&pageNumber=${pageNumber - 1}"><</a>
+                    <a href="/results/charities?searchString=${RequestParameters.searchString!}&causeString=${RequestParameters.causeString!}&countryString=${RequestParameters.countryString!}&pageSize=${pageSize}&pageNumber=${pageNumber - 1}"><</a>
                 </#if>
                 <span id="pageCounter">Page ${pageNumber + 1} of ${numberOfPages}</span>
                 <#if pageNumber!= (numberOfPages - 1)>
-                    <a href="results?name=${searchedName}&pageSize=${pageSize}&pageNumber=${pageNumber + 1}">></a>
+                    <a href="/results/charities?searchString=${RequestParameters.searchString!}&causeString=${RequestParameters.causeString!}&countryString=${RequestParameters.countryString!}&pageSize=${pageSize}&pageNumber=${pageNumber + 1}">></a>
                 </#if>
             </div>
         </#if>
@@ -143,7 +143,7 @@
                 crossorigin="anonymous"></script>
 
 
-        <script src="../script/resultsPage.js"></script>
+        <script src="../script/charitiesResultsPage.js"></script>
 
         <!--handle Login.js-->
         <script src="../script/handleLogin.js"></script>

@@ -7,18 +7,20 @@
     margin-left: 1rem;
     margin-right: 1rem;
 }
+
 #conditionSearchForm {
     padding-top: 2rem !important;
     padding-bottom: 2rem !important;
 }
-.Row{
+
+.Row {
     display: table;
     width: 100%; /*Optional*/
     table-layout: fixed; /*Optional*/
     border-spacing: 10px; /*Optional*/
 }
 
-.Column{
+.Column {
     display: table-cell;
     /*background-color: red; /*Optional*/
 }
@@ -28,10 +30,10 @@
     background-color: #CC0700 !important;
 }
 
-.nav-link {
+.nav-link-search-inactive {
     color: #000;
 }
 
-.nav-link:hover {
+.nav-link-search-inactive:hover {
     background-color: #F0F0F0;
 }
