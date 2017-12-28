@@ -24,7 +24,7 @@ import java.util.Map;
 
 
 @Controller
-public class SearchController {
+public class CharitySearchController {
 
     @Resource
     private CharityService charityService;
@@ -38,11 +38,11 @@ public class SearchController {
 
 
     @Autowired
-    public SearchController(CharityService charityService) {
+    public CharitySearchController(CharityService charityService) {
         this.charityService = charityService;
     }
 
-    @RequestMapping("/results")
+    @RequestMapping("/charityResults")
     public String getResultsPage(Map<String, Object> model,
                                  @RequestParam(name = "searchString", defaultValue = "") String searchString,
                                  @RequestParam(name = "causeString", defaultValue = "Causes") String causeString,

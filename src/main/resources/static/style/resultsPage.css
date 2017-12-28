@@ -22,3 +22,16 @@
     display: table-cell;
     /*background-color: red; /*Optional*/
 }
+
+.nav-link.active {
+    color: white;
+    background-color: #CC0700 !important;
+}
+
+.nav-link {
+    color: #000;
+}
+
+.nav-link:hover {
+    background-color: #F0F0F0;
+}
