@@ -56,3 +56,7 @@ body {
 .authenticated, .unauthenticated {
     display: none;
 }
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background-color: #E30800 !important;
+}
