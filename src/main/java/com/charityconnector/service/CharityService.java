@@ -46,7 +46,7 @@ public interface CharityService {
 
     Charity thumbUp(Long id);
 
-    int thumbUpUnique(Long charityId, Long donorId);
+    int thumbUpUnique(Long charityId, String donorOauthId);
 
     int getCharityThumbsUpById(Long id);
 

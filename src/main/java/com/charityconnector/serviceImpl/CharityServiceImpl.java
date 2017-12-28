@@ -162,12 +162,12 @@ public class CharityServiceImpl implements CharityService {
     }
 
     @Override
-    public int thumbUpUnique(Long charityId, Long donorId) {
+    public int thumbUpUnique(Long charityId, String donorOauthId) {
         int res = 0;
         Charity charity = charityRepository.getOne(charityId);
         Set<Donor> donors = charity.getThumbUpDonors();
         for (Donor donor : donors) {
-            if (donor.getId().equals(donorId)) {
+            if (donor.getOauthId().equals(donorOauthId)) {
                 res = -2; // represent this donor has thumbed up
                 break;
             }
@@ -176,7 +176,7 @@ public class CharityServiceImpl implements CharityService {
             return res;
         }
         // only charity side own the relationship
-        Donor donor = donorRepository.getOne(donorId);
+        Donor donor = donorRepository.findByOauthId(donorOauthId);
         charity.addThumbUpDonor(donor);
         charityRepository.save(charity);
         res = charity.getThumbUpDonors().size();

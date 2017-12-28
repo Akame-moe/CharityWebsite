@@ -99,13 +99,13 @@ public class CharityController {
         if (principal == null) {
             return -1;
         }
-        String id = principal.getName();
-        System.out.println(id);
-        if (id == null) {
+        String oauthId = principal.getName();
+        System.out.println(oauthId);
+        if (oauthId == null) {
             return -1;
         }
-        int res = charityService.thumbUpUnique(charity.getId(), Long.valueOf(id));
-        return res;
+
+        return charityService.thumbUpUnique(charity.getId(), oauthId);
     }
 
     @RequestMapping(path = "/charity/random", method = RequestMethod.GET)
