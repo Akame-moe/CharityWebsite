@@ -23,13 +23,13 @@ public class DonorController {
     @Autowired
     CharityService charityService;
 
-    @RequestMapping("/donorPage/{id}")
-    public String getDonorPage(Map<String, Object> model, @PathVariable("id") Long id, Principal principal) {
-        if (principal == null || !principal.getName().equals((id.toString())))
+    @RequestMapping("/donorPage/{oauthId}")
+    public String getDonorPage(Map<String, Object> model, @PathVariable("oauthId") String oauthId, Principal principal) {
+        if (principal == null || !principal.getName().equals((oauthId)))
             return "error";
 
-        Donor donor = donorService.findById(Long.parseLong(principal.getName()));
-        Map[] payments = new Map[donor.getPayments().size()];
+        Donor donor = donorService.findByOauthId(principal.getName());
+        Map<String, Object>[] payments = new Map[donor.getPayments().size()];
         Iterator<Paypal> iterator = donor.getPayments().iterator();
 
         model.put("userId", principal.getName());
