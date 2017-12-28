@@ -145,7 +145,7 @@ function applyVolunteer(id) {
         data: JSON.stringify(activity),
         success: function (result) {
             if (result == -1)
-                alert("You need to login!");
+                alert("You need to log in!");
             if (result == -2)
                 alert("You have already applied to volunteer for this activity!");
             if (result == 0)
@@ -196,7 +196,7 @@ function sendUpdateCharityThumbUp() {
         data: JSON.stringify(charity),
         success: function (result) {
             if (result == -1)
-                alert("You need to login!");
+                alert("You need to log in!");
             if (result == -2)
                 alert("Your thumbs up is already registered!");
             if (result > 0)

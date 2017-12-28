@@ -5,12 +5,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta property="og:url"                content="https://hidden-hollows-44587.herokuapp.com/charityPage/${charity.id?c}">
-    <meta property="og:type"               content="website">
-    <meta property="og:title"              content="${charity.name}">
-    <meta property="og:description"        content="${charity.description}">
-    <meta property="og:image"              content="https://hidden-hollows-44587.herokuapp.com/img/AppLogo.jpg">
-    <meta property="fb:app_id"             content="893012947524181">
+    <meta property="og:url" content="https://hidden-hollows-44587.herokuapp.com/charityPage/${charity.id?c}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="${charity.name}">
+    <meta property="og:description" content="${charity.description}">
+    <meta property="og:image" content="https://hidden-hollows-44587.herokuapp.com/img/AppLogo.jpg">
+    <meta property="fb:app_id" content="893012947524181">
     <title>${charity.name}</title>
 
     <!--bootstrap css-->
@@ -27,19 +27,20 @@
 <body>
 
 
-    <!--Used for FB share -->
-    <div id="fb-root">
-    <script>(function(d, s, id) {
+<!--Used for FB share -->
+<div id="fb-root">
+    <script>(function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
+        js = d.createElement(s);
+        js.id = id;
         js.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.11&appId=893012947524181';
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
     </script>
-    </div>
+</div>
 
-    <#include "navigationBar.html" parse=true>
+<#include "navigationBar.html" parse=true>
 
 
     <div id="charityIdDiv" style="display : none;">${charity.id?c}</div>
@@ -157,40 +158,47 @@
             </h2>
 
             <div class="container">
-                <#list articles as article>
-                    <div class="row row-article">
-                        <div class="col-sm"><a href="#" id="showArticle_${article.id}"
-                                               onclick="showArticle(${article.id})">${article.title}</a>
-                        </div>
-                        <#if article.insertTime??>
-                            <div class="col-sm text-right">${article.insertTime?date}</div>
-                        </#if>
-                        <div class="col-sm-2 edit-badge">
-                            <button class="btn edit-badge badge-primary" id="editArticleBadge_${article.id}"
-                                    onclick="editArticle(${article.id})">
-                                <svg height="28" width="20" viewBox="0 0 14 14" version="1.1" aria-hidden="true">
-                                    <path style="fill:#FFFFFF" fill-rule="evenodd"
-                                          d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"/>
-                                </svg>
-                            </button>
-                            <button class="btn edit-badge badge-default" id="deleteArticleBadge_${article.id}"
-                                    onclick="deleteArticle(${article.id})">
-                                <svg height="28" width="20" viewBox="0 0 12 14"
-                                     version="1.1" aria-hidden="true">
-                                    <path fill-rule="evenodd"
-                                          d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path>
-                                </svg>
-                            </button>
-                        </div>
+                <#list articles>
+                    <#items as article>
+                        <div class="row row-article">
+                            <div class="col-sm"><a href="#" id="showArticle_${article.id}"
+                                                   onclick="showArticle(${article.id})">${article.title}</a>
+                            </div>
+                            <#if article.insertTime??>
+                                <div class="col-sm text-right">${article.insertTime?date}</div>
+                            </#if>
+                            <div class="col-sm-2 edit-badge">
+                                <button class="btn edit-badge badge-primary" id="editArticleBadge_${article.id}"
+                                        onclick="editArticle(${article.id})">
+                                    <svg height="28" width="20" viewBox="0 0 14 14" version="1.1" aria-hidden="true">
+                                        <path style="fill:#FFFFFF" fill-rule="evenodd"
+                                              d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"/>
+                                    </svg>
+                                </button>
+                                <button class="btn edit-badge badge-default" id="deleteArticleBadge_${article.id}"
+                                        onclick="deleteArticle(${article.id})">
+                                    <svg height="28" width="20" viewBox="0 0 12 14"
+                                         version="1.1" aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                              d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path>
+                                    </svg>
+                                </button>
+                            </div>
 
-                    </div>
-                    <span id="articleDesc_${article.id}"
-                          style="position:fixed; visibility:hidden">${article.body}</span>
+                        </div>
+                        <span id="articleDesc_${article.id}"
+                              style="position:fixed; visibility:hidden">${article.body}</span>
+                    </#items>
+                    <#else>
+                        There are no articles yet
                 </#list>
                 </tbody>
                 </table>
             </div>
         </div>
+        x
+
+        <div class="vertical-spacer"></div>
 
         <div class="container">
             <h2>Our recent activities
@@ -203,37 +211,43 @@
             </h2>
 
             <div class="container">
-                <#list activities as activity>
-                    <div class="row row-article">
-                        <div class="col-sm">
-                            <a href="#" id="showActivity_${activity.id}" onclick="showActivity(${activity.id})">${activity.title}</a>
-                            <p class="text-justify">Current volunteers : ${activity.numDonors}</p>
-                            <button type="button" class="btn btn-info btn-sm" style="height:30px;width:100px" onclick="applyVolunteer(${activity.id})">Volunteer</button>
-                        </div>
-                        <#if activity.holdDate??>
-                            <div class="col-sm text-right">${activity.holdDate?date}</div>
-                        </#if>
-                        <div class="col-sm-2 edit-badge">
-                            <button class="btn edit-badge badge-primary" id="editActivityBadge_${activity.id}"
-                                    onclick="editActivity(${activity.id})">
-                                <svg height="28" width="20" viewBox="0 0 14 14" version="1.1" aria-hidden="true">
-                                    <path style="fill:#FFFFFF" fill-rule="evenodd"
-                                          d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"/>
-                                </svg>
-                            </button>
-                            <button class="btn edit-badge badge-default" id="deleteActivityBadge_${activity.id}"
-                                    onclick="deleteActivity(${activity.id})">
-                                <svg height="28" width="20" viewBox="0 0 12 14"
-                                     version="1.1" aria-hidden="true">
-                                    <path fill-rule="evenodd"
-                                          d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path>
-                                </svg>
-                            </button>
-                        </div>
+                <#list activities>
+                    <#items as activity>
+                        <div class="row row-article">
+                            <div class="col-sm">
+                                <a href="#" id="showActivity_${activity.id}" onclick="showActivity(${activity.id})">${activity.title}</a>
+                                <p class="text-justify">Current volunteers : ${activity.numDonors}</p>
+                                <button type="button" class="btn btn-info btn-sm" style="height:30px;width:100px"
+                                        onclick="applyVolunteer(${activity.id})">Volunteer
+                                </button>
+                            </div>
+                            <#if activity.holdDate??>
+                                <div class="col-sm text-right">${activity.holdDate?date}</div>
+                            </#if>
+                            <div class="col-sm-2 edit-badge">
+                                <button class="btn edit-badge badge-primary" id="editActivityBadge_${activity.id}"
+                                        onclick="editActivity(${activity.id})">
+                                    <svg height="28" width="20" viewBox="0 0 14 14" version="1.1" aria-hidden="true">
+                                        <path style="fill:#FFFFFF" fill-rule="evenodd"
+                                              d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"/>
+                                    </svg>
+                                </button>
+                                <button class="btn edit-badge badge-default" id="deleteActivityBadge_${activity.id}"
+                                        onclick="deleteActivity(${activity.id})">
+                                    <svg height="28" width="20" viewBox="0 0 12 14"
+                                         version="1.1" aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                              d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path>
+                                    </svg>
+                                </button>
+                            </div>
 
-                    </div>
-                    <span id="activityDesc_${activity.id}"
-                          style="position:fixed; visibility:hidden">${activity.content}</span>
+                        </div>
+                        <span id="activityDesc_${activity.id}"
+                              style="position:fixed; visibility:hidden">${activity.content}</span>
+                    </#items>
+                    <#else>
+                        There are no activities yet
                 </#list>
                 </tbody>
                 </table>
@@ -242,321 +256,328 @@
 
     </div>
 
-        <#include "footer.html" parse=false>
+    <#include "footer.html" parse=false>
 
-    <div class="modal fade show" id="uploadImageModal" tabindex="-1" role="dialog"
-         aria-labelledby="ulpoadImageLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="uploadImageLabel">Update a new logo</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+        <div class="modal fade show" id="uploadImageModal" tabindex="-1" role="dialog"
+             aria-labelledby="ulpoadImageLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="uploadImageLabel">Update a new logo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/charity/${charity.id?c}/logo" method="POST" enctype="multipart/form-data"
+                              name="upload_form">
+                            <div class="form-group">
+                                <input id="csrfTokenInput" name="_csrf" type="hidden"/>
+                                <input name="file" type="file" class="form-control-file" id="inputCharityLogo"
+                                       aria-describedby="fileHelp"/>
+                                <small id="fileHelp" class="form-text text-muted">Accepted formats: .jpg, png</small>
+                                <input name=upload" type="submit" value="Submit" class="btn btn-primary"/>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <form action="/charity/${charity.id?c}/logo" method="POST" enctype="multipart/form-data"
-                          name="upload_form">
-                        <div class="form-group">
-                            <input id="csrfTokenInput" name="_csrf" type="hidden"/>
-                            <input name="file" type="file" class="form-control-file" id="inputCharityLogo"
-                                   aria-describedby="fileHelp"/>
-                            <small id="fileHelp" class="form-text text-muted">Accepted formats: .jpg, png</small>
-                            <input name=upload" type="submit" value="Submit" class="btn btn-primary"/>
+            </div>
+        </div>
+
+        <div class="modal fade show" id="editNameModal" tabindex="-1" role="dialog"
+             aria-labelledby="editNameLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editNameLabel">Edit your charity name</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="inputName"
+                                       value="${charity.name}">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="editCharityName()">Save changes</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade show" id="addMailModal" tabindex="-1" role="dialog"
+             aria-labelledby="editNameLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addMailLabel">Please add an email address</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div style="visibility: hidden;" id="charityEmail"></div>
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="inputMail"
+                                       value="">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="editCharityMail()">Save changes</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade show" id="editDescriptionModal" tabindex="-1" role="dialog"
+             aria-labelledby="editDescriptionLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editDescriptionLabel">Edit your charity description</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <textarea class="form-control" id="inputDescription" rows="3"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="editCharityDesc()">Save changes</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade show" id="addArticleModal" tabindex="-1" role="dialog"
+             aria-labelledby="addArticleLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addArticleLabel">Insert your article title and body text here</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="inputNewArticleTitle"
+                                       placeholder="Your article title">
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" id="inputNewArticleBody" rows="3"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="sendAddArticle()">Save changes</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade show" id="editArticleModal" tabindex="-1" role="dialog"
+             aria-labelledby="editArticleLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editArticleLable">Insert your article title and body text here</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div style="visibility:hidden" id="inputEditArticleId"></div>
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="inputEditArticleTitle"
+                                       placeholder="Your article title">
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" id="inputEditArticleBody" rows="3"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="btnEditArticle" onclick="sendEditArticle()">
+                            Save
+                            changes
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade show" id="viewArticleModal" tabindex="-1" role="dialog"
+             aria-labelledby="viewArticleLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewArticleLabel"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="viewArticleBody">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade show" id="deleteArticleModal" tabindex="-1" role="dialog"
+             aria-labelledby="deleteArticleLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteArticleLabel">Please confirm your choice</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div style="visibility:hidden" id="inputDeleteArticleId"></div>
+                        <p id="deleteArticleBody">Are you sure? You are about to delete the article</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="sendDeleteArticle()">Delete</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade show" id="donateModal" tabindex="-1" role="dialog"
+             aria-labelledby="donateLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="donateLabel">Your donation succeeded!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Thanks for being willing to donate to one of the charities we support, please enter the
+                            donation
+                            amount and proceed to the PayPal checkout</p>
+                        <form>
+                            <div class="form-group">
+                                <input type="number" class="form-control" id="inputDonationAmount"
+                                       placeholder="0.00">
+                            </div>
+                            <p id="amountErrorHint" style="color:red; display:none; ">Sorry, the donation amount should
+                                be positive. </p>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <div id="paypal-button"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade show" id="donateSuccessModal" tabindex="-1" role="dialog"
+             aria-labelledby="donateSuccessLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="donateSuccessLabel">Your donation succeeded!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Your donation was succesful! Thank you for helping ${charity.name}!</p>
+
+                    </div>
+                    <div class="modal-footer">
+                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/"
+                             data-layout="button" data-size="large" data-mobile-iframe="true"><a
+                                class="fb-xfbml-parse-ignore" target="_blank"
+                                href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a>
                         </div>
-                    </form>
+                    </div>
+
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="modal fade show" id="editNameModal" tabindex="-1" role="dialog"
-         aria-labelledby="editNameLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editNameLabel">Edit your charity name</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="inputName"
-                                   value="${charity.name}">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="editCharityName()">Save changes</button>
-                </div>
+        <div class="modal fade show" id="viewActivityModal" tabindex="-1" role="dialog"
+             aria-labelledby="viewActivityLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewActivityLabel"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="viewActivityBody">
 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="modal fade show" id="addMailModal" tabindex="-1" role="dialog"
-         aria-labelledby="editNameLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addMailLabel">Please add an email address</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div style="visibility: hidden;" id="charityEmail"></div>
-                    <form>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="inputMail"
-                                   value="">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="editCharityMail()">Save changes</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade show" id="editDescriptionModal" tabindex="-1" role="dialog"
-         aria-labelledby="editDescriptionLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editDescriptionLabel">Edit your charity description</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <textarea class="form-control" id="inputDescription" rows="3"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="editCharityDesc()">Save changes</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade show" id="addArticleModal" tabindex="-1" role="dialog"
-         aria-labelledby="addArticleLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addArticleLabel">Insert your article title and body text here</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="inputNewArticleTitle"
-                                   placeholder="Your article title">
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control" id="inputNewArticleBody" rows="3"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="sendAddArticle()">Save changes</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade show" id="editArticleModal" tabindex="-1" role="dialog"
-         aria-labelledby="editArticleLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editArticleLable">Insert your article title and body text here</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div style="visibility:hidden" id="inputEditArticleId"></div>
-                    <form>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="inputEditArticleTitle"
-                                   placeholder="Your article title">
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control" id="inputEditArticleBody" rows="3"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="btnEditArticle" onclick="sendEditArticle()">Save
-                        changes
-                    </button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade show" id="viewArticleModal" tabindex="-1" role="dialog"
-         aria-labelledby="viewArticleLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="viewArticleLabel"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="viewArticleBody">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade show" id="deleteArticleModal" tabindex="-1" role="dialog"
-         aria-labelledby="deleteArticleLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteArticleLabel">Please confirm your choice</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div style="visibility:hidden" id="inputDeleteArticleId"></div>
-                    <p id="deleteArticleBody">Are you sure? You are about to delete the article</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="sendDeleteArticle()">Delete</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade show" id="donateModal" tabindex="-1" role="dialog"
-         aria-labelledby="donateLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="donateLabel">Your donation succeeded!</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Thanks for being willing to donate to one of the charities we support, please enter the donation
-                        amount and proceed to the PayPal checkout</p>
-                    <form>
-                        <div class="form-group">
-                            <input type="number" class="form-control" id="inputDonationAmount"
-                                   placeholder="0.00">
-                        </div>
-                        <p  id="amountErrorHint" style="color:red; display:none; ">Sorry, the donation amount should be positive. </p>
-                    </form>
-
-                </div>
-                <div class="modal-footer">
-                    <div id="paypal-button"></div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade show" id="donateSuccessModal" tabindex="-1" role="dialog"
-         aria-labelledby="donateSuccessLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="donateSuccessLabel">Your donation succeeded!</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Your donation was succesful! Thank you for helping ${charity.name}!</p>
-
-                </div>
-                <div class="modal-footer">
-                    <div class="fb-share-button"  data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade show" id="viewActivityModal" tabindex="-1" role="dialog"
-         aria-labelledby="viewActivityLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="viewActivityLabel"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="viewActivityBody">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
 
 
-    <!-- jquery -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+        <!-- jquery -->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
 
-    <!-- popper -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
-            crossorigin="anonymous"></script>
+        <!-- popper -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+                crossorigin="anonymous"></script>
 
-    <!-- boostrap -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
-            crossorigin="anonymous"></script>
+        <!-- boostrap -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+                crossorigin="anonymous"></script>
 
-    <!--js-->
-    <script src="../script/charityPage.js"></script>
+        <!--js-->
+        <script src="../script/charityPage.js"></script>
 
-    <!--handle Login.js-->
-    <script src="../script/handleLogin.js"></script>
+        <!--handle Login.js-->
+        <script src="../script/handleLogin.js"></script>
 
-    <!--handle paypal button render JS-->
-    <script type="text/javascript" src="../script/charityPayment.js"></script>
+        <!--handle paypal button render JS-->
+        <script type="text/javascript" src="../script/charityPayment.js"></script>
 
-    <!-- Cookie handling -->
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+        <!-- Cookie handling -->
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
-    <!--ajax setup-->
-    <script src="../script/ajaxSetup.js"></script>
+        <!--ajax setup-->
+        <script src="../script/ajaxSetup.js"></script>
 
 
 </body>

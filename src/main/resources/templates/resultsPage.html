@@ -58,13 +58,8 @@
                             </#if>
                         </div>
                     </div>
-                    <#if searchName??>
-                        <input type="text" id="searchBarField" style="" value={searchName} name="searchString"
-                               class="form-control" placeholder="Search Charities Here...">
-                        <#else>
-                            <input type="text" id="searchBarField" style="" name="searchString" class="form-control"
-                                   placeholder="Search Charities Here...">
-                    </#if>
+                    <input type="text" id="searchBarField" style="" name="searchString" class="form-control"
+                           placeholder="Please search for charities here" value="${RequestParameters.searchString!}">
                     <input id="causeResult" name="causeString" value="Causes" style="display:none">
                     <input id="countryResult" name="countryString" value="Countries" style="display:none">
                     <div class="input-group-btn">
