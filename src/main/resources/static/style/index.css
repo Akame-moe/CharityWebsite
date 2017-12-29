@@ -6,8 +6,8 @@
     margin-top: 2em;
 }
 
-.featured-charity-card {
-    min-height: 15rem !important;
+.charity-desc-p {
+    min-height: 75px !important;
 }
 
 .carousel-caption {
