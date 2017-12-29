@@ -50,39 +50,30 @@ public class CharitiesSearchController {
 
         model.put("causeOptions",causeService.getAllCausesName());
         model.put("countryOptions",countryService.getAllCountries());
+        model.put("currentCause",causeString);
+        model.put("currentCountry",countryString);
 
         if (principal != null)
             model.put("userId", principal.getName());
-        if (searchString == null /*|| searchString.trim().equals("")*/)
-            return "resultsPage";
-
-        pageSize = 10;
 
         Pageable pageRequest = new PageRequest(pageNumber, pageSize, Sort.Direction.DESC, "name");
         Page<Charity> page = null;
 
-        if(causeString.equals("Causes") && countryString.equals("Countries")){
-            Charity[] res = charityService.findByNameOrDescriptionLike(searchString);
-            ArrayList<Charity> arrayList = new ArrayList<>(Arrays.asList(res));
-            page = new PageImpl<>(arrayList, pageRequest, arrayList.size());
+        if(causeString.equals("Causes") && countryString.equals("Countries") && searchString.trim().equals("")){
+            page = charityService.findAll(pageRequest);
+        }else if(causeString.equals("Causes") && countryString.equals("Countries")){
+            page = charityService.findByNameOrDescriptionLike(searchString,pageRequest);
         }else if(!causeString.equals("Causes") && !countryString.equals("Countries")){
             Cause cause = causeService.findByName(causeString);
             Country country = countryService.findCountryByName(countryString);
-            Charity[] res = charityService.findByCauseAndCountry(cause,country,searchString);
-            ArrayList<Charity> arrayList = new ArrayList<>(Arrays.asList(res));
-            page = new PageImpl<>(arrayList, pageRequest, arrayList.size());
+            page = charityService.findByCauseAndCountry(cause,country,searchString,pageRequest);
         }else if(!causeString.equals("Causes")){
             Cause cause = causeService.findByName(causeString);
-            Charity[] res = charityService.findByCause(cause,searchString);
-            ArrayList<Charity> arrayList = new ArrayList<>(Arrays.asList(res));
-            page = new PageImpl<>(arrayList, pageRequest, arrayList.size());
+            page = charityService.findByCause(cause,searchString,pageRequest);
         }else{
             Country country = countryService.findCountryByName(countryString);
-            Charity[] res = charityService.findByCountry(country,searchString);
-            ArrayList<Charity> arrayList = new ArrayList<>(Arrays.asList(res));
-            page = new PageImpl<>(arrayList, pageRequest, arrayList.size());
+            page = charityService.findByCountry(country,searchString,pageRequest);
         }
-
 
 
         if (page == null) {
@@ -94,7 +85,7 @@ public class CharitiesSearchController {
             model.put("charities", charities);
             model.put("numberOfPages", page.getTotalPages());
             model.put("numberOfResults", page.getTotalElements());
-            model.put("pageNumber", page.getNumber());
+            model.put("pageNumber", pageNumber);
             model.put("searchedName", searchString);
             model.put("pageSize", pageSize);
             model.put("thisPageSize", charities.size());
@@ -102,9 +93,4 @@ public class CharitiesSearchController {
         return "charitiesResultsPage";
     }
 
-//    @RequestMapping("/searchKeys")
-//    @ResponseBody
-//    public List<String> getAllSearchKeys() {
-//        return Arrays.asList(NAME, CAUSE, COUNTRY);
-//    }
 }

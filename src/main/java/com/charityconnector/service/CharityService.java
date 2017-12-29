@@ -34,8 +34,6 @@ public interface CharityService {
 
     Charity[] findByName(String name);
 
-    Page<Charity> findByNameLike(String name, Pageable pageable);
-
     Set<Charity> getCharitiesByCause(String cause);
 
     Set<Charity> getCharitiesByCountry(String country);
@@ -50,14 +48,14 @@ public interface CharityService {
 
     int getCharityThumbsUpById(Long id);
 
-    Charity[] findByCauseAndCountry(Cause cause, Country country, String name);
+    Page<Charity> findByNameLike(String name, Pageable pageable);
 
-    Charity[] findByCountry(Country country, String name);
+    Page<Charity>findByCountry(Country country, String name,Pageable pageable);
 
-    Charity[] findByCause(Cause cause, String name);
+    Page<Charity> findByCause(Cause  cause,String name,Pageable pageable);
 
-    Charity[] findByNameLike(String name);
+    Page<Charity> findByNameOrDescriptionLike(String name,Pageable pageable);
 
-    Charity[] findByNameOrDescriptionLike(String stringToMatch);
+    Page<Charity> findByCauseAndCountry(Cause  cause, Country country, String name,Pageable pageable);
 
 }

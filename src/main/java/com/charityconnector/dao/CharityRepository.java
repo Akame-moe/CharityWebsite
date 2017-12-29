@@ -13,10 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface CharityRepository extends JpaRepository<Charity, Long> {
 
-    Page<Charity> findByNameLike(@Param("name") String name, Pageable pageable);
-
-    Page<Charity> findByNameOrDescriptionLike(@Param("stringToMatch") String stringToMatch, Pageable pageable);
-
     @Modifying
     @Transactional
     @Query("UPDATE Charity c SET c.name = :name, c.description = :description WHERE c.id = :id")
@@ -27,19 +23,27 @@ public interface CharityRepository extends JpaRepository<Charity, Long> {
 
     Charity findByOauthUserId(String oauthUserId);
 
-    @Query("select c from Charity c where :cause member of c.causes AND :country member of  c.countries  AND c.name LIKE  CONCAT('%',:name,'%')")
-    Charity[] findByCauseAndCountry(@Param("cause") Cause cause, @Param("country") Country country, @Param("name") String name);
+    // The table name should be exactly as the entity name in the entity package
+    @Query("select c from Charity c where lower(c.name) LIKE  lower(CONCAT('%',:name,'%'))")
+    Charity[]  findByName(@Param("name") String name);
 
-    @Query("select c from Charity c where :country member of c.countries AND c.name LIKE  CONCAT('%',:name,'%')")
-    Charity[] findByCountry(@Param("country") Country country, @Param("name") String name);
 
-    @Query("select c from Charity c where :cause member of c.causes AND c.name LIKE  CONCAT('%',:name,'%')")
-    Charity[] findByCause(@Param("cause") Cause cause, @Param("name") String name);
+
+    //Following methods are for searching...!
 
     // The table name should be exactly as the entity name in the entity package
     @Query("select c from Charity c where lower(c.name) LIKE  lower(CONCAT('%',:name,'%'))")
-    Charity[] findByNameLike(@Param("name") String name);
+    Page<Charity>  findByNameLike(@Param("name") String name, Pageable pageable);
+
+    @Query("select c from Charity c where :country member of c.countries AND c.name LIKE  CONCAT('%',:name,'%')")
+    Page<Charity>  findByCountry(@Param("country") Country country, @Param("name") String name, Pageable pageable);
+
+    @Query("select c from Charity c where :cause member of c.causes AND c.name LIKE  CONCAT('%',:name,'%')")
+    Page<Charity>  findByCause(@Param("cause") Cause cause, @Param("name") String name, Pageable pageable);
+
+    @Query("select c from Charity c where :cause member of c.causes AND :country member of  c.countries  AND c.name LIKE  CONCAT('%',:name,'%')")
+    Page<Charity>  findByCauseAndCountry(@Param("cause") Cause cause, @Param("country") Country country, @Param("name") String name, Pageable pageable);
 
     @Query("select c from Charity c where lower(c.name) LIKE lower(CONCAT('%', :stringToMatch, '%')) or lower(c.description) LIKE lower(CONCAT('%', :stringToMatch, '%'))")
-    Charity[] findByNameOrDescriptionLike(@Param("stringToMatch") String stringToMatch);
+    Page<Charity> findByNameOrDescriptionLike(@Param("stringToMatch") String stringToMatch ,Pageable pageable);
 }

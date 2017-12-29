@@ -52,14 +52,7 @@ public class CharityServiceImpl implements CharityService {
 
     @Override
     public Charity[] findByName(String name) {
-        Charity[] charities = charityRepository.findByNameLike(name);
-        return charities;
-    }
-
-
-    @Override
-    public Charity[] findByNameLike(String name) {
-        Charity[] charities = charityRepository.findByNameLike(name);
+        Charity[] charities = charityRepository.findByName(name);
         return charities;
     }
 
@@ -120,18 +113,6 @@ public class CharityServiceImpl implements CharityService {
     }
 
     @Override
-    public Page<Charity> findByNameLike(String name, Pageable pageable) {
-        Page<Charity> page = charityRepository.findByNameLike(name, pageable);
-        return page;
-    }
-
-    @Override
-    public Charity[] findByNameOrDescriptionLike(String name) {
-        Charity[] charity = charityRepository.findByNameOrDescriptionLike(name);
-        return charity;
-    }
-
-    @Override
     public Set<Charity> getCharitiesByCause(String cause) {
         Cause res = causeRepository.findCauseByName(cause);
         return res.getCharities();
@@ -189,17 +170,29 @@ public class CharityServiceImpl implements CharityService {
         return charity.getThumbUpDonors().size();
     }
 
-    public Charity[] findByCauseAndCountry(Cause  cause, Country country, String name) {
-        return charityRepository.findByCauseAndCountry(cause,country,name);
+    @Override
+    public Page<Charity> findByNameLike(String name, Pageable pageable) {
+        return charityRepository.findByNameLike(name, pageable);
     }
 
     @Override
-    public Charity[] findByCountry(Country country, String name) {
-        return charityRepository.findByCountry(country,name);
+    public  Page<Charity> findByCause(Cause  cause,String name,Pageable pageable) {
+        return charityRepository.findByCause(cause,name,pageable);
     }
 
     @Override
-    public Charity[] findByCause(Cause  cause,String name) {
-        return charityRepository.findByCause(cause,name);
+    public  Page<Charity>findByCountry(Country country, String name,Pageable pageable) {
+        return charityRepository.findByCountry(country,name,pageable);
     }
+
+    @Override
+    public  Page<Charity> findByNameOrDescriptionLike(String name,Pageable pageable) {
+        return charityRepository.findByNameOrDescriptionLike(name,pageable);
+    }
+
+    @Override
+    public  Page<Charity> findByCauseAndCountry(Cause cause, Country country, String name,Pageable pageable) {
+        return charityRepository.findByCauseAndCountry(cause,country,name,pageable);
+    }
+
 }
