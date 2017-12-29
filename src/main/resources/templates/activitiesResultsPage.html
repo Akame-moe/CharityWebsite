@@ -32,29 +32,27 @@
         </ul>
         <div>
             <form id="searchFormSubmit" action="/results/activities">
-                <div class="container">
-                    <div class="row">
-                        <div class='col-sm-6'>
-                            <div class="form-group">
-                                <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' class="form-control"/>
-                                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <script type="text/javascript">
-                            $(function () {
-                                $('#datetimepicker1').datetimepicker();
-                            });
-                        </script>
+                <div class="input-group">
+                    <label for="holdDateFromInput">
+                        From date:
+                        <input type="date" id="holdDateFromInput" name="holdDateFrom"/>
+                    </label>
+                    <label for="holdDateToInput">
+                        To date:
+                        <input type="date" id="holdDateToInput" name="holdDateTo"/>
+                    </label>
+                    <select class="form-control" id="countryPicker" name="country">
+                        <option>Country</option>
+                        <#if countries??>
+                            <#list countries as country>
+                                <option>${country}</option>
+                            </#list>
+                        </#if>
+                    </select>
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-danger btn-md"> Go!
+                        </button>
                     </div>
-                </div>
-
-                <div class="input-group-btn">
-                    <button type="submit" class="btn btn-danger btn-md"> Go!
-                    </button>
                 </div>
             </form>
         </div>
@@ -68,6 +66,8 @@
                         <div>Title: ${activity.title}</div>
                         <div>Charity name: ${activity.charity.name}</div>
                         <div>Participants: ${activity.donors?size}</div>
+                        <div>Country: ${activity.country}</div>
+                        <div>Date the activity will be held: ${activity.holdDate?date}</div>
                     </div>
                 </#list>
             </div>

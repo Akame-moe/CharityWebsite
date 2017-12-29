@@ -10,4 +10,6 @@ import java.util.Date;
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
 
     Page<Activity> findByCountryAndHoldDateBetween(String country, Date holdDate, Date holdDate2, Pageable pageable);
+
+    Page<Activity> findByHoldDateBetween(Date holdDateFrom, Date holdDateTo, Pageable pageable);
 }

@@ -3,7 +3,7 @@ package com.charityconnector.controller;
 import com.charityconnector.entity.Activity;
 import com.charityconnector.entity.Country;
 import com.charityconnector.service.ActivityService;
-import com.charityconnector.service.CharityService;
+import com.charityconnector.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.security.Principal;
+import java.time.Instant;
 import java.util.Date;
 import java.util.Map;
 
@@ -23,34 +24,45 @@ import java.util.Map;
 public class ActivitiesSearchController {
 
     @Resource
-    private CharityService charityService;
-
-    @Resource
     private ActivityService activityService;
 
+    @Resource
+    private CountryService countryService;
+
     @Autowired
-    public ActivitiesSearchController(CharityService charityService) {
+    public ActivitiesSearchController(CountryService countryService, ActivityService activityService) {
         this.activityService = activityService;
-        this.charityService = charityService;
+        this.countryService = countryService;
     }
 
     @RequestMapping("/results/activities")
     public String getResultsPage(Map<String, Object> model,
-                                 @RequestParam(required = false) Date holdDateFrom,
-                                 @RequestParam(required = false) Date holdDateTo,
-                                 @RequestParam(required = false) Country country,
+                                 @RequestParam(required = false) String holdDateFrom,
+                                 @RequestParam(required = false) String holdDateTo,
+                                 @RequestParam(required = false) String country,
                                  @RequestParam(defaultValue = "0") int pageNumber,
                                  @RequestParam(defaultValue = "10") int pageSize,
                                  Principal principal) {
         Page<Activity> page;
         Pageable pageRequest;
+        Date from = null, to = null;
+        Country selectedCountry;
 
         if (principal != null)
             model.put("userId", principal.getName());
 
+        model.put("countries", countryService.getAllCountries());
+
         pageRequest = new PageRequest(pageNumber, pageSize, Sort.Direction.DESC, "holdDate");
 
-        page = activityService.findByHoldDateAndCountry(holdDateFrom, holdDateTo, country, pageRequest);
+        if (holdDateFrom != null && !holdDateFrom.equals(""))
+            from = Date.from(Instant.parse(holdDateFrom + "T00:00:00.00Z"));
+        if (holdDateTo != null && !holdDateTo.equals(""))
+            to = Date.from(Instant.parse(holdDateTo + "T00:00:00.00Z"));
+
+        selectedCountry = countryService.findCountryByName(country);
+
+        page = activityService.findByHoldDateAndCountry(from, to, selectedCountry, pageRequest);
 
         if (page.getContent().size() != 0) {
             model.put("activities", page.getContent());

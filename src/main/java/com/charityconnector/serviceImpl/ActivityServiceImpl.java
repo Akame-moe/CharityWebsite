@@ -111,7 +111,7 @@ public class ActivityServiceImpl implements ActivityService {
         if (holdDateTo == null)
             holdDateTo = new Date(9999999999999L);
         if (country == null)
-            country = new Country(0L, "", null);
+            return activityRepository.findByHoldDateBetween(holdDateFrom, holdDateTo, pageable);
 
         return activityRepository.findByCountryAndHoldDateBetween(country.getCountryValue(), holdDateFrom, holdDateTo, pageable);
     }
