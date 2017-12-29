@@ -58,7 +58,7 @@ public class MailUtil implements Runnable {
 
             // Change the verify IP to Heroku URL, so that every verify process would be happen in the Heroku Server
             String localIP  = InetAddress.getLocalHost().getHostAddress();
-            String herokuURL = "https://hidden-hollows-44587.herokuapp.com/";
+            String herokuURL = "http://connecting-charities-website.herokuapp.com/";
             // Get the IP address of the local machine
             // Create Email Object and set the email contents
             Message message = new MimeMessage(session);
