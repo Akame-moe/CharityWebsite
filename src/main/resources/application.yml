@@ -16,6 +16,8 @@ spring:
         properties:
             hibernate:
                 format_sql: true
+            temp:
+                use_jdbc_metadata_defaults: false
         show-sql: true
 
 
@@ -47,5 +49,5 @@ google:
 
 logging:
   level:
-    root: WARN
-    com.charityconnector: DEBUG
+    root: INFO
+    com.charityconnector: INFO

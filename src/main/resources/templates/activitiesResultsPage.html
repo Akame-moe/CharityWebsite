@@ -32,9 +32,26 @@
         </ul>
         <div>
             <form id="searchFormSubmit" action="/results/activities">
-                <input type="text" id="searchBarField" style="" name="searchString" class="form-control"
-                       placeholder="Please search for charities here"
-                       value="${RequestParameters.searchString!}">
+                <div class="container">
+                    <div class="row">
+                        <div class='col-sm-6'>
+                            <div class="form-group">
+                                <div class='input-group date' id='datetimepicker1'>
+                                    <input type='text' class="form-control"/>
+                                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            $(function () {
+                                $('#datetimepicker1').datetimepicker();
+                            });
+                        </script>
+                    </div>
+                </div>
+
                 <div class="input-group-btn">
                     <button type="submit" class="btn btn-danger btn-md"> Go!
                     </button>
@@ -47,7 +64,11 @@
             <div id="searchResultsContainer" class="container">
 
                 <#list activities as activity>
-
+                    <div>
+                        <div>Title: ${activity.title}</div>
+                        <div>Charity name: ${activity.charity.name}</div>
+                        <div>Participants: ${activity.donors?size}</div>
+                    </div>
                 </#list>
             </div>
         </#if>

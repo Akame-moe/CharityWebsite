@@ -7,10 +7,7 @@ import com.charityconnector.service.CauseService;
 import com.charityconnector.service.CharityService;
 import com.charityconnector.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,9 +55,10 @@ public class CharitiesSearchController {
             model.put("userId", principal.getName());
         if (searchString == null /*|| searchString.trim().equals("")*/)
             return "resultsPage";
-        if (pageSize != 10 && pageSize != 25 && pageSize != 50)
-            pageSize = 10;
-        PageRequest pageRequest = new PageRequest(pageNumber, pageSize, Sort.Direction.DESC, "name");
+
+        pageSize = 10;
+
+        Pageable pageRequest = new PageRequest(pageNumber, pageSize, Sort.Direction.DESC, "name");
         Page<Charity> page = null;
 
         if(causeString.equals("Causes") && countryString.equals("Countries")){

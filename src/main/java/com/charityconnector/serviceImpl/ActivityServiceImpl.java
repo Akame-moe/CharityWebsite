@@ -4,8 +4,11 @@ import com.charityconnector.dao.ActivityRepository;
 import com.charityconnector.dao.CharityRepository;
 import com.charityconnector.dao.DonorRepository;
 import com.charityconnector.entity.Activity;
+import com.charityconnector.entity.Country;
 import com.charityconnector.entity.Donor;
 import com.charityconnector.service.ActivityService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -99,5 +102,17 @@ public class ActivityServiceImpl implements ActivityService {
         activity.addVolunteerDonor(donor);
         activityRepository.save(activity);
         return 0;
+    }
+
+    @Override
+    public Page<Activity> findByHoldDateAndCountry(Date holdDateFrom, Date holdDateTo, Country country, Pageable pageable) {
+        if (holdDateFrom == null)
+            holdDateFrom = new Date(0L);
+        if (holdDateTo == null)
+            holdDateTo = new Date(9999999999999L);
+        if (country == null)
+            country = new Country(0L, "", null);
+
+        return activityRepository.findByCountryAndHoldDateBetween(country.getCountryValue(), holdDateFrom, holdDateTo, pageable);
     }
 }
