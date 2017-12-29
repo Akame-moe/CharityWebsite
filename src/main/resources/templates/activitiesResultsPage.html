@@ -62,26 +62,43 @@
             <div id="searchResultsContainer" class="container">
 
                 <#list activities as activity>
-                    <div>
-                        <div>Title: ${activity.title}</div>
-                        <div>Charity name: ${activity.charity.name}</div>
-                        <div>Participants: ${activity.donors?size}</div>
-                        <div>Country: ${activity.country}</div>
-                        <div>Date the activity will be held: ${activity.holdDate?date}</div>
+                    <div class="row my-5">
+                        <div class="col-md-3">
+                            <a href="/charityPage/${activity.charity.id}" style="display: block;">
+                                <img alt="Charity logo" height="150px" width="200px" style="object-fit: scale-down"
+                                     src=${activity.charity.logoFile!"../img/no-charity-logo.png"}>
+                            </a>
+                        </div>
+                        <div class="col-md-9">
+                            <h3>${activity.title}</h3>
+                            <div>By the charity: <a
+                                    href="/charityPage/${activity.charity.id}">${activity.charity.name}</a>
+                            </div>
+                            <div>Current volunteers: ${activity.donors?size}</div>
+                            <div>Country:
+                                <a href="/results?searchString=&causeString=Causes&countryString=${activity.country}"
+                                   class="badge badge-success">${activity.country}</a>
+                            </div>
+                            <div>Date the activity will be held: ${activity.holdDate?date}</div>
+                        </div>
+
                     </div>
+                    <div class="vertical-spacer"></div>
                 </#list>
             </div>
+            <#else>
+                Your search did not match any results
         </#if>
 
         <#if activities??>
             <div id="pageChanger" class="container text-center">
-                <#if pageNumber!= 0>
-                    <a href="results/activities?pageSize=${pageSize}&pageNumber=${pageNumber - 1}"><</a>
-                </#if>
+
+                <a href="results/activities?holdDateFrom=${RequestParameters.holdDateFrom!}&holdDateTo=${RequestParameters.holdDateTo!}&country=${RequestParameters.country!}&pageSize=${pageSize}&pageNumber=${pageNumber - 1}"><</a>
+
                 <span id="pageCounter">Page ${pageNumber + 1} of ${numberOfPages}</span>
-                <#if pageNumber!= (numberOfPages - 1)>
-                    <a href="results/activities?pageSize=${pageSize}&pageNumber=${pageNumber + 1}">></a>
-                </#if>
+
+                <a href="results/activities?holdDateFrom=${RequestParameters.holdDateFrom!}&holdDateTo=${RequestParameters.holdDateTo!}&country=${RequestParameters.country!}&pageSize=${pageSize}&pageNumber=${pageNumber + 1}">></a>
+
             </div>
         </#if>
     </div>

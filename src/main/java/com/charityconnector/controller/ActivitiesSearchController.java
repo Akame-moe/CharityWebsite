@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.security.Principal;
+import java.time.Duration;
 import java.time.Instant;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.Map;
 
@@ -56,9 +58,9 @@ public class ActivitiesSearchController {
         pageRequest = new PageRequest(pageNumber, pageSize, Sort.Direction.DESC, "holdDate");
 
         if (holdDateFrom != null && !holdDateFrom.equals(""))
-            from = Date.from(Instant.parse(holdDateFrom + "T00:00:00.00Z"));
+            from = Date.from(Instant.from(Instant.parse(holdDateFrom + "T00:00:00.00Z").atOffset(ZoneOffset.UTC).minus(Duration.ofSeconds(1))));
         if (holdDateTo != null && !holdDateTo.equals(""))
-            to = Date.from(Instant.parse(holdDateTo + "T00:00:00.00Z"));
+            to = Date.from(Instant.from(Instant.parse(holdDateTo + "T00:00:00.00Z").atOffset(ZoneOffset.UTC).plus(Duration.ofDays(1))));
 
         selectedCountry = countryService.findCountryByName(country);
 

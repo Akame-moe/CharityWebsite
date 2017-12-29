@@ -41,6 +41,7 @@ import javax.servlet.Filter;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 @SpringBootApplication
 @RestController
@@ -110,6 +111,7 @@ public class WebsiteApplication extends WebSecurityConfigurerAdapter {
     }
 
     public static void main(String[] args) {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         SpringApplication.run(WebsiteApplication.class, args);
     }
 
