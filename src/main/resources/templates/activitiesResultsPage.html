@@ -30,27 +30,42 @@
                 <a class="nav-link active" href="#">Activities</a>
             </li>
         </ul>
+
+        <div class="vertical-spacer"></div>
+
         <div>
             <form id="searchFormSubmit" action="/results/activities">
-                <div class="input-group">
-                    <label for="holdDateFromInput">
-                        From date:
-                        <input type="date" id="holdDateFromInput" name="holdDateFrom"/>
-                    </label>
-                    <label for="holdDateToInput">
-                        To date:
-                        <input type="date" id="holdDateToInput" name="holdDateTo"/>
-                    </label>
-                    <select class="form-control" id="countryPicker" name="country">
-                        <option>Country</option>
-                        <#if countries??>
-                            <#list countries as country>
-                                <option>${country}</option>
-                            </#list>
-                        </#if>
-                    </select>
-                    <div class="input-group-btn">
-                        <button type="submit" class="btn btn-danger btn-md"> Go!
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label for="holdDateFromInput">
+                            From date:
+                        </label>
+                        <input class="form-control" type="date" id="holdDateFromInput" name="holdDateFrom"
+                               value="${RequestParameters.holdDateFrom!'dd/mm/yyyy'}"/>
+                    </div>
+
+                    <div class="form-group col">
+                        <label for="holdDateToInput">
+                            To date:
+                        </label>
+                        <input class="form-control" type="date" id="holdDateToInput" name="holdDateTo"
+                               value="${RequestParameters.holdDateTo!'dd/mm/yyyy'}"/>
+                    </div>
+
+                    <div class="form-group col">
+                        <label for="countryPicker" style="visibility: hidden">Country:</label>
+                        <select class="form-control" id="countryPicker" name="country">
+                            <option>Country</option>
+                            <#if countries??>
+                                <#list countries as country>
+                                    <option>${country}</option>
+                                </#list>
+                            </#if>
+                        </select>
+                    </div>
+                    <div class="form-group-btn col">
+                        <label for="buttonSubmit" style="visibility: hidden">Go!</label>
+                        <button id="buttonSubmit" type="submit" class="btn btn-danger btn-md form-control"> Go!
                         </button>
                     </div>
                 </div>
@@ -65,11 +80,11 @@
                     <div class="row my-5">
                         <div class="col-md-3">
                             <a href="/charityPage/${activity.charity.id}" style="display: block;">
-                                <img alt="Charity logo" height="150px" width="200px" style="object-fit: scale-down"
+                                <img alt="Charity logo" width="100%" height="100%" style="object-fit: scale-down"
                                      src=${activity.charity.logoFile!"../img/no-charity-logo.png"}>
                             </a>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md">
                             <h3>${activity.title}</h3>
                             <div>By the charity: <a
                                     href="/charityPage/${activity.charity.id}">${activity.charity.name}</a>
@@ -92,13 +107,13 @@
 
         <#if activities??>
             <div id="pageChanger" class="container text-center">
-
-                <a href="results/activities?holdDateFrom=${RequestParameters.holdDateFrom!}&holdDateTo=${RequestParameters.holdDateTo!}&country=${RequestParameters.country!}&pageSize=${pageSize}&pageNumber=${pageNumber - 1}"><</a>
-
+                <#if pageNumber!= 0>
+                    <a href="results/activities?holdDateFrom=${RequestParameters.holdDateFrom!}&holdDateTo=${RequestParameters.holdDateTo!}&country=${RequestParameters.country!}&pageSize=${pageSize}&pageNumber=${pageNumber - 1}"><</a>
+                </#if>
                 <span id="pageCounter">Page ${pageNumber + 1} of ${numberOfPages}</span>
-
-                <a href="results/activities?holdDateFrom=${RequestParameters.holdDateFrom!}&holdDateTo=${RequestParameters.holdDateTo!}&country=${RequestParameters.country!}&pageSize=${pageSize}&pageNumber=${pageNumber + 1}">></a>
-
+                <#if pageNumber!= (numberOfPages - 1)>
+                    <a href="results/activities?holdDateFrom=${RequestParameters.holdDateFrom!}&holdDateTo=${RequestParameters.holdDateTo!}&country=${RequestParameters.country!}&pageSize=${pageSize}&pageNumber=${pageNumber + 1}">></a>
+                </#if>
             </div>
         </#if>
     </div>

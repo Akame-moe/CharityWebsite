@@ -18,6 +18,7 @@ import java.security.Principal;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.Map;
 
@@ -57,12 +58,19 @@ public class ActivitiesSearchController {
 
         pageRequest = new PageRequest(pageNumber, pageSize, Sort.Direction.DESC, "holdDate");
 
-        if (holdDateFrom != null && !holdDateFrom.equals(""))
-            from = Date.from(Instant.from(Instant.parse(holdDateFrom + "T00:00:00.00Z").atOffset(ZoneOffset.UTC).minus(Duration.ofSeconds(1))));
-        if (holdDateTo != null && !holdDateTo.equals(""))
-            to = Date.from(Instant.from(Instant.parse(holdDateTo + "T00:00:00.00Z").atOffset(ZoneOffset.UTC).plus(Duration.ofDays(1))));
-
-        selectedCountry = countryService.findCountryByName(country);
+        try {
+            if (holdDateFrom != null && !holdDateFrom.equals(""))
+                from = Date.from(Instant.from(Instant.parse(holdDateFrom + "T00:00:00.00Z").atOffset(ZoneOffset.UTC).minus(Duration.ofSeconds(1))));
+            if (holdDateTo != null && !holdDateTo.equals(""))
+                to = Date.from(Instant.from(Instant.parse(holdDateTo + "T00:00:00.00Z").atOffset(ZoneOffset.UTC).plus(Duration.ofDays(1))));
+        } catch (DateTimeParseException e) {
+            from = null;
+            to = null;
+        }
+        if (country == null || country.equals("Country"))
+            selectedCountry = null;
+        else
+            selectedCountry = countryService.findCountryByName(country);
 
         page = activityService.findByHoldDateAndCountry(from, to, selectedCountry, pageRequest);
 
