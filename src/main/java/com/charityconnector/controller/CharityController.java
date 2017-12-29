@@ -57,26 +57,6 @@ public class CharityController {
         return charityService.findById(id);
     }
 
-
-
-    @RequestMapping(path = "/lalala1/{email}", method = RequestMethod.GET)
-    @ResponseBody
-    UKRecordCharity getEmailByEmail1(@PathVariable("email") String email){
-        System.out.println("here!!!");
-        return ukRecordCharityService.findByEmail(email);
-    }
-
-    @RequestMapping(path = "/lalala2/{email}", method = RequestMethod.GET)
-    @ResponseBody
-    String getEmailByEmail2(@PathVariable("email") String email) {
-        UKRecordCharity result = ukRecordCharityService.findByEmail(email);
-        if (result == null) {
-            return "sorry";
-        } else {
-            return result.getEmail();
-        }
-    }
-
     @RequestMapping(path = "/charity", method = RequestMethod.POST)
     @ResponseBody
     public Charity addCharity(@RequestBody Charity charity, Principal principal) {
