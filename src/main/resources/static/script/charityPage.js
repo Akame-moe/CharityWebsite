@@ -199,6 +199,8 @@ function sendUpdateCharityThumbUp() {
                 alert("You need to log in!");
             if (result == -2)
                 alert("Your thumbs up is already registered!");
+            if (result == -3)
+                alert("Please log in as a valid donor!");
             if (result > 0)
                $("#charityThumbUp").html("Thumbs : " +result);
         },

@@ -144,24 +144,21 @@ public class CharityServiceImpl implements CharityService {
 
     @Override
     public int thumbUpUnique(Long charityId, String donorOauthId) {
-        int res = 0;
-        Charity charity = charityRepository.getOne(charityId);
-        Set<Donor> donors = charity.getThumbUpDonors();
-        for (Donor donor : donors) {
-            if (donor.getOauthId().equals(donorOauthId)) {
-                res = -2; // represent this donor has thumbed up
-                break;
-            }
-        }
-        if (res != 0) {
-            return res;
-        }
         // only charity side own the relationship
         Donor donor = donorRepository.findByOauthId(donorOauthId);
+        if (donor == null) {
+            return -3; // could not find valid donor
+        }
+        Charity charity = charityRepository.getOne(charityId);
+        Set<Donor> donors = charity.getThumbUpDonors();
+        for (Donor temp : donors) {
+            if (temp.getOauthId().equals(donorOauthId)) {
+                return -2; // represent this donor has thumbed up
+            }
+        }
         charity.addThumbUpDonor(donor);
         charityRepository.save(charity);
-        res = charity.getThumbUpDonors().size();
-        return res;
+        return charity.getThumbUpDonors().size();
     }
 
     @Override
