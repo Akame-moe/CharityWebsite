@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -67,14 +68,15 @@ public class CharityServiceUnitTest {
     public void gettingCharitiesByExisthingName() {
         Charity charity = new Charity();
         Charity[] charities = {charity};
+        Page<Charity> charityPage = new PageImpl(Arrays.asList(charities));
 
-        when(mockRepo.findByNameLike("name")).thenReturn(charities);
+        when(mockRepo.findByNameLike("name", new PageRequest(0, 10))).thenReturn(charityPage);
 
-        Charity[] returnedCharities = charityService.findByName("name");
+        Page<Charity> returnedCharityPage = charityService.findByNameLike("name", new PageRequest(0, 10));
 
-        verify(mockRepo, times(1)).findByNameLike("name");
+        verify(mockRepo, times(1)).findByNameLike("name", new PageRequest(0, 10));
         verifyNoMoreInteractions(mockRepo);
-        assertThat(returnedCharities, equalTo(charities));
+        assertThat(returnedCharityPage, equalTo(charityPage));
     }
 
     @Test
