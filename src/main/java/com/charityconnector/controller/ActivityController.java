@@ -24,26 +24,26 @@ public class ActivityController {
 
     @RequestMapping(path = "/activity/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Activity getArticleById(@PathVariable("id") Long id) {
+    public Activity getActivityById(@PathVariable("id") Long id) {
         return activityService.findById(id);
     }
 
     @RequestMapping(path = "/activity/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public void deleteArticleById(@PathVariable("id") Long id) {
+    public void deleteActivityById(@PathVariable("id") Long id) {
         activityService.deleteById(id);
     }
 
-    @RequestMapping(path = "/activity", method = RequestMethod.POST)
+    @RequestMapping(path = "/activity/{charityId}", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Activity> addArticle(@RequestBody Activity activity) {
-        Activity res = activityService.addActivity(activity);
-        return new ResponseEntity<Activity>(res, HttpStatus.OK);
+    public ResponseEntity<String> addActivity(@RequestBody Activity activity, @PathVariable("charityId") Long charityId) {
+        activityService.addActivity(activity, charityId);
+        return new ResponseEntity<String>(HttpStatus.OK);
     }
 
     @RequestMapping(path = "/activity", method = RequestMethod.PATCH)
     @ResponseBody
-    public ResponseEntity<String> updateArticle(@RequestBody Activity activity) {
+    public ResponseEntity<String> updateActivity(@RequestBody Activity activity) {
         activityService.updateSelective(activity);
         return new ResponseEntity<String>(HttpStatus.OK);
     }

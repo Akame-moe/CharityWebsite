@@ -4,6 +4,7 @@ import com.charityconnector.dao.ActivityRepository;
 import com.charityconnector.dao.CharityRepository;
 import com.charityconnector.dao.DonorRepository;
 import com.charityconnector.entity.Activity;
+import com.charityconnector.entity.Charity;
 import com.charityconnector.entity.Country;
 import com.charityconnector.entity.Donor;
 import com.charityconnector.service.ActivityService;
@@ -37,11 +38,13 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Activity addActivity(Activity activity) {
+    public void addActivity(Activity activity, Long charityId) {
         Date now = new Date();
         activity.setInsertTime(now);
         activity.setUpdateTime(now);
-        return activityRepository.save(activity);
+        Charity charity = charityRepository.findOne(charityId);
+        charity.addActivities(activity);
+        charityRepository.save(charity);
     }
 
     @Override

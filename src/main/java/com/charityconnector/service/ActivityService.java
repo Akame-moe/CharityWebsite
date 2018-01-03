@@ -13,7 +13,7 @@ public interface ActivityService {
 
     void deleteById(Long id);
 
-    Activity addActivity(Activity activity);
+    void addActivity(Activity activity, Long charityId);
 
     void updateSelective(Activity activity);
 

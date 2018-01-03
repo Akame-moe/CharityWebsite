@@ -62,6 +62,10 @@ function addArticle() {
 
 }
 
+function addActivity() {
+    $('#addActivityModal').modal('toggle');
+
+}
 
 
 function sendEditArticle() {
@@ -100,6 +104,28 @@ function sendAddArticle() {
         contentType: "application/json",
         url: "/article",
         data: JSON.stringify(article),
+        success: function () {
+            location.reload(true);
+        },
+        error: function (e) {
+            alert("There was an error communicating with the server");
+            console.log("ERROR : ", e);
+        }
+    });
+    $('#editArticleModal').modal('toggle');
+}
+
+function sendAddActivity() {
+    var activity = {
+        "title": $('#inputNewActivityTitle').val(),
+        "country": $('#inputNewActivityCountry').val(),
+        "content": $('#inputNewActivityContent').val()
+    };
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/activity/" + $("#charityIdDiv").html(),
+        data: JSON.stringify(activity),
         success: function () {
             location.reload(true);
         },

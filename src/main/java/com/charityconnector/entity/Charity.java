@@ -204,6 +204,12 @@ public class Charity {
     public void setActivities(Set<Activity> activities) {
         this.activities = activities;
     }
+
+    public Set<Activity> addActivities(Activity activity) {
+        activities.add(activity);
+        activity.setCharity(this);
+        return activities;
+    }
 }
 
 
