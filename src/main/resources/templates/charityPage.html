@@ -397,11 +397,11 @@
         </div>
 
         <div class="modal fade show" id="addActivityModal" tabindex="-1" role="dialog"
-             aria-labelledby="addArticleLabel">
+             aria-labelledby="addActivityLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addActivityLabel">Insert your activity title, country and content text here</h5>
+                        <h5 class="modal-title" id="addActivityLabel">Insert your activity title, country, hold date and content text here</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -415,6 +415,9 @@
                             <div class="form-group">
                                 <input type="text" class="form-control" id="inputNewActivityCountry"
                                        placeholder="Your activity country">
+                            </div>
+                            <div class="form-group">
+                                <input type="date" class="form-control" id="inputNewActivityHoldDate">
                             </div>
                             <div class="form-group">
                                 <textarea class="form-control" id="inputNewActivityContent" rows="3"></textarea>

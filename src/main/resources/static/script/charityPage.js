@@ -119,7 +119,8 @@ function sendAddActivity() {
     var activity = {
         "title": $('#inputNewActivityTitle').val(),
         "country": $('#inputNewActivityCountry').val(),
-        "content": $('#inputNewActivityContent').val()
+        "content": $('#inputNewActivityContent').val(),
+        "holdDate": $('#inputNewActivityHoldDate').val()
     };
     $.ajax({
         type: "POST",
