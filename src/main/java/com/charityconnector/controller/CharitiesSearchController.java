@@ -7,17 +7,20 @@ import com.charityconnector.service.CauseService;
 import com.charityconnector.service.CharityService;
 import com.charityconnector.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import static com.charityconnector.auth.MyOAuth2AuthenticationDetails.putAuthenticationDetails;
 
 
 @Controller
@@ -53,8 +56,7 @@ public class CharitiesSearchController {
         model.put("currentCause",causeString);
         model.put("currentCountry",countryString);
 
-        if (principal != null)
-            model.put("userId", principal.getName());
+        putAuthenticationDetails(principal, model);
 
         Pageable pageRequest = new PageRequest(pageNumber, pageSize, Sort.Direction.DESC, "name");
         Page<Charity> page = null;

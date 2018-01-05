@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import static com.charityconnector.auth.MyOAuth2AuthenticationDetails.getAuthenticationDetails;
+import static com.charityconnector.auth.MyOAuth2AuthenticationDetails.putAuthenticationDetails;
 
 
 @Controller
@@ -119,25 +120,13 @@ public class CharityController {
 
     @RequestMapping("/charityPage/{id}")
     public String getCharityPage(Map<String, Object> model, @PathVariable("id") String charityId, Principal principal) {
-        MyOAuth2AuthenticationDetails authDetails = getAuthenticationDetails(principal);
-
-        if (principal != null)
-            model.put("userId", principal.getName());
-
         Long id = Long.valueOf(charityId.replaceAll(",", "").toString());
+
+        putAuthenticationDetails(principal, model);
 
         model.put("charity", charityService.findById(id));
         model.put("articles", articleService.findArticlesByCharityId(id));
         model.put("activities", charityService.findById(id).getActivities());
-
-        if (authDetails != null) {
-            model.put("isCharity", Boolean.toString(authDetails.isCharity()));
-            if (authDetails.isCharity())
-                model.put("charityId", authDetails.getCharityId());
-            logger.debug(authDetails.toString());
-        } else {
-            model.put("isCharity", "false");
-        }
 
         return "charityPage";
     }
@@ -149,6 +138,7 @@ public class CharityController {
         MyOAuth2AuthenticationDetails authDetails = getAuthenticationDetails(principal);
         if (authDetails == null || !authDetails.isCharity() || !Objects.equals(authDetails.getCharityId(), id))
             return "error";
+
 
         Charity charity = charityService.findById(id);
         if (!file.isEmpty()) {

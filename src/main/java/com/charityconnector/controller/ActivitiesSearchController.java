@@ -22,6 +22,8 @@ import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.Map;
 
+import static com.charityconnector.auth.MyOAuth2AuthenticationDetails.putAuthenticationDetails;
+
 
 @Controller
 public class ActivitiesSearchController {
@@ -51,8 +53,7 @@ public class ActivitiesSearchController {
         Date from = null, to = null;
         Country selectedCountry;
 
-        if (principal != null)
-            model.put("userId", principal.getName());
+        putAuthenticationDetails(principal, model);
 
         model.put("countries", countryService.getAllCountries());
 

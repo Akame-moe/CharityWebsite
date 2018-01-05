@@ -5,6 +5,7 @@ import org.springframework.security.oauth2.provider.authentication.OAuth2Authent
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.Map;
 
 public class MyOAuth2AuthenticationDetails extends OAuth2AuthenticationDetails {
 
@@ -17,6 +18,21 @@ public class MyOAuth2AuthenticationDetails extends OAuth2AuthenticationDetails {
             return authDetails;
         } else {
             return null;
+        }
+    }
+
+    public static void putAuthenticationDetails(Principal principal, Map<String, Object> model) {
+        MyOAuth2AuthenticationDetails authDetails = getAuthenticationDetails(principal);
+
+        if (principal != null)
+            model.put("userId", principal.getName());
+
+        if (authDetails != null) {
+            model.put("isCharity", Boolean.toString(authDetails.isCharity()));
+            if (authDetails.isCharity())
+                model.put("charityId", authDetails.getCharityId());
+        } else {
+            model.put("isCharity", "false");
         }
     }
 

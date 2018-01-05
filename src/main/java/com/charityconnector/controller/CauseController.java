@@ -2,7 +2,6 @@ package com.charityconnector.controller;
 
 import com.charityconnector.entity.Cause;
 import com.charityconnector.service.CauseService;
-import com.charityconnector.service.CountryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +13,8 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
+import static com.charityconnector.auth.MyOAuth2AuthenticationDetails.putAuthenticationDetails;
+
 @Controller
 public class CauseController {
 
@@ -24,15 +25,15 @@ public class CauseController {
     @RequestMapping("/causePage/{id}")
     public String getCharityPage(Map<String, Object> model, @PathVariable("id") Long id, Principal principal) {
         Cause cause = causeService.findById(id);
-        if (principal != null)
-            model.put("userId", principal.getName());
+        putAuthenticationDetails(principal, model);
         model.put("cause",cause);
         model.put("charities",cause.getCharities());
         return "causePage";
     }
 
     @RequestMapping("/causesPage")
-    public String getAllCauses(Map<String, Object> model) {
+    public String getAllCauses(Map<String, Object> model, Principal principal) {
+        putAuthenticationDetails(principal, model);
         List<Cause> causes = causeService.getAllCauses();
         model.put("causes",causes);
         return "causesPage";

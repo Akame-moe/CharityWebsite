@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import static com.charityconnector.auth.MyOAuth2AuthenticationDetails.putAuthenticationDetails;
+
 @Controller
 public class DonorController {
     @Autowired
@@ -32,7 +34,8 @@ public class DonorController {
         Map<String, Object>[] payments = new Map[donor.getPayments().size()];
         Iterator<Paypal> iterator = donor.getPayments().iterator();
 
-        model.put("userId", principal.getName());
+        putAuthenticationDetails(principal, model);
+
         for (int i = 0; i < donor.getPayments().size(); i++) {
             payments[i] = new HashMap<String, Object>();
             Paypal paymentDetails = iterator.next();

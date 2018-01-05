@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.charityconnector.auth.MyOAuth2AuthenticationDetails.putAuthenticationDetails;
+
 @Controller
 public class HomepageController {
     private static int FEATURED_PAGE_SIZE = 6;
@@ -29,8 +31,7 @@ public class HomepageController {
 
     @RequestMapping("/")
     public String getHomePage(Map<String, Object> model, Principal principal) {
-        if (principal != null)
-            model.put("userId", principal.getName());
+        putAuthenticationDetails(principal, model);
 
         List<Charity> featuredCharities = new ArrayList<>();
         Sort sort = new Sort(Sort.Direction.DESC, "thumbUp");
