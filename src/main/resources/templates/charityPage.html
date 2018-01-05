@@ -508,6 +508,29 @@
             </div>
         </div>
 
+        <div class="modal fade show" id="deleteActivityModal" tabindex="-1" role="dialog"
+             aria-labelledby="deleteActivityLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteActivityLabel">Please confirm your choice</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div style="visibility:hidden" id="inputDeleteActivityId"></div>
+                        <p id="deleteActivityBody">Are you sure? You are about to delete the article</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="sendDeleteActivity()">Delete</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
         <div class="modal fade show" id="donateModal" tabindex="-1" role="dialog"
              aria-labelledby="donateLabel">
             <div class="modal-dialog" role="document">
