@@ -88,12 +88,12 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public int volunteer(Long activityId, Long donorId) {
+    public int volunteer(Long activityId, String donorOauthId) {
         Activity activity = activityRepository.findOne(activityId);
         Set<Donor> donors = activity.getDonors();
         int res = 0;
         for (Donor donor : donors) {
-            if (donor.getId().equals(donorId)) {
+            if (donor.getOauthId().equals(donorOauthId)) {
                 res = -2; // represent this donor has thumbed up
                 break;
             }
@@ -101,7 +101,7 @@ public class ActivityServiceImpl implements ActivityService {
         if (res != 0) {
             return res;
         }
-        Donor donor = donorRepository.getOne(donorId);
+        Donor donor = donorRepository.findByOauthId(donorOauthId);
         activity.addVolunteerDonor(donor);
         activityRepository.save(activity);
         return 0;

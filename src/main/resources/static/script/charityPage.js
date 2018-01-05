@@ -175,7 +175,7 @@ function applyVolunteer(id) {
             if (result == -2)
                 alert("You have already applied to volunteer for this activity!");
             if (result == 0)
-                alert("You become successfully applied to volunteer for this activity!");
+                alert("You successfully applied to volunteer for this activity!");
         },
         error: function (e) {
             alert("There was an error communicating with the server");

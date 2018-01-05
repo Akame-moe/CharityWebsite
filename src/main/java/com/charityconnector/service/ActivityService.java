@@ -21,7 +21,7 @@ public interface ActivityService {
 
     Activity[] findArticlesByCharityId(Long charityId);
 
-    int volunteer(Long id, Long donorId);
+    int volunteer(Long id, String donorOauthId);
 
     Page<Activity> findByHoldDateAndCountry(Date holdDateFrom, Date holdDateTo, Country country, Pageable pageable);
 }

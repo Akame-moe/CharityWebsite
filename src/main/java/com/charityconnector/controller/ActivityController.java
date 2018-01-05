@@ -59,7 +59,7 @@ public class ActivityController {
         if (id == null) {
             return -1;
         }
-        return activityService.volunteer(activity.getId(), Long.valueOf(id));
+        return activityService.volunteer(activity.getId(), id);
     }
 
 
