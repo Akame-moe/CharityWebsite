@@ -223,7 +223,7 @@
                                 </button>
                             </div>
                             <#if activity.holdDate??>
-                                <div class="col-sm text-right">${activity.holdDate?date}</div>
+                                <div class="col-sm text-right" id="activityDate_${activity.id?c}"> Hold Date: ${activity.holdDate?date}</div>
                             </#if>
                             <div class="col-sm-2 edit-badge">
                                 <button class="btn edit-badge badge-primary" id="editActivityBadge_${activity.id?c}"
@@ -244,6 +244,8 @@
                             </div>
 
                         </div>
+                        <span id="activityCountry_${activity.id?c}"
+                              style="position:fixed; visibility:hidden">${activity.country}</span>
                         <span id="activityDesc_${activity.id?c}"
                               style="position:fixed; visibility:hidden">${activity.content}</span>
                     </#items>
@@ -467,6 +469,58 @@
             </div>
         </div>
 
+        <div class="modal fade show" id="editActivityModal" tabindex="-1" role="dialog"
+             aria-labelledby="editActivityLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editActivityLable">Insert your activity title, country, hold date and content text here</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div style="visibility:hidden" id="inputEditActivityId"></div>
+                        <form>
+                            <div class="form-group">
+                                <label for="inputEditActivityTitle">
+                                    Activity Title:
+                                </label>
+                                <input type="text" class="form-control" id="inputEditActivityTitle">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEditActivityCountry">
+                                    Activity Country:
+                                </label>
+                                <input type="text" class="form-control" id="inputEditActivityCountry">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEditActivityHoldDate">
+                                    Activity Hold Date:
+                                </label>
+                                <input type="date" class="form-control" id="inputEditActivityHoldDate">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEditActivityContent">
+                                    Activity Content:
+                                </label>
+                                <textarea class="form-control" id="inputEditActivityContent" rows="3"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="btnEditActivity" onclick="sendEditActivity()">
+                            Save
+                            changes
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
         <div class="modal fade show" id="viewArticleModal" tabindex="-1" role="dialog"
              aria-labelledby="viewArticleLabel">
             <div class="modal-dialog" role="document">
@@ -602,7 +656,21 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body" id="viewActivityBody">
+                    <div class="modal-body" id="">
+                        <div class="form-group">
+                            <label for="viewActivityCountry">
+                                Activity Country:
+                            </label>
+                            <p type="text" class="form-control" id="viewActivityCountry">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="viewActivityContent">
+                                Activity Content:
+                            </label>
+                            <p type="text" class="form-control" id="viewActivityContent">
+                        </div>
+
 
                     </div>
                     <div class="modal-footer">
