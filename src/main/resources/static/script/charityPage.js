@@ -57,6 +57,20 @@ function editArticle(id) {
 
 }
 
+function editActivity(id) {
+    $('#inputEditActivityTitle').attr("value", $("#showActivity_" + id.toString()).html());
+
+    $('#inputEditActivityContent').html($("#activityDesc_" + id.toString()).html());
+
+    $('#inputEditActivityHoldDate').html($("#activityDate_" + id.toString()).html());
+
+    $('#inputEditActivityCountry').html($("#activityCountry_" + id.toString()).html());
+
+    $('#inputEditActivityId').html(id);
+
+    $('#editActivityModal').modal('toggle');
+}
+
 function addArticle() {
     $('#addArticleModal').modal('toggle');
 
@@ -93,6 +107,34 @@ function sendEditArticle() {
     $('#editArticleModal').modal('toggle');
 }
 
+function sendEditActivity() {
+    id = $('#inputEditActivityId').html();
+    var activity = {
+        "id": id,
+        "title": $('#inputEditActivityTitle').val(),
+        "country": $('#inputEditActivityCountry').val(),
+        "content": $('#inputEditActivityContent').val(),
+        "holdDate": $('#inputEditActivityHoldDate').val()
+    };
+    $.ajax({
+        type: "PATCH",
+        contentType: "application/json",
+        url: "/activity",
+        data: JSON.stringify(activity),
+        success: function () {
+            $("#showActivity_" + id).html(activity.title);
+            $("#activityDesc_" + id).html(activity.content);
+            $("#activityCountry_" + id).html(activity.country);
+            $("#activityDate_" + id).html(activity.holdDate);
+        },
+        error: function (e) {
+            alert("There was an error communicating with the server");
+            console.log("ERROR : ", e);
+        }
+    });
+    $('#editActivityModal').modal('toggle');
+}
+
 function sendAddArticle() {
     var article = {
         "title": $('#inputNewArticleTitle').val(),
@@ -119,7 +161,8 @@ function sendAddActivity() {
     var activity = {
         "title": $('#inputNewActivityTitle').val(),
         "country": $('#inputNewActivityCountry').val(),
-        "content": $('#inputNewActivityContent').val()
+        "content": $('#inputNewActivityContent').val(),
+        "holdDate": $('#inputNewActivityHoldDate').val()
     };
     $.ajax({
         type: "POST",
@@ -134,7 +177,7 @@ function sendAddActivity() {
             console.log("ERROR : ", e);
         }
     });
-    $('#editArticleModal').modal('toggle');
+    $('#editActivityModal').modal('toggle');
 }
 
 function sendDeleteArticle() {
@@ -168,7 +211,7 @@ function sendDeleteActivity() {
             console.log("ERROR : ", e);
         }
     });
-    $('#editArticleModal').modal('toggle');
+    $('#editActivityModal').modal('toggle');
 }
 
 function deleteArticle(id) {
@@ -210,7 +253,9 @@ function applyVolunteer(id) {
 function showActivity(id) {
     $('#viewActivityModal').modal('toggle');
     $('#viewActivityLabel').html($("#showActivity_" + id.toString()).html());
-    $('#viewActivityBody').html($("#activityDesc_" + id.toString()).html());
+    $('#viewActivityContent').html($("#activityDesc_" + id.toString()).html());
+    $('#viewActivityCountry').html($("#activityCountry_" + id.toString()).html());
+    $('#viewActivityDate').html($("#activityDate_" + id.toString()).html());
 }
 
 function loadDescriptionModal() {
