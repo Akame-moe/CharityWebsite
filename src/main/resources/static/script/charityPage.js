@@ -154,10 +154,33 @@ function sendDeleteArticle() {
     $('#editArticleModal').modal('toggle');
 }
 
+function sendDeleteActivity() {
+    var id = $('#inputDeleteActivityId').html();
+    $.ajax({
+        type: "DELETE",
+        contentType: "application/json",
+        url: "/activity/" + id,
+        success: function () {
+            location.reload(true);
+        },
+        error: function (e) {
+            alert("There was an error communicating with the server");
+            console.log("ERROR : ", e);
+        }
+    });
+    $('#editArticleModal').modal('toggle');
+}
+
 function deleteArticle(id) {
     $('#deleteArticleBody').html(areYouSureText + " \"" + $("#showArticle_" + id.toString()).html() + "\"");
     $('#inputDeleteArticleId').html(id);
     $('#deleteArticleModal').modal('toggle');
+}
+
+function deleteActivity(id) {
+    $('#deleteActivityBody').html(areYouSureText + " \"" + $("#showActivity_" + id.toString()).html() + "\"");
+    $('#inputDeleteActivityId').html(id);
+    $('#deleteActivityModal').modal('toggle');
 }
 
 function applyVolunteer(id) {
