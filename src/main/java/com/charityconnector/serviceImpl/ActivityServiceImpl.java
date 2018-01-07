@@ -104,7 +104,7 @@ public class ActivityServiceImpl implements ActivityService {
         Donor donor = donorRepository.findByOauthId(donorOauthId);
         activity.addVolunteerDonor(donor);
         activityRepository.save(activity);
-        return 0;
+        return activity.getNumDonors();
     }
 
     @Override

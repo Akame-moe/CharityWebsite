@@ -242,8 +242,10 @@ function applyVolunteer(id) {
                 alert("You have already applied to volunteer for this activity!");
             if (result == -3)
                 alert("Please login as Donor!");
-            if (result == 0)
+            if (result > 0) {
                 alert("You successfully applied to volunteer for this activity!");
+                $("#activityDonorNumber_" + id.toString()).html("Current volunteers : "+result);
+            }
         },
         error: function (e) {
             alert("There was an error communicating with the server");

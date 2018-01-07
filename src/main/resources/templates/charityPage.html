@@ -217,7 +217,7 @@
                         <div class="row row-article">
                             <div class="col-sm">
                                 <a href="#" id="showActivity_${activity.id?c}" onclick="showActivity(${activity.id?c})">${activity.title}</a>
-                                <p class="text-justify">Current volunteers : ${activity.numDonors}</p>
+                                <p class="text-justify" id="activityDonorNumber_${activity.id?c}">Current volunteers : ${activity.numDonors}</p>
                                 <button type="button" class="btn btn-info btn-sm" style="height:30px;width:100px"
                                         onclick="applyVolunteer(${activity.id?c})">Volunteer
                                 </button>
