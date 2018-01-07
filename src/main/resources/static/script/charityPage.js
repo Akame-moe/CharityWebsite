@@ -125,7 +125,7 @@ function sendEditActivity() {
             $("#showActivity_" + id).html(activity.title);
             $("#activityDesc_" + id).html(activity.content);
             $("#activityCountry_" + id).html(activity.country);
-            $("#activityDate_" + id).html(activity.holdDate);
+            $("#activityDate_" + id).html("Hold Date: " + activity.holdDate);
         },
         error: function (e) {
             alert("There was an error communicating with the server");
