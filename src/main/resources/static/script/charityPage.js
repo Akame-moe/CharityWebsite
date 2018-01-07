@@ -240,6 +240,8 @@ function applyVolunteer(id) {
                 alert("You need to log in!");
             if (result == -2)
                 alert("You have already applied to volunteer for this activity!");
+            if (result == -3)
+                alert("Please login as Donor!");
             if (result == 0)
                 alert("You successfully applied to volunteer for this activity!");
         },

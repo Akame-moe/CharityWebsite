@@ -94,7 +94,7 @@ public class ActivityServiceImpl implements ActivityService {
         int res = 0;
         for (Donor donor : donors) {
             if (donor.getOauthId().equals(donorOauthId)) {
-                res = -2; // represent this donor has thumbed up
+                res = -2; // represent this donor has volunteered
                 break;
             }
         }
