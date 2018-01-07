@@ -34,7 +34,11 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public void deleteById(Long id) {
-        activityRepository.delete(id);
+        Activity activity = activityRepository.findOne(id);
+        Charity charity = activity.getCharity();
+        charity.deleteOneActivity(activity);
+        charityRepository.save(charity);
+        activityRepository.delete(activity);
     }
 
     @Override
