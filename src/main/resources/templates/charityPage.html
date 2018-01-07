@@ -223,7 +223,7 @@
                                 </button>
                             </div>
                             <#if activity.holdDate??>
-                                <div class="col-sm text-right" id="activityDate_${activity.id?c}"> Hold Date: ${activity.holdDate?date}</div>
+                                <div class="col-sm text-right" id="activityDate_${activity.id?c}">${activity.holdDate?date}</div>
                             </#if>
                             <div class="col-sm-2 edit-badge">
                                 <button class="btn edit-badge badge-primary" id="editActivityBadge_${activity.id?c}"
@@ -498,7 +498,7 @@
                                 <label for="inputEditActivityHoldDate">
                                     Activity Hold Date:
                                 </label>
-                                <input type="date" class="form-control" id="inputEditActivityHoldDate">
+                                <input type="date" class="form-control" id="inputEditActivityHoldDate" required>
                             </div>
                             <div class="form-group">
                                 <label for="inputEditActivityContent">
@@ -707,6 +707,9 @@
 
         <!--ajax setup-->
         <script src="../script/ajaxSetup.js"></script>
+
+        <!--ajax setup-->
+        <script src="../script/moment.js"></script>
 
 
 </body>

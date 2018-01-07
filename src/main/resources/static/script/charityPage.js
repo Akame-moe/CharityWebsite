@@ -62,9 +62,13 @@ function editActivity(id) {
 
     $('#inputEditActivityContent').html($("#activityDesc_" + id.toString()).html());
 
-    $('#inputEditActivityHoldDate').html($("#activityDate_" + id.toString()).html());
+    var date = new Date($("#activityDate_" + id.toString()).html());
+    var day = ("0" + date.getDate()).slice(-2);
+    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+    var res = date.getFullYear()+"-"+(month)+"-"+(day) ;
+    $('#inputEditActivityHoldDate').val(res);
 
-    $('#inputEditActivityCountry').html($("#activityCountry_" + id.toString()).html());
+    $('#inputEditActivityCountry').val($("#activityCountry_" + id.toString()).html());
 
     $('#inputEditActivityId').html(id);
 
