@@ -85,7 +85,10 @@ public class CharityController {
         if (oauthId == null) {
             return -1;
         }
-
+        MyOAuth2AuthenticationDetails details = MyOAuth2AuthenticationDetails.getAuthenticationDetails(principal);
+        if (details.isCharity()) {
+            return -3; // need to login as donor to thumb up
+        }
         return charityService.thumbUpUnique(charity.getId(), oauthId);
     }
 
