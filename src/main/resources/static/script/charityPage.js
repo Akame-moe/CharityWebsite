@@ -20,9 +20,10 @@ $(document).ready(function () {
             },
             error: function (xhr, textStatus) {
                 if (xhr.status == 405){
+                    alert("You don't hava a email yet, please add a email address now");
                     $("#addMailModal").modal("toggle");}
                 else if(xhr.status == 406){
-                     alert("Invalid email. Please use an official one.");
+                     alert("Your current email address doesn't match the UK Commission Charity Record. Please use an official one.");
                      $("#addMailModal").modal("toggle");
                 }
                 else{

@@ -165,7 +165,7 @@ public class CharityController {
 
         Charity charity = charityService.findById(id);
         String email = charity.getEmail();
-        if (email == null) {
+        if (email.equals("")) {
             return new ResponseEntity<String>(HttpStatus.METHOD_NOT_ALLOWED);
         } else {
             UKRecordCharity result = ukRecordCharityService.findByEmail(email);
