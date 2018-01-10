@@ -49,8 +49,8 @@ public class PaypalController {
     public ResponseEntity<Paypal> addPaypal(@RequestBody Map<String, String> paymentDetails) {
         Paypal paypal = new Paypal();
         if (!paymentDetails.get("donorId").equals("")) {
-            Long donorId = Long.parseLong(paymentDetails.get("donorId"));
-            paypal.setDonor(donorService.findById(donorId));
+            String oauthId = paymentDetails.get("donorId");
+            paypal.setDonor(donorService.findByOauthId(oauthId));
         }
 
         paypal.setAmount(Double.parseDouble(paymentDetails.get("amount")));
