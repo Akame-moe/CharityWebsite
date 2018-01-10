@@ -35,13 +35,13 @@ public interface CharityRepository extends JpaRepository<Charity, Long> {
     @Query("select c from Charity c where lower(c.name) LIKE  lower(CONCAT('%',:name,'%'))")
     Page<Charity>  findByNameLike(@Param("name") String name, Pageable pageable);
 
-    @Query("select c from Charity c where :country member of c.countries AND c.name LIKE  CONCAT('%',:name,'%')")
+    @Query("select c from Charity c where :country member of c.countries AND lower(c.name) LIKE  lower(CONCAT('%',:name,'%'))")
     Page<Charity>  findByCountry(@Param("country") Country country, @Param("name") String name, Pageable pageable);
 
-    @Query("select c from Charity c where :cause member of c.causes AND c.name LIKE  CONCAT('%',:name,'%')")
+    @Query("select c from Charity c where :cause member of c.causes AND lower(c.name) LIKE  lower(CONCAT('%',:name,'%'))")
     Page<Charity>  findByCause(@Param("cause") Cause cause, @Param("name") String name, Pageable pageable);
 
-    @Query("select c from Charity c where :cause member of c.causes AND :country member of  c.countries  AND c.name LIKE  CONCAT('%',:name,'%')")
+    @Query("select c from Charity c where :cause member of c.causes AND :country member of  c.countries  AND lower(c.name) LIKE  lower(CONCAT('%',:name,'%'))")
     Page<Charity>  findByCauseAndCountry(@Param("cause") Cause cause, @Param("country") Country country, @Param("name") String name, Pageable pageable);
 
     @Query("select c from Charity c where lower(c.name) LIKE lower(CONCAT('%', :stringToMatch, '%')) or lower(c.description) LIKE lower(CONCAT('%', :stringToMatch, '%'))")
