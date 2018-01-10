@@ -210,6 +210,11 @@ public class Charity {
         activity.setCharity(this);
         return activities;
     }
+
+    public Set<Activity> deleteOneActivity(Activity activity) {
+        activities.remove(activity);
+        return activities;
+    }
 }
 
 

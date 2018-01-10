@@ -60,3 +60,8 @@ body {
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
     background-color: #E30800 !important;
 }
+
+.nav-link:focus {
+    background-color: transparent;
+    border-bottom-style: none;
+}

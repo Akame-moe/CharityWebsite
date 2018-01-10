@@ -34,7 +34,11 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public void deleteById(Long id) {
-        activityRepository.delete(id);
+        Activity activity = activityRepository.findOne(id);
+        Charity charity = activity.getCharity();
+        charity.deleteOneActivity(activity);
+        charityRepository.save(charity);
+        activityRepository.delete(activity);
     }
 
     @Override
@@ -94,7 +98,7 @@ public class ActivityServiceImpl implements ActivityService {
         int res = 0;
         for (Donor donor : donors) {
             if (donor.getOauthId().equals(donorOauthId)) {
-                res = -2; // represent this donor has thumbed up
+                res = -2; // represent this donor has volunteered
                 break;
             }
         }
@@ -104,7 +108,7 @@ public class ActivityServiceImpl implements ActivityService {
         Donor donor = donorRepository.findByOauthId(donorOauthId);
         activity.addVolunteerDonor(donor);
         activityRepository.save(activity);
-        return 0;
+        return activity.getNumDonors();
     }
 
     @Override

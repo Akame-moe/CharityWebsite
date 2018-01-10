@@ -85,7 +85,10 @@ public class CharityController {
         if (oauthId == null) {
             return -1;
         }
-
+        MyOAuth2AuthenticationDetails details = MyOAuth2AuthenticationDetails.getAuthenticationDetails(principal);
+        if (details.isCharity()) {
+            return -3; // need to login as donor to thumb up
+        }
         return charityService.thumbUpUnique(charity.getId(), oauthId);
     }
 
@@ -165,7 +168,7 @@ public class CharityController {
 
         Charity charity = charityService.findById(id);
         String email = charity.getEmail();
-        if (email == null) {
+        if (email.equals("")) {
             return new ResponseEntity<String>(HttpStatus.METHOD_NOT_ALLOWED);
         } else {
             UKRecordCharity result = ukRecordCharityService.findByEmail(email);

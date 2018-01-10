@@ -20,9 +20,10 @@ $(document).ready(function () {
             },
             error: function (xhr, textStatus) {
                 if (xhr.status == 405){
+                    alert("You don't hava a email yet, please add a email address now");
                     $("#addMailModal").modal("toggle");}
                 else if(xhr.status == 406){
-                     alert("Invalid email. Please use an official one.");
+                     alert("Your current email address doesn't match the UK Commission Charity Record. Please use an official one.");
                      $("#addMailModal").modal("toggle");
                 }
                 else{
@@ -62,9 +63,13 @@ function editActivity(id) {
 
     $('#inputEditActivityContent').html($("#activityDesc_" + id.toString()).html());
 
-    $('#inputEditActivityHoldDate').html($("#activityDate_" + id.toString()).html());
+    var date = new Date($("#activityDate_" + id.toString()).html());
+    var day = ("0" + date.getDate()).slice(-2);
+    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+    var res = date.getFullYear()+"-"+(month)+"-"+(day) ;
+    $('#inputEditActivityHoldDate').val(res);
 
-    $('#inputEditActivityCountry').html($("#activityCountry_" + id.toString()).html());
+    $('#inputEditActivityCountry').val($("#activityCountry_" + id.toString()).html());
 
     $('#inputEditActivityId').html(id);
 
@@ -125,7 +130,7 @@ function sendEditActivity() {
             $("#showActivity_" + id).html(activity.title);
             $("#activityDesc_" + id).html(activity.content);
             $("#activityCountry_" + id).html(activity.country);
-            $("#activityDate_" + id).html(activity.holdDate);
+            $("#activityDate_" + id).html("Hold Date: " + activity.holdDate);
         },
         error: function (e) {
             alert("There was an error communicating with the server");
@@ -240,8 +245,12 @@ function applyVolunteer(id) {
                 alert("You need to log in!");
             if (result == -2)
                 alert("You have already applied to volunteer for this activity!");
-            if (result == 0)
+            if (result == -3)
+                alert("Please login as Donor!");
+            if (result > 0) {
                 alert("You successfully applied to volunteer for this activity!");
+                $("#activityDonorNumber_" + id.toString()).html("Current volunteers : "+result);
+            }
         },
         error: function (e) {
             alert("There was an error communicating with the server");

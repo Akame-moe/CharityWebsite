@@ -1,5 +1,6 @@
 package com.charityconnector.controller;
 
+import com.charityconnector.auth.MyOAuth2AuthenticationDetails;
 import com.charityconnector.entity.Activity;
 import com.charityconnector.service.ActivityService;
 import org.springframework.http.HttpStatus;
@@ -58,6 +59,10 @@ public class ActivityController {
         System.out.println(id);
         if (id == null) {
             return -1;
+        }
+        MyOAuth2AuthenticationDetails details = MyOAuth2AuthenticationDetails.getAuthenticationDetails(principal);
+        if (details.isCharity()) {
+            return -3; // need to login as donor to volunteer
         }
         return activityService.volunteer(activity.getId(), id);
     }
