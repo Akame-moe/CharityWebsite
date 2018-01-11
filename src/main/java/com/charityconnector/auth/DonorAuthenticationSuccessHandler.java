@@ -35,6 +35,6 @@ public class DonorAuthenticationSuccessHandler implements AuthenticationSuccessH
         }
 
         // redirect to previous page
-        response.sendRedirect("/");
+        response.sendRedirect("/charityPage/1176#");
     }
 }
